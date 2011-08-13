@@ -1,4 +1,4 @@
-main: com.edtheloon.MineCar.Minecar
+main: com.edtheloon.MineCar.MCMain
 name: MineCar
 author: EdTheLoon
 description: Turn a minecart into a car!
