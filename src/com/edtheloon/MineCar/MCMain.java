@@ -27,10 +27,11 @@ public class MCMain extends JavaPlugin {
 		// Set Commands to be our commandExecutor
 		getCommand("minecar").setExecutor(new Commands(this));
 		
+                log.info("MineCar version 0.1 enabled");
 	}
 	
 	public void onDisable() {
-		
+		log.info("MineCar disabled");
 	}
 
 }
