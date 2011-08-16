@@ -1,5 +1,7 @@
 package com.edtheloon.MineCar;
 
+import java.util.HashMap;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
@@ -10,12 +12,12 @@ public abstract class MineCar implements Minecart {
 	@SuppressWarnings("unused")
 	private MCMain plugin; // This may not be needed. If removed just comment it out and alter the constructor
 	public Player owner;
-	public Entity entityID;
+	public Minecart minecart;
 	
 	// CONSTRUCTOR
-	public MineCar(MCMain plug, Entity id, Player player) {
+	public MineCar(MCMain plug, Minecart cart, Player player) {
 		this.plugin = plug;
-		this.entityID = id;
+		this.minecart = cart;
 		this.owner = player;
 	}
 }
