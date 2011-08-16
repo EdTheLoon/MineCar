@@ -1,8 +1,5 @@
 package com.edtheloon.MineCar;
 
-import java.util.HashMap;
-
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 
