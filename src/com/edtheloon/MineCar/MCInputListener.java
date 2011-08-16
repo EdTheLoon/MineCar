@@ -172,7 +172,7 @@ public class MCInputListener extends InputListener {
 						PlayerInventory pi = player.getInventory();
 						ItemStack item = new ItemStack(Material.MINECART);
 						item.setAmount(1);
-						pi.remove(item);					
+						pi.remove(item);
 					} else {
 						return;
 					}
