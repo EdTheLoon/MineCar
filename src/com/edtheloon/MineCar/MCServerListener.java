@@ -8,10 +8,10 @@ import org.bukkit.plugin.Plugin;
 public class MCServerListener extends ServerListener {
 
 	// Class variables
-	Plugin plugin;
+	private MCMain plugin;
 	
 	// CONSTRUCTOR
-	public MCServerListener (Plugin plug) {
+	public MCServerListener (MCMain plug) {
 		this.plugin = plug;
 	}
 	

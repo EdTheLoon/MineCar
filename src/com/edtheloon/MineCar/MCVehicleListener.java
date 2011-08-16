@@ -8,10 +8,10 @@ import org.bukkit.plugin.Plugin;
 public class MCVehicleListener extends VehicleListener {
 
 	// Class variables
-	public static Plugin plugin;
+	private MCMain plugin;
 	
 	// CONSTRUCTOR
-	public MCVehicleListener (Plugin plug) {
+	public MCVehicleListener (MCMain plug) {
 		this.plugin = plug;
 	}
 	

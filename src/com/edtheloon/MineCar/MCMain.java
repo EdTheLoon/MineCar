@@ -10,8 +10,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MCMain extends JavaPlugin {
 	
 	// Class Variables
-	public static PluginManager pluginManager;
-	public static final Logger log = Logger.getLogger("Minecraft");
+	public PluginManager pluginManager;
+	public final Logger log = Logger.getLogger("Minecraft");
 	
 	public void onEnable() {
 		

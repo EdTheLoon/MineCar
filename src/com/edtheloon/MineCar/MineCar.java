@@ -7,11 +7,13 @@ import org.bukkit.entity.Player;
 public abstract class MineCar implements Minecart {
 	
 	// Class variables	
+	private MCMain plugin; // This may not be needed. If removed just comment it out and alter the constructor
 	public Player owner;
 	public Entity entityID;
 	
 	// CONSTRUCTOR
-	public MineCar(Entity id, Player player) {
+	public MineCar(MCMain plug, Entity id, Player player) {
+		this.plugin = plug;
 		this.entityID = id;
 		this.owner = player;
 	}

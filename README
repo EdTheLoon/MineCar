@@ -19,8 +19,9 @@ Here is the entire process:
 - Load flatfile if it exists
 - Register listener for keypress events
 - Regiser listener for EntityDamage (or destroy?) event
-- Player presses key (M?)
 - Register listener for BlockDamage events
+- Register listener for VehicleEnter and VehicleExit events
+- Player presses key (M?)
 - Player hit's ground
 - First check if the player already has a MineCar, if they do then follow the indented code, else skip indented code
 	- Either delete the MineCar they already have or set it's location to the punched block
