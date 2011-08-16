@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.entity.CraftMinecart;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 
 public class Functions {
 	

@@ -11,6 +11,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class MCMain extends JavaPlugin {
 	
+	// PERMISSION STRINGS
+	public static final String PERMISSION_CONTROL = "MineCar.control";
+	public static final String PERMISSION_CREATE = "MineCar.create";
+	public static final String PERMISSION_REMOVE = "MineCar.remove";
+	
 	// Class Variables
 	public PluginManager pluginManager;
 	public final Logger log = Logger.getLogger("Minecraft");
