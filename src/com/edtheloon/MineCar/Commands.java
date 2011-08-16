@@ -8,7 +8,7 @@ import org.bukkit.plugin.Plugin;
 public class Commands implements CommandExecutor {
 	
 	// Class variables
-	public static Plugin plugin;
+	private Plugin plugin;
 
 	// CONSTRUCTOR
 	public Commands (Plugin plug) {
@@ -17,8 +17,9 @@ public class Commands implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
+		// Just in case the command is never handled correctly
+		MCMain.log.severe("[MineCar] Command: " + label + " was not handled!");
 		return false;
-		
 	}
 	
 }
