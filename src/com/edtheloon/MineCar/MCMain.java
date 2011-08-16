@@ -1,5 +1,6 @@
 package com.edtheloon.MineCar;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -14,12 +15,13 @@ public class MCMain extends JavaPlugin {
 	public PluginManager pluginManager;
 	public final Logger log = Logger.getLogger("Minecraft");
 	public HashMap<String,Integer> mineCars;
+	public File carsFile = new File("plugins/MineCars/cars.txt");
 	
 	public void onEnable() {
 		
 		// Output to console that we're loading the list of MineCars from a file and then load the list
-		//log.info("[MineCar] Loading list of MineCars...");
-		//mineCars = Functions.loadCars();
+		log.info("[MineCar] Loading list of MineCars...");
+		mineCars = Functions.loadCars();
 		
 		// Get the server's plugin manager so we can register commands and events
 		pluginManager = getServer().getPluginManager(); 
@@ -45,8 +47,8 @@ public class MCMain extends JavaPlugin {
 	public void onDisable() {
 		
 		// Output to server console that we're saving the cars list and then load the list
-		//log.info("[MineCar] Saving list of cars...");
-		//Functions.saveCars(mineCars);
+		log.info("[MineCar] Saving list of cars...");
+		Functions.saveCars(mineCars);
 		
 		// Output to server console that the plugin is disabled
 		log.info("[MineCar] Version " + this.getDescription().getVersion() + " disabled");
