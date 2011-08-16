@@ -1,12 +1,12 @@
 package com.edtheloon.MineCar;
 
-public class KeyListener {
+public class MCInputListener {
 	
 	// Class variables
 	private MCMain plugin;
 	
 	// CONSTRUCTOR
-	public KeyListener(MCMain plug) {
+	public MCInputListener(MCMain plug) {
 		this.plugin = plug;
 	}
 
