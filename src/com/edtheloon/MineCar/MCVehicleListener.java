@@ -3,11 +3,11 @@ package com.edtheloon.MineCar;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.event.vehicle.VehicleListener;
-import org.bukkit.plugin.Plugin;
 
 public class MCVehicleListener extends VehicleListener {
 
 	// Class variables
+	@SuppressWarnings("unused")
 	private MCMain plugin;
 	
 	// CONSTRUCTOR

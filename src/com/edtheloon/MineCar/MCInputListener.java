@@ -2,7 +2,6 @@ package com.edtheloon.MineCar;
 
 import org.getspout.spoutapi.event.input.InputListener;
 import org.getspout.spoutapi.event.input.KeyPressedEvent;
-import org.getspout.spoutapi.gui.Screen;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -10,6 +9,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 public class MCInputListener extends InputListener {
 	
 	// Class variables
+	@SuppressWarnings("unused")
 	private MCMain plugin;
 	
 	// CONSTRUCTOR
@@ -26,15 +26,35 @@ public class MCInputListener extends InputListener {
 	
 		// First check that the key is pressed in a game screen
 		if (screen == ScreenType.GAME_SCREEN) {
-			// Check if we need to do anything with this key press
-			if (key == Keyboard.KEY_W) { // W was pressed
-				
+			
+			// KEY W
+			if (key == Keyboard.KEY_W) { // W was pressed				
+				// TODO: DEBUG ONLY, REMOVE THIS LINE
+				player.sendMessage("[MineCar] Key Pressed: " + key.toString());				
+				CarControl.moveForward(player);				
+			}
+			
+			// KEY S
+			if (key == Keyboard.KEY_S) {				
 				// TODO: DEBUG ONLY, REMOVE THIS LINE
 				player.sendMessage("[MineCar] Key Pressed: " + key.toString());
-				
-				// CarControl.moveForward(); - Just a demonstration of how I think we should do this
-				
+				CarControl.moveBackward(player);
 			}
+			
+			// KEY A
+			if (key == Keyboard.KEY_A) {				
+				// TODO: DEBUG ONLY, REMOVE THIS LINE
+				player.sendMessage("[MineCar] Key Pressed: " + key.toString());
+				CarControl.turn(player, "left");
+			}
+			
+			// KEY D
+			if (key == Keyboard.KEY_D) {				
+				// TODO: DEBUG ONLY, REMOVE THIS LINE
+				player.sendMessage("[MineCar] Key Pressed: " + key.toString());
+				CarControl.turn(player, "right");
+			}
+			
 		}
 	}
 
