@@ -26,6 +26,7 @@ public class MCPlayerListener extends PlayerListener {
 				// Now check that the player was swinging their arm
 				if (event.getAnimationType() == PlayerAnimationType.ARM_SWING) {
 					// TODO: DO SOME MINECAR TURNING CODE
+					float rotation = player.getLocation().getYaw();
 				}
 			}
 		}
