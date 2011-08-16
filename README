@@ -9,15 +9,16 @@ This plugin will allow players to ride in a minecart that they can control using
 TO DO:
  - Check that user has permission to create a MineCar
  - Check that user can drive a MineCar
+ - MineCar will only spawn if player has a minecart in their inventory OR if they already have a MineCar
  - Only control a MineCar if it is in the HashMap, mineCar
  - Make MineCar controlling only possible when the cart is derailed
- - Load and save the list of cars between server restarts/stops/reloads
+ - Load and save the list of cars between server restarts/reloads/stops/starts
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
  - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API)
  - On destruction of a MineCar remove it from the HashMap mineCars in MCMain
  - Admin commands:
-	- Remove all MineCars
-	- Remove a players MineCar
+	- Remove all MineCars (and return the minecarts to all MineCar owning players that are currently online)
+	- Remove a players MineCar (and return the minecart to the player's inventory)
 	- Reload config
  - Multi-world support
 
@@ -28,14 +29,12 @@ IMPLEMENTED:
 
 Below is how I think this will work
 
-Players can only have one MineCar at a time. This will be tracked in a HashMap with the Player name as a key and the EntityID
-as the value. This will be stored in a flatfile on the server as well so data is kept between restarts/reloads.
+Players can only have one MineCar at a time. This will be tracked in a HashMap with the Player name as a key and
+the EntityID as the value. This will be stored in a flatfile on the server as well so data is kept between
+restarts/reloads/stops/starts.
 
-A MineCar is created by either:
- - Pressing a key on their keyboard and then punching the ground where they want to spawn a MineCar
- - Typing a command and then punching the ground where a MineCar should be spawned
- - Creating a normal Minecart, getting in then pressing a Key or typing a command to make it a MineCar
- - Climbing into any Minecart will make it a MineCar (not recommended)
+A MineCar is created by: 
+ - Pressing M on their keyboard whilst looking at the ground where they want to place their MineCar
 The first option is the one I think we should aim for
 
 Here is the entire process:
