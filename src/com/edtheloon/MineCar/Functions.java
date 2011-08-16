@@ -8,6 +8,8 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.PlayerInventory;
 
 public class Functions {
 	
@@ -52,6 +54,11 @@ public class Functions {
 		Block block = loc.getBlock();
 		Material blockType = block.getType();
 		if (blockType == Material.POWERED_RAIL || blockType == Material.RAILS || blockType == Material.DETECTOR_RAIL) return true; else return false;
+	}
+	
+	public static boolean hasMinecart(Player player) {
+		PlayerInventory pi = player.getInventory();
+		if (pi.contains(Material.MINECART)) return true; else return false;		
 	}
 
 }

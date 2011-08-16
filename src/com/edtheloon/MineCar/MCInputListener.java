@@ -157,13 +157,19 @@ public class MCInputListener extends InputListener {
 					return;
 				}
 				
-				World world = player.getWorld();
 				
-				// Spawn MineCar code - WILL MOST LIKELY NEED CHANGING - THIS IS FOR TESTING
+				
+				World world = player.getWorld();
 				String playerName = player.getName();
+				boolean hasCart = plugin.mineCars.containsKey(playerName);
+				
+				// If player doesn't already have a MineCar OR doesn't have a Minecart in inventory then don't continue
+				if (!hasCart) {
+					if (!Functions.hasMinecart(player)) return;
+				}
 				
 				// Check that the player doesn't already have a MineCar. If so then delete it
-				if (plugin.mineCars.containsKey(playerName)) {
+				if (hasCart) {
 					if (Functions.deleteMinecart(world, plugin.mineCars.get(playerName))) {
 						// REMOVE BELOW DEBUG LINE
 						//player.sendMessage("[MineCar] You're previous MineCar has been deleted");
