@@ -32,12 +32,8 @@ public class MCMain extends JavaPlugin {
 		pluginManager = getServer().getPluginManager(); 
 		
 		// Register some events
-		pluginManager.registerEvent(Type.PLUGIN_DISABLE, new MCServerListener(this), Priority.Monitor, this);
-		pluginManager.registerEvent(Type.PLUGIN_ENABLE, new MCServerListener(this), Priority.Monitor, this);
-		pluginManager.registerEvent(Type.VEHICLE_ENTER, new MCVehicleListener(this), Priority.Normal, this);
-		pluginManager.registerEvent(Type.VEHICLE_EXIT, new MCVehicleListener(this), Priority.Normal, this);
+		pluginManager.registerEvent(Type.VEHICLE_DESTROY, new MCVehicleListener(this), Priority.Normal, this);
 		pluginManager.registerEvent(Type.PLAYER_ANIMATION, new MCPlayerListener(this), Priority.Normal, this);
-		pluginManager.registerEvent(Type.ENTITY_DAMAGE, new MCEntityListener(this), Priority.Normal, this); // Maybe ENTITY_DEATH would be more sufficient?
 		
 		// Register INPUT LISTENING events
 		pluginManager.registerEvent(Type.CUSTOM_EVENT, new MCInputListener(this), Priority.Normal, this);
