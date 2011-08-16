@@ -1,23 +1,38 @@
 main: com.edtheloon.MineCar.MCMain
 name: MineCar
 author: EdTheLoon
-description: Turn a minecart into a car!
-version: 0.1
-soft-depend: Spout
+website: 
+collaborators: Lathanael & Lemonzap
+description: Turn a minecart into a MineCar!
+version: 0.2
+soft-depend: [Spout]
 
 commands:
     minecar:
         description: Create or remove a MineCar
         usage: |
-            /minecar create - Creates a MineCar
-            /minecar remove - Removes a MineCar
+            /minecar remove <player> - Removes <player>'s MineCar
+            /minecar remove all - Removes all MineCars
 permissions:
+    MineCar.user:
+        description: Allows creation and controlling of a MineCar
+        default: false
+        children:
+            MineCar.create: true
+            MineCar.control: true
+    MineCar.*:
+        description: Gives access to all MineCar features
+        default: false
+        children:
+            MineCar.create: true
+            MineCar.control: true
+            MineCar.remove: true
     MineCar.create:
         description: Allows the creation of a MineCar
         default: false
+    MineCar.control:
+        description: Allows the controlling of a MineCar
+        default: false
     MineCar.remove:
         description: Allows the removal of a MineCar
-        default: false
-    MineCar.admin:
-        description: Allows the removal of any player's MineCar and other admin features
         default: op
