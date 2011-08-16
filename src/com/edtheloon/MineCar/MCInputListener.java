@@ -2,8 +2,11 @@ package com.edtheloon.MineCar;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Minecart;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.getspout.spoutapi.event.input.InputListener;
 import org.getspout.spoutapi.event.input.KeyPressedEvent;
 import org.getspout.spoutapi.gui.ScreenType;
@@ -165,7 +168,14 @@ public class MCInputListener extends InputListener {
 				
 				// If player doesn't already have a MineCar OR doesn't have a Minecart in inventory then don't continue
 				if (!hasCart) {
-					if (!Functions.hasMinecart(player)) return;
+					if (Functions.hasMinecart(player)) {
+						PlayerInventory pi = player.getInventory();
+						ItemStack item = new ItemStack(Material.MINECART);
+						item.setAmount(1);
+						pi.remove(item);					
+					} else {
+						return;
+					}
 				}
 				
 				// Check that the player doesn't already have a MineCar. If so then delete it
