@@ -1,0 +1,33 @@
+This plugin will allow players to ride in a minecart that they can control using WASD as a control scheme.
+
+Below is how I think this will work
+
+Players can only have one MineCar at a time. This will be tracked in a HashMap with the Player name as a key and the EntityID
+as the value. This will be stored in a flatfile on the server as well so data is kept between restarts/reloads.
+
+A MineCar is created by either:
+ - Pressing a key on their keyboard and then punching the ground where they want to spawn a MineCar
+ - Typing a command and then punching the ground where a MineCar should be spawned
+ - Creating a normal Minecart, getting in then pressing a Key or typing a command to make it a MineCar
+ - Climbing into any Minecart will make it a MineCar (not recommended)
+The first option is the one I think we should aim for
+
+Here is the entire process:
+
+- Server start
+- Plugin start
+- Load flatfile if it exists
+- Register listener for keypress events
+- Regiser listener for EntityDamage (or destroy?) event
+- Player presses key (M?)
+- Register listener for BlockDamage events
+- Player hit's ground
+- First check if the player already has a MineCar, if they do then follow the indented code, else skip indented code
+	- Either delete the MineCar they already have or set it's location to the punched block
+- Spawn a MineCar at punched location (FYI spawn location will have to be 1 higher than punched block)
+- Player get's in MineCar
+- Player presses either W, A, S or D
+- If key was W or S then move cart forward or backward. Suggested method for this is MineCar.setVelocityX(...) (need to refer to API for this part)
+- If key was A or D then rotate MineCar left or right. I think this would be done using setYaw?
+- Player gets out of MineCar
+- If player decides to destroy it then make sure to remove it from the HashMap
