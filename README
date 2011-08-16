@@ -8,7 +8,6 @@ This plugin will allow players to ride in a minecart that they can control using
 
 TO DO:
  - MineCar will only spawn if player has a minecart in their inventory OR if they already have a MineCar
- - Make MineCar controlling only possible when the cart is derailed
  - Load and save the list of cars between server restarts/reloads/stops/starts
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
  - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API)
@@ -26,6 +25,7 @@ IMPLEMENTED:
  - Check that user has permission to create a MineCar
  - Check that user can drive a MineCar
  - Only control a MineCar if it is in the HashMap, mineCar
+ - Make MineCar controlling only possible when the cart is derailed
 
 Below is how I think this will work
 

@@ -3,6 +3,7 @@ package com.edtheloon.MineCar;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Minecart;
 import org.getspout.spoutapi.event.input.InputListener;
 import org.getspout.spoutapi.event.input.KeyPressedEvent;
 import org.getspout.spoutapi.gui.ScreenType;
@@ -38,6 +39,10 @@ public class MCInputListener extends InputListener {
 				// If the vehicle isn't a MineCar don't continue
 				if (!plugin.mineCars.containsKey(cartID)) return;
 				
+				// If vehicle is on rails don't continue
+				Minecart cart = (Minecart) player.getVehicle();
+				if (!Functions.isDerailed(cart)) return;
+				
 				// If this isn't the player's MineCar then don't continue
 				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
@@ -69,6 +74,10 @@ public class MCInputListener extends InputListener {
 					return;
 				}
 				
+				// If vehicle is on rails don't continue
+				Minecart cart = (Minecart) player.getVehicle();
+				if (!Functions.isDerailed(cart)) return;
+				
 				// If player doesn't have permission to control then don't continue
 				if (!player.hasPermission(MCMain.PERMISSION_CONTROL)) {
 					player.sendMessage(ChatColor.RED + "You don't have permission to drive!");
@@ -94,6 +103,10 @@ public class MCInputListener extends InputListener {
 					return;
 				}
 				
+				// If vehicle is on rails don't continue
+				Minecart cart = (Minecart) player.getVehicle();
+				if (!Functions.isDerailed(cart)) return;
+				
 				// If player doesn't have permission to control then don't continue
 				if (!player.hasPermission(MCMain.PERMISSION_CONTROL)) {
 					player.sendMessage(ChatColor.RED + "You don't have permission to drive!");
@@ -118,6 +131,10 @@ public class MCInputListener extends InputListener {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
+				
+				// If vehicle is on rails don't continue
+				Minecart cart = (Minecart) player.getVehicle();
+				if (!Functions.isDerailed(cart)) return;
 				
 				// If player doesn't have permission to control then don't continue
 				if (!player.hasPermission(MCMain.PERMISSION_CONTROL)) {

@@ -2,20 +2,17 @@ package com.edtheloon.MineCar;
 
 import java.util.HashMap;
 import java.util.List;
-
+import org.bukkit.Material;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.entity.CraftMinecart;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.Minecart;
 
 public class Functions {
 	
 	public static Integer spawnMinecart(World world, Location location) {
-		
-		// TODO: ADD SOME SPAWNING CODE
-		
-		CraftMinecart cart = world.spawn(location, CraftMinecart.class);
+		Minecart cart = world.spawn(location, Minecart.class);
 
 		return cart.getEntityId();
 	}
@@ -47,6 +44,14 @@ public class Functions {
 		
 		// TODO: ADD SOME SAVING CODE
 		
+	}
+	
+	public static boolean isDerailed(Minecart cart) {
+		Location loc = cart.getLocation();
+		loc.setY(loc.getY() - 1);
+		Block block = loc.getBlock();
+		Material blockType = block.getType();
+		if (blockType == Material.POWERED_RAIL || blockType == Material.RAILS || blockType == Material.DETECTOR_RAIL) return true; else return false;
 	}
 
 }
