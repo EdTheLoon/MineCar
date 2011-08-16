@@ -159,9 +159,7 @@ public class MCInputListener extends InputListener {
 					player.sendMessage(ChatColor.RED + "You don't have permission to create a MineCar!");
 					return;
 				}
-				
-				
-				
+								
 				World world = player.getWorld();
 				String playerName = player.getName();
 				boolean hasCart = plugin.mineCars.containsKey(playerName);

@@ -1,7 +1,8 @@
 package com.edtheloon.MineCar;
 
-import org.bukkit.event.vehicle.VehicleEnterEvent;
-import org.bukkit.event.vehicle.VehicleExitEvent;
+import org.bukkit.entity.Minecart;
+import org.bukkit.entity.Vehicle;
+import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleListener;
 
 public class MCVehicleListener extends VehicleListener {
@@ -14,13 +15,13 @@ public class MCVehicleListener extends VehicleListener {
 	public MCVehicleListener (MCMain plug) {
 		this.plugin = plug;
 	}
-	
-	public void onVehicleEnter (VehicleEnterEvent event) {
-		
-	}
-	
-	public void onVehicleExit (VehicleExitEvent event) {
-		
+
+	public void onVehicleDestroy (VehicleDestroyEvent event) {
+		// First check if the vehicle is a MineCar
+		Vehicle vehicle = event.getVehicle();
+		if (vehicle.getClass() == Minecart.class) {
+			
+		}
 	}
 	
 }
