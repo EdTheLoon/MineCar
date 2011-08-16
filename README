@@ -1,5 +1,31 @@
 This plugin will allow players to ride in a minecart that they can control using WASD as a control scheme.
 
+/*TO COLLABORATORS
+/ PLEASE ALTER THE TO DO AND IMPLEMENTED LIST AS YOU MAKE CHANGES. 
+/ PLEASE ADD ANYTHING THAT ISN'T ALREADY ON THE TO DO OR IMPLEMENTED LIST TO SAID LIST.
+/ IF YOU WANT, YOU CAN MAKE A FORK OF THIS TO MAKE YOUR CHANGES AND THEN SEND A PULL REQUEST
+/ TO GET THEM ADDED TO THIS MAIN REPOSITORY. I HIGHLY RECOMMEND YOU DO THIS. */
+
+TO DO:
+ - Check that user has permission to create a MineCar
+ - Check that user can drive a MineCar
+ - Only control a MineCar if it is in the HashMap, mineCar
+ - Make MineCar controlling only possible when the cart is derailed
+ - Load and save the list of cars between server restarts/stops/reloads
+ - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
+ - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API)
+ - On destruction of a MineCar remove it from the HashMap mineCars in MCMain
+ - Admin commands:
+	- Remove all MineCars
+	- Remove a players MineCar
+	- Reload config
+ - Multi-world support
+
+IMPLEMENTED:
+ - Spawning of MineCar when M is pressed in normal view (ie when not crafting or looking at inventory)
+ - Deletion of previous MineCar if applicable (Currently the player must be in the same world as previous MineCar)
+ - Basic movement of MineCar
+
 Below is how I think this will work
 
 Players can only have one MineCar at a time. This will be tracked in a HashMap with the Player name as a key and the EntityID
