@@ -12,13 +12,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 
 public class Functions {
-	
+
 	public static Integer spawnMinecart(World world, Location location) {
 		Minecart cart = world.spawn(location, Minecart.class);
 
 		return cart.getEntityId();
 	}
-	
+
 	public static boolean deleteMinecart(World world, Integer id) {
 		List<Entity> entities = world.getEntities();
 		for (Entity e : entities) {
@@ -29,25 +29,25 @@ public class Functions {
 		}
 		return false;
 	}
-	
+
 	public static HashMap<String,Integer> loadCars() {
-		
+
 		// Declare and initialise variables
 		HashMap<String,Integer> cars = new HashMap<String, Integer>();
-		
+
 		// TODO: ADD SOME LOADING CODE
-		
+
 		// Finally, return the loaded cars
-		return cars; 
-		
+		return cars;
+
 	}
-	
+
 	public static void saveCars(HashMap<String,Integer> cars) {
-		
+
 		// TODO: ADD SOME SAVING CODE
-		
+
 	}
-	
+
 	public static boolean isDerailed(Minecart cart) {
 		Location loc = cart.getLocation();
 		loc.setY(loc.getY() - 1);
@@ -55,10 +55,10 @@ public class Functions {
 		Material blockType = block.getType();
 		if (blockType == Material.POWERED_RAIL || blockType == Material.RAILS || blockType == Material.DETECTOR_RAIL) return true; else return false;
 	}
-	
+
 	public static boolean hasMinecart(Player player) {
 		PlayerInventory pi = player.getInventory();
-		if (pi.contains(Material.MINECART)) return true; else return false;		
+		if (pi.contains(Material.MINECART)) return true; else return false;
 	}
 
 }
