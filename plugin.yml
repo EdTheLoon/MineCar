@@ -1,7 +1,7 @@
 main: com.edtheloon.MineCar.MCMain
 name: MineCar
 author: EdTheLoon
-website: 
+website:
 collaborators: Lathanael & Lemonzap
 description: Turn a minecart into a MineCar!
 version: 0.2
@@ -11,8 +11,8 @@ commands:
     minecar:
         description: Create or remove a MineCar
         usage: |
-            /minecar remove <player> - Removes <player>'s MineCar
-            /minecar remove all - Removes all MineCars
+            /<command> remove <player> - Removes <player>'s MineCar
+            /<command> remove all - Removes all MineCars
 permissions:
     MineCar.user:
         description: Allows creation and controlling of a MineCar
