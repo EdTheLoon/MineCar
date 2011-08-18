@@ -1,16 +1,14 @@
 This plugin will allow players to ride in a minecart that they can control using WASD as a control scheme.
 
 /*TO COLLABORATORS
-/ PLEASE ALTER THE TO DO AND IMPLEMENTED LIST AS YOU MAKE CHANGES. 
+/ PLEASE ALTER THE TO DO AND IMPLEMENTED LIST AS YOU MAKE CHANGES.
 / PLEASE ADD ANYTHING THAT ISN'T ALREADY ON THE TO DO OR IMPLEMENTED LIST TO SAID LIST.
 / IF YOU WANT, YOU CAN MAKE A FORK OF THIS TO MAKE YOUR CHANGES AND THEN SEND A PULL REQUEST
 / TO GET THEM ADDED TO THIS MAIN REPOSITORY. I HIGHLY RECOMMEND YOU DO THIS. */
 
 TO DO:
- - Load and save the list of cars between server restarts/reloads/stops/starts
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
  - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API)
- - On destruction of a MineCar remove it from the HashMap mineCars in MCMain
  - Admin commands:
 	- Remove all MineCars (and return the minecarts to all MineCar owning players that are currently online)
 	- Remove a players MineCar (and return the minecart to the player's inventory)
@@ -26,6 +24,8 @@ IMPLEMENTED:
  - Only control a MineCar if it is in the HashMap, mineCar
  - Make MineCar controlling only possible when the cart is derailed
  - MineCar will only spawn if player has a minecart in their inventory OR if they already have a MineCar
+ - On destruction of a MineCar remove it from the HashMap mineCars in MCMain
+ - Load and save the list of cars between server restarts/reloads/stops/starts
 
 Below is how I think this will work
 
@@ -33,7 +33,7 @@ Players can only have one MineCar at a time. This will be tracked in a HashMap w
 the EntityID as the value. This will be stored in a flatfile on the server as well so data is kept between
 restarts/reloads/stops/starts.
 
-A MineCar is created by: 
+A MineCar is created by:
  - Pressing M on their keyboard whilst looking at the ground where they want to place their MineCar
 The first option is the one I think we should aim for
 
