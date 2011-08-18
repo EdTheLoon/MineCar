@@ -26,6 +26,7 @@ IMPLEMENTED:
  - MineCar will only spawn if player has a minecart in their inventory OR if they already have a MineCar
  - On destruction of a MineCar remove it from the HashMap mineCars in MCMain
  - Load and save the list of cars between server restarts/reloads/stops/starts
+ - Creation of the config File, containing a speed value
 
 Below is how I think this will work
 

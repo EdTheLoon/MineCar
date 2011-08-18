@@ -8,6 +8,7 @@ import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.config.Configuration;
 
 public class MCMain extends JavaPlugin {
 
@@ -20,13 +21,16 @@ public class MCMain extends JavaPlugin {
 	public PluginManager pluginManager;
 	public final Logger log = Logger.getLogger("Minecraft");
 	public HashMap<String,Integer> mineCars;
-	public File carsFile = new File("plugins/MineCars/cars.txt");
+	public Configuration carsFile;
 
 	public void onEnable() {
 
+		// Check and Create/Load the configuration and cars YAML files
+		Config.checkConf();
+
 		// Output to console that we're loading the list of MineCars from a file and then load the list
 		log.info("[MineCar] Loading list of MineCars...");
-		mineCars = Functions.loadCars(carsFile);
+		mineCars = Functions.loadCars();
 
 		// Get the server's plugin manager so we can register commands and events
 		pluginManager = getServer().getPluginManager();
@@ -50,7 +54,7 @@ public class MCMain extends JavaPlugin {
 
 		// Output to server console that we're saving the cars list and then load the list
 		log.info("[MineCar] Saving list of cars...");
-		Functions.saveCars(mineCars, carsFile);
+		Functions.saveCars(mineCars);
 
 		// Output to server console that the plugin is disabled
 		log.info("[MineCar] Version " + this.getDescription().getVersion() + " disabled");

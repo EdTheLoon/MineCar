@@ -4,7 +4,7 @@ author: EdTheLoon
 website:
 collaborators: Lathanael & Lemonzap
 description: Turn a minecart into a MineCar!
-version: 0.2
+version: 0.3
 soft-depend: [Spout]
 
 commands:
@@ -13,6 +13,7 @@ commands:
         usage: |
             /<command> remove <player> - Removes <player>'s MineCar
             /<command> remove all - Removes all MineCars
+            /<command> reload - Reloads the configuration
 permissions:
     MineCar.user:
         description: Allows creation and controlling of a MineCar
@@ -35,4 +36,7 @@ permissions:
         default: false
     MineCar.remove:
         description: Allows the removal of a MineCar
+        default: op
+    MineCar.reload:
+        description: Allows reloading the MineCar configuration
         default: op

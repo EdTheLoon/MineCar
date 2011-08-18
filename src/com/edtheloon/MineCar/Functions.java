@@ -1,12 +1,5 @@
 package com.edtheloon.MineCar;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,49 +39,20 @@ public class Functions {
 		return false;
 	}
 
-	public static HashMap<String,Integer> loadCars(File carsFile) {
+	public static HashMap<String,Integer> loadCars() {
 
-		// Declare and initialise variables
+		// Declare and initialize variables
 		HashMap<String,Integer> cars = new HashMap<String, Integer>();
-		String line = "";
-		String[] loadCars;
-		BufferedReader input;
-		try {
-			input = new BufferedReader(new FileReader(carsFile));
-			while ((line = input.readLine()) != null){
-				loadCars = line.split(":");
-				cars.put(loadCars[0], Integer.parseInt(loadCars[1]));
-			}
-			input.close();
+		plugin.carsFile.getAll();
+		for(Map.Entry<String, Object> entry : plugin.carsFile.getAll().entrySet()){
+			cars.put(entry.getKey(), (Integer) entry.getValue());
 		}
-		catch (FileNotFoundException e) {
-			plugin.log.severe("[MineCar] Did not find CarsFile.txt!");
-		}
-		catch (IOException e) {
-			plugin.log.severe("[MineCar] could not be opened!");
-		}
-		catch (NumberFormatException e){
-			plugin.log.severe("[MineCar] CarsFile.txt is invalid!");
-		}
-		// Finally, return the loaded cars
 		return cars;
-
 	}
 
-	public static void saveCars(HashMap<String,Integer> cars, File carsFile) {
-		BufferedWriter output;
-
-		try {
-			output = new BufferedWriter(new FileWriter(carsFile));
-			for (Map.Entry<String, Integer> entry : cars.entrySet()){
-				output.write(entry.getKey() + ":" + entry.getValue().toString());
-				output.newLine();
-			}
-			output.flush();
-			output.close();
-		}
-		catch (IOException e) {
-			plugin.log.severe("[MineCar] CarsFile.txt could not be opened!");
+	public static void saveCars(HashMap<String,Integer> cars) {
+		for (Map.Entry<String, Integer> entry : cars.entrySet()){
+			plugin.carsFile.setProperty(entry.getKey(), entry.getValue().toString());
 		}
 	}
 
