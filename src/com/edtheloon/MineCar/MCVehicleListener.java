@@ -1,6 +1,9 @@
 package com.edtheloon.MineCar;
 
+
+import org.bukkit.World;
 import org.bukkit.entity.Minecart;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleListener;
@@ -8,9 +11,8 @@ import org.bukkit.event.vehicle.VehicleListener;
 public class MCVehicleListener extends VehicleListener {
 
 	// Class variables
-	@SuppressWarnings("unused")
 	private MCMain plugin;
-	
+
 	// CONSTRUCTOR
 	public MCVehicleListener (MCMain plug) {
 		this.plugin = plug;
@@ -19,9 +21,12 @@ public class MCVehicleListener extends VehicleListener {
 	public void onVehicleDestroy (VehicleDestroyEvent event) {
 		// First check if the vehicle is a MineCar
 		Vehicle vehicle = event.getVehicle();
+		int id = event.getVehicle().getEntityId();
+		World world = event.getAttacker().getWorld();
 		if (vehicle.getClass() == Minecart.class) {
-			
+			Functions.deleteMinecart(world, id);
+			plugin.mineCars.remove(((Player) event.getAttacker()).getName());
 		}
 	}
-	
+
 }
