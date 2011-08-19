@@ -10,8 +10,8 @@ TO DO:
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
  - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API)
  - Admin commands:
-	- Remove all MineCars (and return the minecarts to all MineCar owning players that are currently online)
-	- Remove a players MineCar (and return the minecart to the player's inventory)
+	- Remove all: Return the minecart to the player's inventory)
+	- Remove: Return the minecart to the player's inventory)
 	  !!! Remove commands partially done !!!
  - Multi-world support
 

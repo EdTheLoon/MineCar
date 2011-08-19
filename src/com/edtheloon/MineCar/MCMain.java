@@ -15,6 +15,8 @@ public class MCMain extends JavaPlugin {
 	public static final String PERMISSION_CONTROL = "MineCar.control";
 	public static final String PERMISSION_CREATE = "MineCar.create";
 	public static final String PERMISSION_REMOVE = "MineCar.remove";
+	public static final String PERMISSION_REMOVE_ALL = "MineCar.remove.all";
+	public static final String PERMISSION_REMOVE_OWN = "MineCar.remove.own";
 	public static final String PERMISSION_RELOAD = "MineCar.reload";
 
 	// Class Variables
