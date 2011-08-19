@@ -29,6 +29,7 @@ IMPLEMENTED:
     - Reload config
     - Remove commands (see TO DO whats left to be done on them)
  - Support for Permissions 2/3 and BukkitPermissions
+ - Functions for AutoUpdating the config.yml
 
 Below is how I think this will work
 

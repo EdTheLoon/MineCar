@@ -60,4 +60,32 @@ public class Config {
 		speed = config.getInt("Minecar.speed", 1);
 		useBukkit = config.getBoolean("Permissions.useBukkit", false);
 	}
+
+	// Functions for AutoUpdating the Config.yml
+	public Object getProperty(String path, Object def) {
+		if(isNull(path))
+			return addProperty(path, def);
+		return config.getProperty(path);
+	}
+
+	public Integer getInt(String path, Integer def) {
+		if(isNull(path))
+			return (Integer) addProperty(path, def);
+		return config.getInt(path, def);
+	}
+
+	public Boolean getBoolean(String path, Boolean def) {
+		if(isNull(path))
+			return (Boolean) addProperty(path, def);
+		return config.getBoolean(path, def);
+	}
+
+	private Object addProperty(String path, Object val) {
+		config.setProperty(path, val);
+		return val;
+	}
+
+	private Boolean isNull(String path) {
+		return config.getProperty(path) == null;
+	}
 }
