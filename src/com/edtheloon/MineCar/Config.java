@@ -17,6 +17,7 @@ public class Config {
 	public static File cars = new File(dir + File.separator + "cars.yml");
 	public static Configuration config;
 	public static int speed;
+	public static boolean useBukkit;
 
 	public static void checkConf() {
 		// Create the config directory
@@ -28,7 +29,7 @@ public class Config {
 				setConfDefaults();
 			}
 			catch (Exception ex) {
-				plugin.log.severe("[MineCar] Could not create cinfig.yml!");
+				plugin.log.severe("[MineCar] Could not create config.yml!");
 			}
 		}
 		else {
@@ -50,11 +51,41 @@ public class Config {
 
 	private static void setConfDefaults() {
 		config.setProperty("Minecar.Speed", 1);
+		config.setProperty("Permissions.useBukkit", false);
 		config.save();
 	}
 
 	public static void loadConfig() {
 		config.load();
 		speed = config.getInt("Minecar.speed", 1);
+		useBukkit = config.getBoolean("Permissions.useBukkit", false);
+	}
+
+	// Functions for AutoUpdating the Config.yml
+	public Object getProperty(String path, Object def) {
+		if(isNull(path))
+			return addProperty(path, def);
+		return config.getProperty(path);
+	}
+
+	public Integer getInt(String path, Integer def) {
+		if(isNull(path))
+			return (Integer) addProperty(path, def);
+		return config.getInt(path, def);
+	}
+
+	public Boolean getBoolean(String path, Boolean def) {
+		if(isNull(path))
+			return (Boolean) addProperty(path, def);
+		return config.getBoolean(path, def);
+	}
+
+	private Object addProperty(String path, Object val) {
+		config.setProperty(path, val);
+		return val;
+	}
+
+	private Boolean isNull(String path) {
+		return config.getProperty(path) == null;
 	}
 }

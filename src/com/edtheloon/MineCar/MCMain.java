@@ -1,6 +1,5 @@
 package com.edtheloon.MineCar;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -16,11 +15,16 @@ public class MCMain extends JavaPlugin {
 	public static final String PERMISSION_CONTROL = "MineCar.control";
 	public static final String PERMISSION_CREATE = "MineCar.create";
 	public static final String PERMISSION_REMOVE = "MineCar.remove";
+	public static final String PERMISSION_REMOVE_ALL = "MineCar.remove.all";
+	public static final String PERMISSION_REMOVE_OWN = "MineCar.remove.own";
+	public static final String PERMISSION_RELOAD = "MineCar.reload";
 
 	// Class Variables
 	public PluginManager pluginManager;
 	public final Logger log = Logger.getLogger("Minecraft");
-	public HashMap<String,Integer> mineCars;
+	// First String is the World, 2nd String is the player, so every world has it's own HashMap containing the cars
+	// This gives us Multi-World Support, we even could set worlds to be used in the config
+	public HashMap<String,HashMap <String, Integer>> mineCars;
 	public Configuration carsFile;
 
 	public void onEnable() {
@@ -43,7 +47,7 @@ public class MCMain extends JavaPlugin {
 		pluginManager.registerEvent(Type.CUSTOM_EVENT, new MCInputListener(this), Priority.Normal, this);
 
 		// Set Commands to be our commandExecutor
-		getCommand("minecar").setExecutor(new Commands(this));
+		getCommand("minecar").setExecutor(new MCCommandsManager(this));
 
 		// Output to server console that the plugin is enabled
 		log.info("[MineCar] Version " + this.getDescription().getVersion() + " enabled");

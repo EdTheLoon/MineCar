@@ -10,10 +10,7 @@ TO DO:
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
  - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API)
  - Admin commands:
-	- Remove all MineCars (and return the minecarts to all MineCar owning players that are currently online)
-	- Remove a players MineCar (and return the minecart to the player's inventory)
-	- Reload config
- - Multi-world support
+	- Remove commands: Return the minecart to the player's inventory (if online?)
 
 IMPLEMENTED:
  - Spawning of MineCar when M is pressed in normal view (ie when not crafting or looking at inventory)
@@ -27,6 +24,12 @@ IMPLEMENTED:
  - On destruction of a MineCar remove it from the HashMap mineCars in MCMain
  - Load and save the list of cars between server restarts/reloads/stops/starts
  - Creation of the config File, containing a speed value
+ - Admin commands:
+    - Reload config
+    - Remove commands (see TO DO whats left to be done on them)
+ - Support for Permissions 2/3 and BukkitPermissions
+ - Functions for AutoUpdating the config.yml
+ - Multi-world support
 
 Below is how I think this will work
 
