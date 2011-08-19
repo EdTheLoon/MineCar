@@ -10,9 +10,7 @@ TO DO:
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
  - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API)
  - Admin commands:
-	- Remove all: Return the minecart to the player's inventory)
-	- Remove: Return the minecart to the player's inventory)
-	  !!! Remove commands partially done !!!
+	- Remove commands: Return the minecart to the player's inventory (if online?)
  - Multi-world support
 
 IMPLEMENTED:
@@ -29,7 +27,7 @@ IMPLEMENTED:
  - Creation of the config File, containing a speed value
  - Admin commands:
     - Reload config
-    - Remove partially done
+    - Remove commands (see TO DO whats left to be done on them)
  - Support for Permissions 2/3 and BukkitPermissions
 
 Below is how I think this will work
