@@ -31,7 +31,7 @@ public class MCCommandsManager implements CommandExecutor {
 				// No second argument was given
 				if (args.length == 1){
 					if (sender instanceof ConsoleCommandSender){
-						plugin.log.info("[MineCar] You need to specify a World and Player to remove the MineCar!");
+						plugin.log.info("[MineCar] You need to specify a World and Player to remove a MineCar!");
 						return true;
 					}
 					else {
@@ -50,8 +50,14 @@ public class MCCommandsManager implements CommandExecutor {
 					}
 				}
 				else if (args.length == 2){
-					Remove.remove(((Player) sender).getWorld(),args[1], sender);
-					return true;
+					if (sender instanceof ConsoleCommandSender){
+						plugin.log.info("[MineCar] You need to specify a World and Player to remove a MineCar!");
+						return true;
+					}
+					else {
+						Remove.remove(((Player) sender).getWorld(),args[1], sender);
+						return true;
+					}
 				}
 				else if (args.length == 3){
 					Remove.remove(args[2], args[1], sender);

@@ -39,20 +39,23 @@ public class Functions {
 		return false;
 	}
 
-	public static HashMap<String,Integer> loadCars() {
+	public static HashMap<String, HashMap<String, Integer>> loadCars() {
 
 		// Declare and initialise variables
-		HashMap<String,Integer> cars = new HashMap<String, Integer>();
-		plugin.carsFile.getAll();
-		for(Map.Entry<String, Object> entry : plugin.carsFile.getAll().entrySet()){
-			cars.put(entry.getKey(), (Integer) entry.getValue());
+		HashMap<String, HashMap<String, Integer>> worlds = new HashMap<String, HashMap<String, Integer>>();
+		for(Map.Entry<String, HashMap<String, Integer>> worlds_entry : worlds.entrySet()){
+			HashMap<String, Integer> cars = worlds_entry.getValue();
+			for (Map.Entry<String, Object> cars_entry : plugin.carsFile.getAll().entrySet())
+				cars.put(cars_entry.getKey(), (Integer) cars_entry.getValue());
 		}
-		return cars;
+		return worlds;
 	}
 
-	public static void saveCars(HashMap<String,Integer> cars) {
-		for (Map.Entry<String, Integer> entry : cars.entrySet()){
-			plugin.carsFile.setProperty(entry.getKey(), entry.getValue().toString());
+	public static void saveCars(HashMap<String, HashMap<String, Integer>> worlds) {
+		for (Map.Entry<String, HashMap<String, Integer>> worlds_entry : worlds.entrySet()){
+			HashMap<String, Integer> cars = worlds_entry.getValue();
+			for (Map.Entry<String, Integer> cars_entry : cars.entrySet())
+				plugin.carsFile.setProperty(cars_entry.getKey(), cars_entry.getValue().toString());
 		}
 	}
 

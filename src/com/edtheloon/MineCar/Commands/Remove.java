@@ -1,5 +1,7 @@
 package com.edtheloon.MineCar.Commands;
 
+import java.util.HashMap;
+
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
@@ -25,7 +27,8 @@ public class Remove extends MCCommandsManager {
 	// Called if command '/minecar remove' is executed
 	public static void remove(World world, CommandSender sender){
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE_OWN)){
-			if(Functions.deleteMinecart(world, plugin.mineCars.get(((Player) sender).getName()))){
+			HashMap<String, Integer> cars = plugin.mineCars.get(((Player) sender).getWorld().toString());
+			if(Functions.deleteMinecart(world, cars.get(((Player) sender).getName()))){
 				plugin.mineCars.remove(((Player) sender).getName());
 				sender.sendMessage(ChatColor.GREEN + "You successfully removed " + ((Player) sender).getName() + "'s MineCar.");
 			}
@@ -34,23 +37,15 @@ public class Remove extends MCCommandsManager {
 			}
 		}
 		else {
-			sender.sendMessage(ChatColor.RED + "You don't have permission to remove a MineCar.");
+			sender.sendMessage(ChatColor.RED + "You don't have permission to execute this command.");
 		}
 	}
 
 	// Called if command '/minecar remove <player>' is executed
 	public static void remove(World world, String player, CommandSender sender){
-		if (sender instanceof ConsoleCommandSender){
-			if(Functions.deleteMinecart(world, plugin.mineCars.get(player))){
-				plugin.mineCars.remove(player);
-				plugin.log.info("[MineCar] You successfully removed " + player + "'s MineCar.");
-			}
-			else {
-				plugin.log.info("[MineCar] "+ player + " does not own a MineCar.");
-			}
-		}
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE)){
-			if(Functions.deleteMinecart(world, plugin.mineCars.get(player))){
+			HashMap<String, Integer> cars = plugin.mineCars.get(world.toString());
+			if(Functions.deleteMinecart(world, cars.get(player))){
 				plugin.mineCars.remove(player);
 				sender.sendMessage(ChatColor.GREEN + "You successfully removed " + player + "'s MineCar.");
 			}
@@ -59,14 +54,15 @@ public class Remove extends MCCommandsManager {
 			}
 		}
 		else {
-			sender.sendMessage(ChatColor.RED + "You don't have permission to remove a MineCar.");
+			sender.sendMessage(ChatColor.RED + "You don't have permission to execute this command.");
 		}
 	}
 
 	// Called if command '/minecar remove <player> <world>' is executed
 	public static void remove(String world, String player, CommandSender sender){
 		if (sender instanceof ConsoleCommandSender){
-			if(Functions.deleteMinecart(plugin.getServer().getWorld(world), plugin.mineCars.get(player))){
+			HashMap<String, Integer> cars = plugin.mineCars.get(world);
+			if(Functions.deleteMinecart(plugin.getServer().getWorld(world), cars.get(player))){
 				plugin.mineCars.remove(player);
 				plugin.log.info("[MineCar] You successfully removed " + player + "'s MineCar.");
 			}
@@ -75,7 +71,8 @@ public class Remove extends MCCommandsManager {
 			}
 		}
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE)){
-			if(Functions.deleteMinecart(plugin.getServer().getWorld(world), plugin.mineCars.get(player))){
+			HashMap<String, Integer> cars = plugin.mineCars.get(world);
+			if(Functions.deleteMinecart(plugin.getServer().getWorld(world), cars.get(player))){
 				plugin.mineCars.remove(player);
 				sender.sendMessage(ChatColor.GREEN + "You successfully removed " + player + "'s MineCar.");
 			}
@@ -84,7 +81,7 @@ public class Remove extends MCCommandsManager {
 			}
 		}
 		else {
-			sender.sendMessage(ChatColor.RED + "You don't have permission to remove a MineCar.");
+			sender.sendMessage(ChatColor.RED + "You don't have permission to execute this command.");
 		}
 	}
 
@@ -99,23 +96,24 @@ public class Remove extends MCCommandsManager {
 			sender.sendMessage(ChatColor.GREEN + "You successfully removed all MineCars");
 		}
 		else {
-			sender.sendMessage(ChatColor.RED + "You don't have permission to remove a MineCar.");
+			sender.sendMessage(ChatColor.RED + "You don't have permission to execute this command.");
 		}
 	}
 
 	// Called if command '/minecar remove all <world>' is executed
-	// TODO: Multi-world support of the HashMap etc.
 	public static void removeAll(CommandSender sender, String world){
 		if (sender instanceof ConsoleCommandSender){
-			plugin.mineCars.clear();
-			plugin.log.info("[MineCar] You successfully removed all MineCars");
+			HashMap<String, Integer> cars = plugin.mineCars.get(world);
+			cars.clear();
+			plugin.log.info("[MineCar] You successfully removed all MineCars in " + world );
 		}
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE_ALL)){
-			plugin.mineCars.clear();
-			sender.sendMessage(ChatColor.GREEN + "You successfully removed all MineCars");
+			HashMap<String, Integer> cars = plugin.mineCars.get(world);
+			cars.clear();
+			sender.sendMessage(ChatColor.GREEN + "You successfully removed all MineCars in: " + ChatColor.DARK_PURPLE + world);
 		}
 		else {
-			sender.sendMessage(ChatColor.RED + "You don't have permission to remove a MineCar.");
+			sender.sendMessage(ChatColor.RED + "You don't have permission to execute this command.");
 		}
 	}
 }

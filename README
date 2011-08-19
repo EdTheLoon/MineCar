@@ -11,7 +11,6 @@ TO DO:
  - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API)
  - Admin commands:
 	- Remove commands: Return the minecart to the player's inventory (if online?)
- - Multi-world support
 
 IMPLEMENTED:
  - Spawning of MineCar when M is pressed in normal view (ie when not crafting or looking at inventory)
@@ -30,6 +29,7 @@ IMPLEMENTED:
     - Remove commands (see TO DO whats left to be done on them)
  - Support for Permissions 2/3 and BukkitPermissions
  - Functions for AutoUpdating the config.yml
+ - Multi-world support
 
 Below is how I think this will work
 
