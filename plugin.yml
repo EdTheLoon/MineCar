@@ -1,18 +1,21 @@
 main: com.edtheloon.MineCar.MCMain
 name: MineCar
 author: EdTheLoon
+authors: [Lathanael, Lemonzap]
 website:
-collaborators: Lathanael & Lemonzap
 description: Turn a minecart into a MineCar!
-version: 0.3
+version: 0.3.5
 soft-depend: [Spout]
 
 commands:
     minecar:
         description: Create or remove a MineCar
         usage: |
+            /<command> remove - Removes your own MineCar in your current world
             /<command> remove <player> - Removes <player>'s MineCar
+            /<command> remove <player> <world> - Removes the <player>'s MinCar in the given <world>
             /<command> remove all - Removes all MineCars
+            /<command> remove all <world> - Removes all MineCars in the given <world>
             /<command> reload - Reloads the configuration
 permissions:
     MineCar.user:
@@ -21,6 +24,7 @@ permissions:
         children:
             MineCar.create: true
             MineCar.control: true
+            MineCar.remove.own: true
     MineCar.*:
         description: Gives access to all MineCar features
         default: false
@@ -28,6 +32,8 @@ permissions:
             MineCar.create: true
             MineCar.control: true
             MineCar.remove: true
+            MineCar.remove.all: true
+            MineCar.reload: true
     MineCar.create:
         description: Allows the creation of a MineCar
         default: false
@@ -37,6 +43,12 @@ permissions:
     MineCar.remove:
         description: Allows the removal of a MineCar
         default: op
+    MineCar.remove.all:
+        description: Allows the removal of a MineCar
+        default: op
+    MineCar.remove.own:
+        description: Allows the removal of a MineCar
+        default: false
     MineCar.reload:
         description: Allows reloading the MineCar configuration
         default: op
