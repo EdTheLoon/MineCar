@@ -1,8 +1,8 @@
 main: com.edtheloon.MineCar.MCMain
 name: MineCar
 author: EdTheLoon
+authors: [Lathanael, Lemonzap]
 website:
-collaborators: Lathanael & Lemonzap
 description: Turn a minecart into a MineCar!
 version: 0.3.5
 soft-depend: [Spout]
