@@ -14,156 +14,156 @@ import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class MCInputListener extends InputListener {
-	
+
 	// Class variables
 	private final MCMain plugin;
-	
+
 	// CONSTRUCTOR
 	public MCInputListener(MCMain plug) {
 		this.plugin = plug;
 	}
-	
+
 	public void onKeyPressedEvent(KeyPressedEvent event) {
-		
+
 		// Declare and initialise variables
 		SpoutPlayer player = event.getPlayer();
 		Keyboard key = event.getKey();
 		ScreenType screen = event.getScreenType();
-	
+
 		// First check that the key is pressed in a game screen
 		if (screen == ScreenType.GAME_SCREEN) {
-			
+
 			// KEY W
-			if (player.isInsideVehicle() && key == Keyboard.KEY_W) {			
+			if (player.isInsideVehicle() && key == Keyboard.KEY_W) {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
-				
+
 				Integer cartID = player.getVehicle().getEntityId();
 				// If the vehicle isn't a MineCar don't continue
 				if (!plugin.mineCars.containsKey(cartID)) return;
-				
+
 				// If vehicle is on rails don't continue
 				Minecart cart = (Minecart) player.getVehicle();
 				if (!Functions.isDerailed(cart)) return;
-				
+
 				// If this isn't the player's MineCar then don't continue
 				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
-				
+
 				// If player doesn't have permission to control then don't continue
-				if (!player.hasPermission(MCMain.PERMISSION_CONTROL)) {
+				if (!PermissionsManager.hasPerm(player, MCMain.PERMISSION_CONTROL)) {
 					player.sendMessage(ChatColor.RED + "You don't have permission to drive!");
 					return;
 				}
-				
+
 				CarControl.moveForward(player);
 				return;
 			}
-			
+
 			// KEY S
-			if (player.isInsideVehicle() && key == Keyboard.KEY_S) {				
+			if (player.isInsideVehicle() && key == Keyboard.KEY_S) {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
-				
+
 				Integer cartID = player.getVehicle().getEntityId();
 				// If the vehicle isn't a MineCar don't continue
 				if (!plugin.mineCars.containsKey(cartID)) return;
-				
+
 				// If this isn't the player's MineCar then don't continue
 				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
-				
+
 				// If vehicle is on rails don't continue
 				Minecart cart = (Minecart) player.getVehicle();
 				if (!Functions.isDerailed(cart)) return;
-				
+
 				// If player doesn't have permission to control then don't continue
-				if (!player.hasPermission(MCMain.PERMISSION_CONTROL)) {
+				if (!PermissionsManager.hasPerm(player, MCMain.PERMISSION_CONTROL)) {
 					player.sendMessage(ChatColor.RED + "You don't have permission to drive!");
 					return;
 				}
-				
+
 				CarControl.moveBackward(player);
 				return;
 			}
-			
+
 			// KEY A
-			if (player.isInsideVehicle() && key == Keyboard.KEY_A) {				
+			if (player.isInsideVehicle() && key == Keyboard.KEY_A) {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
-				
+
 				Integer cartID = player.getVehicle().getEntityId();
 				// If the vehicle isn't a MineCar don't continue
 				if (!plugin.mineCars.containsKey(cartID)) return;
-				
+
 				// If this isn't the player's MineCar then don't continue
 				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
-				
+
 				// If vehicle is on rails don't continue
 				Minecart cart = (Minecart) player.getVehicle();
 				if (!Functions.isDerailed(cart)) return;
-				
+
 				// If player doesn't have permission to control then don't continue
-				if (!player.hasPermission(MCMain.PERMISSION_CONTROL)) {
+				if (!PermissionsManager.hasPerm(player, MCMain.PERMISSION_CONTROL)) {
 					player.sendMessage(ChatColor.RED + "You don't have permission to drive!");
 					return;
 				}
-				
+
 				CarControl.turn(player, "left");
 				return;
 			}
-			
+
 			// KEY D
-			if (player.isInsideVehicle() && key == Keyboard.KEY_D) {				
+			if (player.isInsideVehicle() && key == Keyboard.KEY_D) {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
-				
+
 				Integer cartID = player.getVehicle().getEntityId();
 				// If the vehicle isn't a MineCar don't continue
 				if (!plugin.mineCars.containsKey(cartID)) return;
-				
+
 				// If this isn't the player's MineCar then don't continue
 				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
-				
+
 				// If vehicle is on rails don't continue
 				Minecart cart = (Minecart) player.getVehicle();
 				if (!Functions.isDerailed(cart)) return;
-				
+
 				// If player doesn't have permission to control then don't continue
-				if (!player.hasPermission(MCMain.PERMISSION_CONTROL)) {
+				if (!PermissionsManager.hasPerm(player, MCMain.PERMISSION_CONTROL)) {
 					player.sendMessage(ChatColor.RED + "You don't have permission to drive!");
 					return;
 				}
-				
+
 				CarControl.turn(player, "right");
 				return;
 			}
-			
+
 			// KEY M
 			if (!player.isInsideVehicle() && key == Keyboard.KEY_M) {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
-				
+
 				// If player doesn't have permission to create then don't continue
-				if (!player.hasPermission(MCMain.PERMISSION_CREATE)) {
+				if (!PermissionsManager.hasPerm(player, MCMain.PERMISSION_CREATE)) {
 					player.sendMessage(ChatColor.RED + "You don't have permission to create a MineCar!");
 					return;
 				}
-								
+
 				World world = player.getWorld();
 				String playerName = player.getName();
 				boolean hasCart = plugin.mineCars.containsKey(playerName);
-				
+
 				// If player doesn't already have a MineCar OR doesn't have a Minecart in inventory then don't continue
 				if (!hasCart) {
 					if (Functions.hasMinecart(player)) {
@@ -175,7 +175,7 @@ public class MCInputListener extends InputListener {
 						return;
 					}
 				}
-				
+
 				// Check that the player doesn't already have a MineCar. If so then delete it
 				if (hasCart) {
 					if (Functions.deleteMinecart(world, plugin.mineCars.get(playerName))) {
@@ -196,7 +196,7 @@ public class MCInputListener extends InputListener {
 				plugin.mineCars.put(playerName, cartID);
 				return;
 			}
-			
+
 		}
 	}
 

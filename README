@@ -12,7 +12,7 @@ TO DO:
  - Admin commands:
 	- Remove all MineCars (and return the minecarts to all MineCar owning players that are currently online)
 	- Remove a players MineCar (and return the minecart to the player's inventory)
-	- Reload config
+	  !!! Remove commands partially done !!!
  - Multi-world support
 
 IMPLEMENTED:
@@ -27,6 +27,10 @@ IMPLEMENTED:
  - On destruction of a MineCar remove it from the HashMap mineCars in MCMain
  - Load and save the list of cars between server restarts/reloads/stops/starts
  - Creation of the config File, containing a speed value
+ - Admin commands:
+    - Reload config
+    - Remove partially done
+ - Support for Permissions 2/3 and BukkitPermissions
 
 Below is how I think this will work
 

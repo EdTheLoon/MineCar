@@ -41,7 +41,7 @@ public class Functions {
 
 	public static HashMap<String,Integer> loadCars() {
 
-		// Declare and initialize variables
+		// Declare and initialise variables
 		HashMap<String,Integer> cars = new HashMap<String, Integer>();
 		plugin.carsFile.getAll();
 		for(Map.Entry<String, Object> entry : plugin.carsFile.getAll().entrySet()){
@@ -61,7 +61,10 @@ public class Functions {
 		loc.setY(loc.getY() - 1);
 		Block block = loc.getBlock();
 		Material blockType = block.getType();
-		if (blockType == Material.POWERED_RAIL || blockType == Material.RAILS || blockType == Material.DETECTOR_RAIL) return true; else return false;
+		if (blockType == Material.POWERED_RAIL || blockType == Material.RAILS || blockType == Material.DETECTOR_RAIL)
+			return true;
+		else
+			return false;
 	}
 
 	public static boolean hasMinecart(Player player) {
