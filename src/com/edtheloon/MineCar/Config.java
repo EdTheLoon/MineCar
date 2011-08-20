@@ -60,36 +60,42 @@ public class Config {
 
 	public static void loadConfig() {
 		config.load();
-		speed = config.getInt("Minecar.speed", 1);
-		useBukkit = config.getBoolean("Permissions.useBukkit", false);
-		worlds = config.getStringList("Worlds", null);
+		speed = getInt("Minecar.speed", 1);
+		useBukkit = getBoolean("Permissions.useBukkit", false);
+		worlds = getStringList("Worlds", null);
 	}
 
 	// Functions for AutoUpdating the Config.yml
-	public Object getProperty(String path, Object def) {
+	public static Object getProperty(String path, Object def) {
 		if(isNull(path))
 			return addProperty(path, def);
 		return config.getProperty(path);
 	}
 
-	public Integer getInt(String path, Integer def) {
+	public static Integer getInt(String path, Integer def) {
 		if(isNull(path))
 			return (Integer) addProperty(path, def);
 		return config.getInt(path, def);
 	}
 
-	public Boolean getBoolean(String path, Boolean def) {
+	public static Boolean getBoolean(String path, Boolean def) {
 		if(isNull(path))
 			return (Boolean) addProperty(path, def);
 		return config.getBoolean(path, def);
 	}
 
-	private Object addProperty(String path, Object val) {
+	public static List<String> getStringList(String path, List<String> def) {
+		if (isNull(path))
+			return null;
+		return config.getStringList(path, def);
+	}
+
+	private static Object addProperty(String path, Object val) {
 		config.setProperty(path, val);
 		return val;
 	}
 
-	private Boolean isNull(String path) {
+	private static Boolean isNull(String path) {
 		return config.getProperty(path) == null;
 	}
 }

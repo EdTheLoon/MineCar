@@ -28,7 +28,7 @@ IMPLEMENTED:
  - Admin commands:
     - Reload config
     - Remove commands (see TO DO whats left to be done on them)
- - Support for Permissions 2/3 and BukkitPermissions
+ - Support for Permissions 2/3, SuperPerms(PermissionsBukkit) and PermissionsEx
  - Functions for AutoUpdating the config.yml
  - Multi-world support
     - Added a list in the config.yml on which worlds MineCar should be active
