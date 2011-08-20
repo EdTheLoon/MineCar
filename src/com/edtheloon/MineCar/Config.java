@@ -1,6 +1,7 @@
 package com.edtheloon.MineCar;
 
 import java.io.File;
+import java.util.List;
 
 import org.bukkit.util.config.Configuration;
 
@@ -18,6 +19,7 @@ public class Config {
 	public static Configuration config;
 	public static int speed;
 	public static boolean useBukkit;
+	public static List<String> worlds;
 
 	public static void checkConf() {
 		// Create the config directory
@@ -52,6 +54,7 @@ public class Config {
 	private static void setConfDefaults() {
 		config.setProperty("Minecar.Speed", 1);
 		config.setProperty("Permissions.useBukkit", false);
+		config.setProperty("Worlds", null);
 		config.save();
 	}
 
@@ -59,6 +62,7 @@ public class Config {
 		config.load();
 		speed = config.getInt("Minecar.speed", 1);
 		useBukkit = config.getBoolean("Permissions.useBukkit", false);
+		worlds = config.getStringList("Worlds", null);
 	}
 
 	// Functions for AutoUpdating the Config.yml

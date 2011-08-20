@@ -1,7 +1,5 @@
 package com.edtheloon.MineCar;
 
-import java.util.HashMap;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -31,7 +29,6 @@ public class MCInputListener extends InputListener {
 		SpoutPlayer player = event.getPlayer();
 		Keyboard key = event.getKey();
 		ScreenType screen = event.getScreenType();
-		HashMap<String, Integer> cars = plugin.mineCars.get((player.getWorld().toString()));
 
 		// First check that the key is pressed in a game screen
 		if (screen == ScreenType.GAME_SCREEN) {
@@ -43,14 +40,14 @@ public class MCInputListener extends InputListener {
 
 				Integer cartID = player.getVehicle().getEntityId();
 				// If the vehicle isn't a MineCar don't continue
-				if (!plugin.mineCars.containsKey(cartID)) return;
+				if (!plugin.mineCars.containsValue(cartID)) return;
 
 				// If vehicle is on rails don't continue
 				Minecart cart = (Minecart) player.getVehicle();
 				if (!Functions.isDerailed(cart)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != cars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
+				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -75,7 +72,7 @@ public class MCInputListener extends InputListener {
 				if (!plugin.mineCars.containsKey(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != cars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
+				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -104,7 +101,7 @@ public class MCInputListener extends InputListener {
 				if (!plugin.mineCars.containsKey(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != cars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
+				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -133,7 +130,7 @@ public class MCInputListener extends InputListener {
 				if (!plugin.mineCars.containsKey(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != cars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
+				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -156,6 +153,11 @@ public class MCInputListener extends InputListener {
 			if (!player.isInsideVehicle() && key == Keyboard.KEY_M) {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
+
+				// Is the world on the list for which MC is enabled? If not, abort.
+				if (!Config.worlds.contains(player.getWorld().toString())){
+					return;
+				}
 
 				// If player doesn't have permission to create then don't continue
 				if (!PermissionsManager.hasPerm(player, MCMain.PERMISSION_CREATE)) {
@@ -182,7 +184,7 @@ public class MCInputListener extends InputListener {
 				// Check that the player doesn't already have a MineCar. If so then delete it
 				if (hasCart) {
 
-					if (Functions.deleteMinecart(world, cars.get(playerName))) {
+					if (Functions.deleteMinecart(world, (Integer) plugin.mineCars.get(playerName))) {
 						// REMOVE BELOW DEBUG LINE
 						//player.sendMessage("[MineCar] You're previous MineCar has been deleted");
 						plugin.mineCars.remove(playerName);
@@ -197,7 +199,7 @@ public class MCInputListener extends InputListener {
 				loc.setY(loc.getY() + 1);
 				// Call the spawning code and then add the Minecarts ID to the mineCars HashMap
 				Integer cartID = Functions.spawnMinecart(world, loc);
-				cars.put(playerName, cartID);
+				plugin.mineCars.put(world + "." +playerName, cartID);
 				return;
 			}
 

@@ -3,7 +3,6 @@ package com.edtheloon.MineCar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.bukkit.Material;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -39,23 +38,17 @@ public class Functions {
 		return false;
 	}
 
-	public static HashMap<String, HashMap<String, Integer>> loadCars() {
+	public static HashMap<String, Object> loadCars() {
 
 		// Declare and initialise variables
-		HashMap<String, HashMap<String, Integer>> worlds = new HashMap<String, HashMap<String, Integer>>();
-		for(Map.Entry<String, HashMap<String, Integer>> worlds_entry : worlds.entrySet()){
-			HashMap<String, Integer> cars = worlds_entry.getValue();
-			for (Map.Entry<String, Object> cars_entry : plugin.carsFile.getAll().entrySet())
-				cars.put(cars_entry.getKey(), (Integer) cars_entry.getValue());
-		}
-		return worlds;
+		HashMap<String, Object> cars = new HashMap<String, Object>();
+		cars = (HashMap<String, Object>) plugin.carsFile.getAll();
+		return cars;
 	}
 
-	public static void saveCars(HashMap<String, HashMap<String, Integer>> worlds) {
-		for (Map.Entry<String, HashMap<String, Integer>> worlds_entry : worlds.entrySet()){
-			HashMap<String, Integer> cars = worlds_entry.getValue();
-			for (Map.Entry<String, Integer> cars_entry : cars.entrySet())
-				plugin.carsFile.setProperty(cars_entry.getKey(), cars_entry.getValue().toString());
+	public static void saveCars(HashMap<String, Object> cars) {
+		for (Map.Entry<String, Object> cars_entry : cars.entrySet()){
+				plugin.carsFile.setProperty(cars_entry.getKey(), cars_entry.getValue());
 		}
 	}
 
