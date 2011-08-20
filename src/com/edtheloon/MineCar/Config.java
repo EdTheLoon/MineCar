@@ -1,6 +1,7 @@
 package com.edtheloon.MineCar;
 
 import java.io.File;
+import java.util.List;
 
 import org.bukkit.util.config.Configuration;
 
@@ -18,8 +19,17 @@ public class Config {
 	public static Configuration config;
 	public static int speed;
 	public static boolean useBukkit;
+	public static List<String> worlds;
+	static List<String> def;
 
 	public static void checkConf() {
+
+		// Just to include a List by default
+		def.add("ex_world1");
+		def.add("ex_world2");
+		def.add("ex_world3");
+
+
 		// Create the config directory
 		new File(dir).mkdir();
 		// Do the files already exist?
@@ -52,40 +62,53 @@ public class Config {
 	private static void setConfDefaults() {
 		config.setProperty("Minecar.Speed", 1);
 		config.setProperty("Permissions.useBukkit", false);
+		config.setProperty("Worlds", def);
 		config.save();
 	}
 
 	public static void loadConfig() {
 		config.load();
-		speed = config.getInt("Minecar.speed", 1);
-		useBukkit = config.getBoolean("Permissions.useBukkit", false);
+		speed = getInt("Minecar.speed", 1);
+		useBukkit = getBoolean("Permissions.useBukkit", false);
+		worlds = config.getStringList("Worlds", def);
+
+		//Just in case something happens, lets save the changes, if any
+		config.save();
+		config.load();
 	}
 
 	// Functions for AutoUpdating the Config.yml
-	public Object getProperty(String path, Object def) {
+	public static Object getProperty(String path, Object def) {
 		if(isNull(path))
 			return addProperty(path, def);
 		return config.getProperty(path);
 	}
 
-	public Integer getInt(String path, Integer def) {
+	public static Integer getInt(String path, Integer def) {
 		if(isNull(path))
 			return (Integer) addProperty(path, def);
 		return config.getInt(path, def);
 	}
 
-	public Boolean getBoolean(String path, Boolean def) {
+	public static Boolean getBoolean(String path, Boolean def) {
 		if(isNull(path))
 			return (Boolean) addProperty(path, def);
 		return config.getBoolean(path, def);
 	}
 
-	private Object addProperty(String path, Object val) {
+	@SuppressWarnings("unchecked")
+	public static List<String> getStringList(String path, List<String> def) {
+		if (isNull(path))
+			return (List<String>) addProperty(path, def);
+		return config.getStringList(path, def);
+	}
+
+	private static Object addProperty(String path, Object val) {
 		config.setProperty(path, val);
 		return val;
 	}
 
-	private Boolean isNull(String path) {
+	private static Boolean isNull(String path) {
 		return config.getProperty(path) == null;
 	}
 }
