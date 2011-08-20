@@ -99,12 +99,12 @@ public class Remove extends MCCommandsManager {
 	// TODO: Code to remove per world.
 	public static void removeAll(CommandSender sender, String world){
 		if (sender instanceof ConsoleCommandSender){
-			plugin.mineCars.remove(world);
-			plugin.log.info("[MineCar] You successfully removed all MineCars in: " + world );
+			//plugin.mineCars.remove(world);
+			plugin.log.info("[MineCar] Currently not working.");
 		}
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE_ALL)){
-			plugin.mineCars.remove(world);
-			sender.sendMessage(ChatColor.GREEN + "You successfully removed all MineCars in: " + ChatColor.DARK_PURPLE + world);
+			//plugin.mineCars.remove(world);
+			sender.sendMessage(ChatColor.RED + "Currently not working.");
 		}
 		else {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to execute this command.");
