@@ -3,6 +3,8 @@ package com.edtheloon.MineCar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+
 import org.bukkit.Material;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -43,7 +45,12 @@ public class Functions {
 
 		// Declare and initialise variables
 		HashMap<String, Object> cars = new HashMap<String, Object>();
-		cars = (HashMap<String, Object>) Config.carsFile.getAll();
+		Map<String, Object> raw = new TreeMap<String, Object>();
+		raw = Config.carsFile.getAll();
+
+		// Convert the TreeMap into an HashMap as its faster accessed
+		for (Map.Entry<String, Object> raw_entry : raw.entrySet())
+			cars.put(raw_entry.getKey(), raw_entry.getValue());
 		return cars;
 	}
 

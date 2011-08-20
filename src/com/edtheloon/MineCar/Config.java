@@ -73,7 +73,7 @@ public class Config {
 
 	public static void loadConfig() {
 		config.load();
-		speed = getInt("Minecar.speed", 1);
+		speed = getInt("Minecar.Speed", 1);
 		useBukkit = getBoolean("Permissions.useBukkit", false);
 		worlds = config.getStringList("Worlds", def);
 
