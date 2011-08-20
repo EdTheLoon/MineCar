@@ -7,7 +7,6 @@ import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.config.Configuration;
 
 public class MCMain extends JavaPlugin {
 
@@ -25,7 +24,6 @@ public class MCMain extends JavaPlugin {
 	// First String is the World, 2nd String is the player, so every world has it's own HashMap containing the cars
 	// This gives us Multi-World Support, we even could set worlds to be used in the config
 	public HashMap<String, Object> mineCars;
-	public Configuration carsFile;
 
 	public void onEnable() {
 

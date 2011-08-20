@@ -14,6 +14,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class Functions {
 
+	@SuppressWarnings("unused")
 	private static MCMain plugin;
 
 	// CONSTRUCTOR
@@ -42,13 +43,13 @@ public class Functions {
 
 		// Declare and initialise variables
 		HashMap<String, Object> cars = new HashMap<String, Object>();
-		cars = (HashMap<String, Object>) plugin.carsFile.getAll();
+		cars = (HashMap<String, Object>) Config.carsFile.getAll();
 		return cars;
 	}
 
 	public static void saveCars(HashMap<String, Object> cars) {
 		for (Map.Entry<String, Object> cars_entry : cars.entrySet()){
-				plugin.carsFile.setProperty(cars_entry.getKey(), cars_entry.getValue());
+				Config.carsFile.setProperty(cars_entry.getKey(), cars_entry.getValue());
 		}
 	}
 
