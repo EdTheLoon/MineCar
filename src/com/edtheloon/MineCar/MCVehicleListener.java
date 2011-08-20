@@ -21,11 +21,12 @@ public class MCVehicleListener extends VehicleListener {
 	public void onVehicleDestroy (VehicleDestroyEvent event) {
 		// First check if the vehicle is a MineCar
 		Vehicle vehicle = event.getVehicle();
+		Player player = (Player) event.getAttacker();
 		int id = event.getVehicle().getEntityId();
 		World world = event.getAttacker().getWorld();
 		if (vehicle.getClass() == Minecart.class) {
 			Functions.deleteMinecart(world, id);
-			plugin.mineCars.remove(((Player) event.getAttacker()).getName());
+			plugin.mineCars.remove(player.getWorld().toString() + "." + player.getName());
 		}
 	}
 

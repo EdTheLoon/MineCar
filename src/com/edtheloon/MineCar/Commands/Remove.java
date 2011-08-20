@@ -1,7 +1,5 @@
 package com.edtheloon.MineCar.Commands;
 
-import java.util.HashMap;
-
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
