@@ -20,8 +20,16 @@ public class Config {
 	public static int speed;
 	public static boolean useBukkit;
 	public static List<String> worlds;
+	static List<String> def;
 
 	public static void checkConf() {
+
+		// Just to include a List by default
+		def.add("ex_world1");
+		def.add("ex_world2");
+		def.add("ex_world3");
+
+
 		// Create the config directory
 		new File(dir).mkdir();
 		// Do the files already exist?
@@ -54,7 +62,7 @@ public class Config {
 	private static void setConfDefaults() {
 		config.setProperty("Minecar.Speed", 1);
 		config.setProperty("Permissions.useBukkit", false);
-		config.setProperty("Worlds", null);
+		config.setProperty("Worlds", def);
 		config.save();
 	}
 
@@ -62,7 +70,11 @@ public class Config {
 		config.load();
 		speed = getInt("Minecar.speed", 1);
 		useBukkit = getBoolean("Permissions.useBukkit", false);
-		worlds = getStringList("Worlds", null);
+		worlds = config.getStringList("Worlds", def);
+
+		//Just in case something happens, lets save the changes, if any
+		config.save();
+		config.load();
 	}
 
 	// Functions for AutoUpdating the Config.yml
@@ -84,9 +96,10 @@ public class Config {
 		return config.getBoolean(path, def);
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<String> getStringList(String path, List<String> def) {
 		if (isNull(path))
-			return null;
+			return (List<String>) addProperty(path, def);
 		return config.getStringList(path, def);
 	}
 
