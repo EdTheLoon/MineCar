@@ -15,7 +15,7 @@ TO DO:
  - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API) (config Option already exists)
  - Add scheduler for constant movement (e.g.: W pressed -> move as long as the key is pressed now just once)
  - Admin commands:
-	- Remove commands: Return the minecart to the player's inventory (if online?)
+	- Remove commands: Return the minecart to the player's inventory (if online? else save the name and return it when he comes back if possible)
 
 KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
