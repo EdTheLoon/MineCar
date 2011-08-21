@@ -1,5 +1,6 @@
 package com.edtheloon.MineCar.Commands;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -115,19 +116,31 @@ public class Remove extends MCCommandsManager {
 	}
 
 	// Called if command '/minecar remove all <world>' is executed
-	// TODO: Code to remove per world.
 	public static void removeAll(CommandSender sender, String world){
 		if (sender instanceof ConsoleCommandSender){
-			for (Map.Entry<String, Object> cars_entry : plugin.mineCars.entrySet()){
-				@SuppressWarnings("unused")
-				String s = cars_entry.getKey();
+			Iterator<Map.Entry<String, Object>> it = plugin.mineCars.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry<String, Object> entry = it.next();
+				String[] key = entry.getKey().split(".");
+				// If the key contains the given world remove the entry
+				if (key[0].equalsIgnoreCase(world)){
+					it.remove();
+				}
 			}
-			log.info("[MineCar] Currently not working.");
+			log.info("[MineCar] Successfully removed all cars in " + world);
 			return;
 		}
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE_ALL)){
-			//plugin.mineCars.remove(world);
-			sender.sendMessage(ChatColor.RED + "Currently not working.");
+			Iterator<Map.Entry<String, Object>> it = plugin.mineCars.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry<String, Object> entry = it.next();
+				String[] key = entry.getKey().split(".");
+				// If the key contains the given world remove the entry
+				if (key[0].equalsIgnoreCase(world)){
+					it.remove();
+				}
+			}
+			sender.sendMessage(ChatColor.GREEN + "Successfully removed all cars in " + ChatColor.DARK_PURPLE + world);
 			return;
 		}
 		else {
