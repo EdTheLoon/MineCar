@@ -20,7 +20,7 @@ public class MCMain extends JavaPlugin {
 
 	// Class Variables
 	public PluginManager pluginManager;
-	public final Logger log = Logger.getLogger("Minecraft");
+	public Logger log = Logger.getLogger("Minecraft");
 	// First String is the World, 2nd String is the player, so every world has it's own HashMap containing the cars
 	// This gives us Multi-World Support, we even could set worlds to be used in the config
 	public HashMap<String, Object> mineCars;

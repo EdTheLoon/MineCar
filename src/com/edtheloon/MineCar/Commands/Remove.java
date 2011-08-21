@@ -1,5 +1,6 @@
 package com.edtheloon.MineCar.Commands;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
@@ -117,7 +118,10 @@ public class Remove extends MCCommandsManager {
 	// TODO: Code to remove per world.
 	public static void removeAll(CommandSender sender, String world){
 		if (sender instanceof ConsoleCommandSender){
-			//plugin.mineCars.remove(world);
+			for (Map.Entry<String, Object> cars_entry : plugin.mineCars.entrySet()){
+				@SuppressWarnings("unused")
+				String s = cars_entry.getKey();
+			}
 			log.info("[MineCar] Currently not working.");
 			return;
 		}

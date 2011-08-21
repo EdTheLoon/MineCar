@@ -24,7 +24,7 @@ public class MCVehicleListener extends VehicleListener {
 		Player player = (Player) event.getAttacker();
 		int id = event.getVehicle().getEntityId();
 		World world = event.getAttacker().getWorld();
-		if (vehicle.getClass() == Minecart.class) {
+		if (vehicle instanceof Minecart) {
 			Functions.deleteMinecart(world, id);
 			plugin.mineCars.remove(world.getName() + "." + player.getName());
 		}

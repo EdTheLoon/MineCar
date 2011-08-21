@@ -14,8 +14,7 @@ TO DO:
 	- remove all <world> needs a new method
 
 KNOWN ISSUES / BUGS / ERRORS:
- - saveCars() does not save to the file or at least the file is always empty.
- - atm pressing M will spawn a new Minecart if you already had one and remove it. Looks like HashMap ist not cleared propperly.
+ - loadCars() does not properly insert cars into the HashMap, idk why...
  - Pressing A and D dosen't do anything
 
 IMPLEMENTED:

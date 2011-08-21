@@ -1,5 +1,7 @@
 package com.edtheloon.MineCar;
 
+import java.util.Map;
+
 import com.edtheloon.MineCar.Commands.Reload;
 import com.edtheloon.MineCar.Commands.Remove;
 
@@ -25,6 +27,19 @@ public class MCCommandsManager implements CommandExecutor {
 		if (args.length >= 1){
 			if (args[0].equalsIgnoreCase("reload")){
 				Reload.reload(sender);
+				return true;
+			}
+			// DEBUG COMMAND TO CHECK THE HASHMAP
+			if(args[0].equalsIgnoreCase("check")){
+				for(Map.Entry<String, Object> cars : plugin.mineCars.entrySet()){
+					((Player) sender).sendMessage("node: " + String.valueOf(cars.getKey()) + " car: " + String.valueOf(cars.getValue()));
+				}
+				return true;
+			}
+			// DEBUG COMMAND TO CHECK IF SAVECARS() WORKS
+			if(args[0].equalsIgnoreCase("save")){
+				((Player) sender).sendMessage("Saving cars to file...");
+				Functions.saveCars(plugin.mineCars);
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("remove")){
