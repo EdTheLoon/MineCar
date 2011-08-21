@@ -29,6 +29,7 @@ public class MCCommandsManager implements CommandExecutor {
 				Reload.reload(sender);
 				return true;
 			}
+
 			// DEBUG COMMAND TO CHECK THE HASHMAP
 			if(args[0].equalsIgnoreCase("check")){
 				for(Map.Entry<String, Object> cars : plugin.mineCars.entrySet()){
@@ -42,6 +43,13 @@ public class MCCommandsManager implements CommandExecutor {
 				Functions.saveCars(plugin.mineCars);
 				return true;
 			}
+			// DEBUG COMMAND TO CHECK IF LOADCARS() WORKS
+			if(args[0].equalsIgnoreCase("load")){
+				((Player) sender).sendMessage("Loading cars from file...");
+				plugin.mineCars = Functions.loadCars();
+				return true;
+			}
+
 			if (args[0].equalsIgnoreCase("remove")){
 				// No second argument was given
 				if (args.length == 1){

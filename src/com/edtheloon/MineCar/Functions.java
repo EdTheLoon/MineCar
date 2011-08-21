@@ -52,6 +52,7 @@ public class Functions {
 
 		// Convert the TreeMap into an HashMap as its faster accessed
 		log.info("Loading...");
+		log.info("Got entry: " + String.valueOf(raw.get("world.Lathanael")));
 		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
 			cars.put(String.valueOf(raw_entry.getKey()), raw_entry.getValue());
 			log.info(String.valueOf(raw_entry.getKey()) + String.valueOf(raw_entry.getValue()) + " loaded");
