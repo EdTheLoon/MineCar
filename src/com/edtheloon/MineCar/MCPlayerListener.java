@@ -22,7 +22,7 @@ public class MCPlayerListener extends PlayerListener {
 		// Check to see if the player is inside a vehicle
 		if (player.isInsideVehicle()) {
 			// Check that the vehicle the player is in is their MineCar
-			if (player.getVehicle().getEntityId() == (Integer) plugin.mineCars.get(player.getWorld().toString() + "." + player.getName())) {
+			if (player.getVehicle().getEntityId() == (Integer) plugin.mineCars.get(player.getWorld().getName() + "." + player.getName())) {
 				// Now check that the player was swinging their arm
 				if (event.getAnimationType() == PlayerAnimationType.ARM_SWING) {
 					// TODO: DO SOME MINECAR TURNING CODE

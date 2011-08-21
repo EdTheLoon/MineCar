@@ -155,7 +155,14 @@ public class MCInputListener extends InputListener {
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
 
 				// Is the world on the list for which MC is enabled? If not, abort.
-				if (!Config.worlds.contains(player.getWorld().toString())){
+				boolean worldsSet = false;
+				try{
+					worldsSet = Config.worlds.contains(player.getWorld().getName());
+				}
+				catch(NullPointerException npe){
+					plugin.log.severe("[MineCar] NPE with world " + player.getWorld().getName());
+				}
+				if (!worldsSet){
 					return;
 				}
 
@@ -199,7 +206,8 @@ public class MCInputListener extends InputListener {
 				loc.setY(loc.getY() + 1);
 				// Call the spawning code and then add the Minecarts ID to the mineCars HashMap
 				Integer cartID = Functions.spawnMinecart(world, loc);
-				plugin.mineCars.put(world + "." +playerName, cartID);
+				plugin.mineCars.put(world.getName() + "." + playerName, cartID);
+				//player.sendMessage("[MineCar] Put car: " + cartID + " and node: " + world.getName() + "." + playerName + " into the Map." );
 				return;
 			}
 

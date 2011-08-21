@@ -57,6 +57,7 @@ public class Functions {
 	public static void saveCars(HashMap<String, Object> cars) {
 		for (Map.Entry<String, Object> cars_entry : cars.entrySet()){
 				Config.carsFile.setProperty(cars_entry.getKey(), cars_entry.getValue());
+				//plugin.log.info("[MineCar] Put node: " + cars_entry.getKey() + " and car: "  + cars_entry.getValue() + " into the file.");
 		}
 	}
 
