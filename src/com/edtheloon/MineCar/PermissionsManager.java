@@ -16,8 +16,8 @@ public class PermissionsManager {
 	private final MCMain plugin;
 	public static PermissionHandler permHandler = null;
 	public static PermissionManager permExHandler = null;
-	public static boolean usePerm= false;
-	public static boolean usePermEx= false;
+	public static boolean usePerm = false;
+	public static boolean usePermEx = false;
 	// CONSTRUCTOR
 	public PermissionsManager(MCMain plug) {
 		this.plugin = plug;
@@ -63,6 +63,9 @@ public class PermissionsManager {
 				return true;
 			}
 		}
+		if (player.isOp()){
+			return true;
+		}
 		return false;
 	}
 
@@ -91,6 +94,9 @@ public class PermissionsManager {
 			else if (sender.isOp()){
 				return true;
 			}
+		}
+		if (sender.isOp()){
+			return true;
 		}
 		return false;
 	}

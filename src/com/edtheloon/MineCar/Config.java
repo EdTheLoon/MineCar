@@ -1,6 +1,8 @@
 package com.edtheloon.MineCar;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.util.config.Configuration;
@@ -17,10 +19,11 @@ public class Config {
 	public static File configFile = new File(dir + File.separator + "config.yml");
 	public static File cars = new File(dir + File.separator + "cars.yml");
 	public static Configuration config;
+	public static Configuration carsFile;
 	public static int speed;
 	public static boolean useBukkit;
 	public static List<String> worlds;
-	static List<String> def;
+	static List<String> def = new ArrayList<String>();
 
 	public static void checkConf() {
 
@@ -36,26 +39,28 @@ public class Config {
 		if (!configFile.exists()) {
 			try {
 				configFile.createNewFile();
+				config = new Configuration(configFile);
 				setConfDefaults();
 			}
-			catch (Exception ex) {
-				plugin.log.severe("[MineCar] Could not create config.yml!");
+			catch (IOException ex){
+				plugin.log.info("[MineCar] Could not create config.yml!");
 			}
 		}
 		else {
+			config = new Configuration(configFile);
 			loadConfig();
 		}
 		if (!cars.exists()){
 			try {
 				cars.createNewFile();
-				plugin.carsFile = new Configuration(cars);
+				carsFile = new Configuration(cars);
 			}
-			catch (Exception ex) {
+			catch (IOException ex) {
 				plugin.log.severe("[MineCar] Could not create cars.yml!");
 			}
 		}
 		else {
-			plugin.carsFile = new Configuration(cars);
+			carsFile = new Configuration(cars);
 		}
 	}
 
@@ -68,7 +73,7 @@ public class Config {
 
 	public static void loadConfig() {
 		config.load();
-		speed = getInt("Minecar.speed", 1);
+		speed = getInt("Minecar.Speed", 1);
 		useBukkit = getBoolean("Permissions.useBukkit", false);
 		worlds = config.getStringList("Worlds", def);
 
