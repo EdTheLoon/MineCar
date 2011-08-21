@@ -15,7 +15,7 @@ public class Reload extends MCCommandsManager {
 
 	@SuppressWarnings("unused")
 	private static MCMain plugin;
-	// Otherwise we get a warning in console and command does not work.
+	// Otherwise we get a warning in console and command/Logger does not work.
 	private static Logger log = Logger.getLogger("Minecraft");
 
 	public Reload(MCMain plug) {

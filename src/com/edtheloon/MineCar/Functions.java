@@ -48,7 +48,7 @@ public class Functions {
 		// Declare and initialise variables
 		HashMap<String, Object> cars = new HashMap<String, Object>();
 		Map<String, Object> raw = new TreeMap<String, Object>();
-		raw = Config.carsFile.getAll();
+		raw = Config.cars.getAll();
 
 		// Convert the TreeMap into an HashMap as its faster accessed
 		log.info("Loading...");
@@ -62,9 +62,9 @@ public class Functions {
 
 	public static void saveCars(HashMap<String, Object> cars) {
 		for (Map.Entry<String, Object> cars_entry : cars.entrySet()){
-			Config.carsFile.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue());
+			Config.cars.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue());
 		}
-		Config.carsFile.save();
+		Config.cars.save();
 	}
 
 	public static boolean isDerailed(Minecart cart) {

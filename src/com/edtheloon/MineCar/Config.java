@@ -17,9 +17,11 @@ public class Config {
 
 	public static String dir = "plugins" + File.separator + "MineCar";
 	public static File configFile = new File(dir + File.separator + "config.yml");
-	public static File cars = new File(dir + File.separator + "cars.yml");
+	public static File carsFile = new File(dir + File.separator + "cars.yml");
+	public static File playersFile = new File(dir + File.separator + "players.yml");
 	public static Configuration config;
-	public static Configuration carsFile;
+	public static Configuration cars;
+	public static Configuration players;
 	public static int speed;
 	public static boolean useBukkit;
 	public static List<String> worlds;
@@ -36,6 +38,7 @@ public class Config {
 		// Create the config directory
 		new File(dir).mkdir();
 		// Do the files already exist?
+		// First config.yml
 		if (!configFile.exists()) {
 			try {
 				configFile.createNewFile();
@@ -50,20 +53,35 @@ public class Config {
 			config = new Configuration(configFile);
 			loadConfig();
 		}
-		if (!cars.exists()){
+		// Second cars.yml
+		if (!carsFile.exists()){
 			try {
-				cars.createNewFile();
-				carsFile = new Configuration(cars);
+				carsFile.createNewFile();
+				cars = new Configuration(carsFile);
 			}
 			catch (IOException ex) {
 				plugin.log.severe("[MineCar] Could not create cars.yml!");
 			}
 		}
 		else {
-			carsFile = new Configuration(cars);
+			cars = new Configuration(carsFile);
+		}
+		// Third players.yml
+		if (!playersFile.exists()){
+			try {
+				playersFile.createNewFile();
+				players = new Configuration(playersFile);
+			}
+			catch (IOException ex) {
+				plugin.log.severe("[MineCar] Could not create players.yml!");
+			}
+		}
+		else {
+			players = new Configuration(playersFile);
 		}
 	}
 
+	// Set the default values for the config.yml
 	private static void setConfDefaults() {
 		config.setProperty("Minecar.Speed", 1);
 		config.setProperty("Permissions.useBukkit", false);
@@ -71,6 +89,7 @@ public class Config {
 		config.save();
 	}
 
+	// Load the config.yml and get stored values
 	public static void loadConfig() {
 		config.load();
 		speed = getInt("Minecar.Speed", 1);

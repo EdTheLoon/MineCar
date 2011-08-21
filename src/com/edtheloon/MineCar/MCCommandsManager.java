@@ -25,6 +25,7 @@ public class MCCommandsManager implements CommandExecutor {
 
 		//Any args given?
 		if (args.length >= 1){
+			// Reloads all Configuration files
 			if (args[0].equalsIgnoreCase("reload")){
 				Reload.reload(sender);
 				return true;
@@ -58,20 +59,24 @@ public class MCCommandsManager implements CommandExecutor {
 						return true;
 					}
 					else {
-					Remove.remove(((Player) sender).getWorld(), sender);
-					return true;
+						// Remove the MineCar of the commandsender in the world he is in
+						Remove.remove(((Player) sender).getWorld(), sender);
+						return true;
 					}
 				}
 				else if (args.length >= 2 && args[2].equalsIgnoreCase("all")){
+					// Removes ALL MineCars
 					if (args.length == 2){
 						Remove.removeAll(sender);
 						return true;
 					}
+					// Removes all Minecars in the given World
 					else {
 						Remove.removeAll(sender, args[2]);
 						return true;
 					}
 				}
+				// Removes the given player's MineCar in the commandsender's world
 				else if (args.length == 2){
 					if (sender instanceof ConsoleCommandSender){
 						plugin.log.info("[MineCar] You need to specify a World and Player to remove a MineCar!");
@@ -83,7 +88,8 @@ public class MCCommandsManager implements CommandExecutor {
 					}
 				}
 				else if (args.length == 3){
-					//args[1] = player, args[2] = world
+					// Removes the given player'S MineCar in the given world
+					// args[1] = player, args[2] = world
 					Remove.remove(args[1],args[2], sender);
 					return true;
 				}
