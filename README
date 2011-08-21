@@ -13,6 +13,11 @@ TO DO:
 	- Remove commands: Return the minecart to the player's inventory (if online?)
 	- remove all <world> needs a new method
 
+KNOWN ISSUES / BUGS / ERRORS:
+ - saveCars() does not save to the file or at least the file is always empty.
+ - atm pressing M will spawn a new Minecart if you already had one and remove it. Looks like HashMap ist not cleared propperly.
+ - Pressing A and D dosen't do anything
+
 IMPLEMENTED:
  - Spawning of MineCar when M is pressed in normal view (ie when not crafting or looking at inventory)
  - Deletion of previous MineCar if applicable (Currently the player must be in the same world as previous MineCar)
