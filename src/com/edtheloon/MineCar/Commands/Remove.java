@@ -18,7 +18,7 @@ import com.edtheloon.MineCar.PermissionsManager;
 public class Remove extends MCCommandsManager {
 
 	private static MCMain plugin;
-	// Otherwise we get a warning in console and command does not work.
+	// Otherwise we get a warning in console and command/Logger does not work.
 	private static Logger log = Logger.getLogger("Minecraft");
 
 	public Remove(MCMain plug) {

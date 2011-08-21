@@ -13,19 +13,19 @@ TO DO:
 ------
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
  - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API) (config Option already exists)
+ - Add scheduler for constant movement (e.g.: W pressed -> move as long as the key is pressed now just once)
  - Admin commands:
-	- Remove commands: Return the minecart to the player's inventory (if online?)
+	- Remove commands: Return the minecart to the player's inventory (if online? else save the name and return it when he comes back if possible)
 
 KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
  - loadCars() does not properly insert cars into the HashMap, idk why... (only works at runtime, not at startup)
- - Pressing A and D dosen't do anything
 
 IMPLEMENTED:
 ------------
  - Spawning of MineCar when M is pressed in normal view (ie when not crafting or looking at inventory)
  - Deletion of previous MineCar if applicable (Currently the player must be in the same world as previous MineCar)
- - Basic movement of MineCar
+ - Basic movement of MineCar (Somehow, still acts a little weird)
  - Check that user has permission to create a MineCar
  - Check that user can drive a MineCar
  - Only control a MineCar if it is in the HashMap, mineCar

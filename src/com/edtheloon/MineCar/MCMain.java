@@ -18,11 +18,15 @@ public class MCMain extends JavaPlugin {
 	public static final String PERMISSION_REMOVE_OWN = "MineCar.remove.own";
 	public static final String PERMISSION_RELOAD = "MineCar.reload";
 
+	//Listeners
+	private final MCVehicleListener MCVehicleListener = new MCVehicleListener(this);
+	private final MCPlayerListener MCPlayerListener = new MCPlayerListener(this);
+	private final MCInputListener MCInputListener = new MCInputListener(this);
+
 	// Class Variables
 	public PluginManager pluginManager;
 	public Logger log = Logger.getLogger("Minecraft");
-	// First String is the World, 2nd String is the player, so every world has it's own HashMap containing the cars
-	// This gives us Multi-World Support, we even could set worlds to be used in the config
+	// For Multi-World support we save the cars with the following node: world_name.player_name
 	public HashMap<String, Object> mineCars = new HashMap<String, Object>();
 
 	public void onEnable() {
@@ -38,11 +42,13 @@ public class MCMain extends JavaPlugin {
 		pluginManager = getServer().getPluginManager();
 
 		// Register some events
-		pluginManager.registerEvent(Type.VEHICLE_DESTROY, new MCVehicleListener(this), Priority.Normal, this);
-		pluginManager.registerEvent(Type.PLAYER_ANIMATION, new MCPlayerListener(this), Priority.Normal, this);
+		pluginManager.registerEvent(Type.VEHICLE_DESTROY, MCVehicleListener, Priority.Normal, this);
+		pluginManager.registerEvent(Type.PLAYER_ANIMATION, MCPlayerListener, Priority.Normal, this);
+		// So we can give back cars if removed and the player wasn't online
+		pluginManager.registerEvent(Type.PLAYER_JOIN, MCPlayerListener, Priority.Normal, this);
 
 		// Register INPUT LISTENING events
-		pluginManager.registerEvent(Type.CUSTOM_EVENT, new MCInputListener(this), Priority.Normal, this);
+		pluginManager.registerEvent(Type.CUSTOM_EVENT, MCInputListener, Priority.Normal, this);
 
 		// Set Commands to be our commandExecutor
 		getCommand("minecar").setExecutor(new MCCommandsManager(this));
