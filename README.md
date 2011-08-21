@@ -20,7 +20,6 @@ KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
  - loadCars() does not properly insert cars into the HashMap, idk why... (only works at runtime, not at startup)
  - Pressing A and D dosen't do anything
- - placing a MineCar removes _ALL_ mincarts in your inventory if they are not stacked, which by default is _NOT_ possible.
 
 IMPLEMENTED:
 ------------
