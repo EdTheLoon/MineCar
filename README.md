@@ -1,4 +1,7 @@
+MineCar
+=======
 This plugin will allow players to ride in a minecart that they can control using WASD as a control scheme.
+
 
 /*TO COLLABORATORS
 / PLEASE ALTER THE TO DO AND IMPLEMENTED LIST AS YOU MAKE CHANGES.
@@ -7,16 +10,19 @@ This plugin will allow players to ride in a minecart that they can control using
 / TO GET THEM ADDED TO THIS MAIN REPOSITORY. I HIGHLY RECOMMEND YOU DO THIS. */
 
 TO DO:
+------
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
  - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API) (config Option already exists)
  - Admin commands:
 	- Remove commands: Return the minecart to the player's inventory (if online?)
 
 KNOWN ISSUES / BUGS / ERRORS:
+-----------------------------
  - loadCars() does not properly insert cars into the HashMap, idk why... (only works at runtime, not at startup)
  - Pressing A and D dosen't do anything
 
 IMPLEMENTED:
+------------
  - Spawning of MineCar when M is pressed in normal view (ie when not crafting or looking at inventory)
  - Deletion of previous MineCar if applicable (Currently the player must be in the same world as previous MineCar)
  - Basic movement of MineCar
@@ -36,17 +42,19 @@ IMPLEMENTED:
  - Multi-world support
     - Added a list in the config.yml on which worlds MineCar should be active
 
-Below is how I think this will work
+How I think this will work
+--------------------------
 
 Players can only have one MineCar at a time. This will be tracked in a HashMap with the Player name as a key and
 the EntityID as the value. This will be stored in a flatfile on the server as well so data is kept between
 restarts/reloads/stops/starts.
 
-A MineCar is created by:
+### A MineCar is created by:
  - Pressing M on their keyboard whilst looking at the ground where they want to place their MineCar
+
 The first option is the one I think we should aim for
 
-Here is the entire process:
+### Here is the entire process:
 
 - Server start
 - Plugin start
