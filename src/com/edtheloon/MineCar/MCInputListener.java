@@ -27,6 +27,8 @@ public class MCInputListener extends InputListener {
 
 		// Declare and initialise variables
 		SpoutPlayer player = event.getPlayer();
+		String worldName = event.getPlayer().getWorld().getName();
+		String playerName = player.getName();
 		Keyboard key = event.getKey();
 		ScreenType screen = event.getScreenType();
 
@@ -38,16 +40,16 @@ public class MCInputListener extends InputListener {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
 
-				Integer cartID = player.getVehicle().getEntityId();
+				int cartID = player.getVehicle().getEntityId();
 				// If the vehicle isn't a MineCar don't continue
 				if (!plugin.mineCars.containsValue(cartID)) return;
 
 				// If vehicle is on rails don't continue
 				Minecart cart = (Minecart) player.getVehicle();
-				if (!Functions.isDerailed(cart)) return;
+				if (Functions.isDerailed(cart)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
+				if (cartID != (Integer) plugin.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -67,19 +69,19 @@ public class MCInputListener extends InputListener {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
 
-				Integer cartID = player.getVehicle().getEntityId();
+				int cartID = player.getVehicle().getEntityId();
 				// If the vehicle isn't a MineCar don't continue
-				if (!plugin.mineCars.containsKey(cartID)) return;
+				if (!plugin.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
+				if (cartID != (Integer) plugin.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
 
 				// If vehicle is on rails don't continue
 				Minecart cart = (Minecart) player.getVehicle();
-				if (!Functions.isDerailed(cart)) return;
+				if (Functions.isDerailed(cart)) return;
 
 				// If player doesn't have permission to control then don't continue
 				if (!PermissionsManager.hasPerm(player, MCMain.PERMISSION_CONTROL)) {
@@ -96,19 +98,19 @@ public class MCInputListener extends InputListener {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
 
-				Integer cartID = player.getVehicle().getEntityId();
+				int cartID = player.getVehicle().getEntityId();
 				// If the vehicle isn't a MineCar don't continue
-				if (!plugin.mineCars.containsKey(cartID)) return;
+				if (!plugin.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
+				if (cartID != (Integer) plugin.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
 
 				// If vehicle is on rails don't continue
 				Minecart cart = (Minecart) player.getVehicle();
-				if (!Functions.isDerailed(cart)) return;
+				if (Functions.isDerailed(cart)) return;
 
 				// If player doesn't have permission to control then don't continue
 				if (!PermissionsManager.hasPerm(player, MCMain.PERMISSION_CONTROL)) {
@@ -125,19 +127,19 @@ public class MCInputListener extends InputListener {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
 
-				Integer cartID = player.getVehicle().getEntityId();
+				int cartID = player.getVehicle().getEntityId();
 				// If the vehicle isn't a MineCar don't continue
-				if (!plugin.mineCars.containsKey(cartID)) return;
+				if (!plugin.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != plugin.mineCars.get(player.getName()) && plugin.mineCars.containsValue(cartID)) {
+				if (cartID != (Integer) plugin.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
 
 				// If vehicle is on rails don't continue
 				Minecart cart = (Minecart) player.getVehicle();
-				if (!Functions.isDerailed(cart)) return;
+				if (Functions.isDerailed(cart)) return;
 
 				// If player doesn't have permission to control then don't continue
 				if (!PermissionsManager.hasPerm(player, MCMain.PERMISSION_CONTROL)) {
@@ -157,10 +159,10 @@ public class MCInputListener extends InputListener {
 				// Is the world on the list for which MC is enabled? If not, abort.
 				boolean worldsSet = false;
 				try{
-					worldsSet = Config.worlds.contains(player.getWorld().getName());
+					worldsSet = Config.worlds.contains(worldName);
 				}
 				catch(NullPointerException npe){
-					plugin.log.severe("[MineCar] NPE with world " + player.getWorld().getName());
+					plugin.log.severe("[MineCar] NPE with world " + worldName);
 				}
 				if (!worldsSet){
 					return;
@@ -173,8 +175,7 @@ public class MCInputListener extends InputListener {
 				}
 
 				World world = player.getWorld();
-				String playerName = player.getName();
-				boolean hasCart = plugin.mineCars.containsKey(playerName);
+				boolean hasCart = plugin.mineCars.containsKey(worldName + "." + playerName);
 
 				// If player doesn't already have a MineCar OR doesn't have a Minecart in inventory then don't continue
 				if (!hasCart) {
@@ -191,13 +192,13 @@ public class MCInputListener extends InputListener {
 				// Check that the player doesn't already have a MineCar. If so then delete it
 				if (hasCart) {
 
-					if (Functions.deleteMinecart(world, (Integer) plugin.mineCars.get(playerName))) {
+					if (Functions.deleteMinecart(world, (Integer) plugin.mineCars.get(worldName + "." + playerName))) {
 						// REMOVE BELOW DEBUG LINE
 						//player.sendMessage("[MineCar] You're previous MineCar has been deleted");
-						plugin.mineCars.remove(playerName);
+						plugin.mineCars.remove(worldName + "." + playerName);
 					} else {
-						plugin.log.severe("[MineCar] Could not remove " + playerName + "'s minecart from world " + world.getName());
-						plugin.mineCars.remove(playerName);
+						plugin.log.severe("[MineCar] Could not remove " + playerName + "'s minecart from world " + worldName);
+						plugin.mineCars.remove(worldName + "." + playerName);
 					}
 				}
 
@@ -205,9 +206,9 @@ public class MCInputListener extends InputListener {
 				Location loc = player.getTargetBlock(null, 5).getLocation();
 				loc.setY(loc.getY() + 1);
 				// Call the spawning code and then add the Minecarts ID to the mineCars HashMap
-				Integer cartID = Functions.spawnMinecart(world, loc);
-				plugin.mineCars.put(world.getName() + "." + playerName, cartID);
-				//player.sendMessage("[MineCar] Put car: " + cartID + " and node: " + world.getName() + "." + playerName + " into the Map." );
+				int cartID = Functions.spawnMinecart(world, loc);
+				plugin.mineCars.put(worldName + "." + playerName, cartID);
+				//player.sendMessage("[MineCar] Put car: " + plugin.mineCars.get(worldName + "." + playerName) + " and node: " + worldName + "." + playerName + " into the Map." );
 				return;
 			}
 
