@@ -8,13 +8,12 @@ This plugin will allow players to ride in a minecart that they can control using
 
 TO DO:
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
- - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API)
+ - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API) (config Option already exists)
  - Admin commands:
 	- Remove commands: Return the minecart to the player's inventory (if online?)
-	- remove all <world> needs a new method
 
 KNOWN ISSUES / BUGS / ERRORS:
- - loadCars() does not properly insert cars into the HashMap, idk why...
+ - loadCars() does not properly insert cars into the HashMap, idk why... (only works at runtime, not at startup)
  - Pressing A and D dosen't do anything
 
 IMPLEMENTED:
@@ -28,7 +27,7 @@ IMPLEMENTED:
  - MineCar will only spawn if player has a minecart in their inventory OR if they already have a MineCar
  - On destruction of a MineCar remove it from the HashMap mineCars in MCMain
  - Load and save the list of cars between server restarts/reloads/stops/starts
- - Creation of the config File, containing a speed value
+ - Creation of the config file(with default values) and cars file
  - Admin commands:
     - Reload config
     - Remove commands (see TO DO whats left to be done on them)
