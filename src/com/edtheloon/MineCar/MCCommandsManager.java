@@ -1,5 +1,7 @@
 package com.edtheloon.MineCar;
 
+import java.util.Map;
+
 import com.edtheloon.MineCar.Commands.Reload;
 import com.edtheloon.MineCar.Commands.Remove;
 
@@ -27,6 +29,27 @@ public class MCCommandsManager implements CommandExecutor {
 				Reload.reload(sender);
 				return true;
 			}
+
+			// DEBUG COMMAND TO CHECK THE HASHMAP
+			if(args[0].equalsIgnoreCase("check")){
+				for(Map.Entry<String, Object> cars : plugin.mineCars.entrySet()){
+					((Player) sender).sendMessage("node: " + String.valueOf(cars.getKey()) + " car: " + String.valueOf(cars.getValue()));
+				}
+				return true;
+			}
+			// DEBUG COMMAND TO CHECK IF SAVECARS() WORKS
+			if(args[0].equalsIgnoreCase("save")){
+				((Player) sender).sendMessage("Saving cars to file...");
+				Functions.saveCars(plugin.mineCars);
+				return true;
+			}
+			// DEBUG COMMAND TO CHECK IF LOADCARS() WORKS
+			if(args[0].equalsIgnoreCase("load")){
+				((Player) sender).sendMessage("Loading cars from file...");
+				plugin.mineCars = Functions.loadCars();
+				return true;
+			}
+
 			if (args[0].equalsIgnoreCase("remove")){
 				// No second argument was given
 				if (args.length == 1){
@@ -55,12 +78,13 @@ public class MCCommandsManager implements CommandExecutor {
 						return true;
 					}
 					else {
-						Remove.remove(((Player) sender).getWorld(),args[1], sender);
+						Remove.remove(((Player) sender).getWorld(), args[1], sender);
 						return true;
 					}
 				}
 				else if (args.length == 3){
-					Remove.remove(args[2], args[1], sender);
+					//args[1] = player, args[2] = world
+					Remove.remove(args[1],args[2], sender);
 					return true;
 				}
 			}
