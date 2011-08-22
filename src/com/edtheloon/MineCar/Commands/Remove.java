@@ -34,6 +34,7 @@ public class Remove extends MCCommandsManager {
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE_OWN)){
 			if(Functions.deleteMinecart(world, (Integer) plugin.mineCars.get(world.getName() + "." + playerName))){
 				plugin.mineCars.remove(world.getName() + "." + playerName);
+				Functions.returnCars(playerName, world.getName(), plugin.playersList);
 				sender.sendMessage(ChatColor.GREEN + "You successfully removed " + playerName + "'s MineCar.");
 				return;
 			}
@@ -53,6 +54,7 @@ public class Remove extends MCCommandsManager {
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE)){
 			if(Functions.deleteMinecart(world, (Integer) plugin.mineCars.get(world.getName() + "." + player))){
 				plugin.mineCars.remove(world.getName() + "." + player);
+				Functions.returnCars(player, world.getName(), plugin.playersList);
 				sender.sendMessage(ChatColor.GREEN + "You successfully removed " + player + "'s MineCar.");
 				return;
 			}
@@ -72,6 +74,7 @@ public class Remove extends MCCommandsManager {
 		if (sender instanceof ConsoleCommandSender){
 			if(Functions.deleteMinecart(plugin.getServer().getWorld(world), (Integer) plugin.mineCars.get(world + "." + player))){
 				plugin.mineCars.remove(world + "." + player);
+				Functions.returnCars(player, world, plugin.playersList);
 				log.info("[MineCar] You successfully removed " + player + "'s MineCar in: " + world );
 				return;
 			}

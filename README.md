@@ -11,11 +11,11 @@ TO GET THEM ADDED TO THIS MAIN REPOSITORY. I HIGHLY RECOMMEND YOU DO THIS.*
 
 TO DO:
 ------
- - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS
- - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API) (config Option already exists)
- - Add scheduler for constant movement (e.g.: W pressed -> move as long as the key is pressed now just once)
- - Admin commands:
-	- Remove commands: Return the minecart to the player's inventory (if online? else save the name and return it when he comes back if possible)
+The first two points should be programmed together as changing speed involves the phyisics
+
+ - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS (aim for v 0.7 - 1.0)
+ - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API) (config Option already exists) (aim for v 0.7 - 1.0)
+ - Add scheduler for constant movement (e.g.: W pressed -> move as long as the key is pressed now just once) (aim for v 0.6)
 
 KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
@@ -35,7 +35,8 @@ IMPLEMENTED:
  - Creation of the config file(with default values) and cars file
  - Admin commands:
     - Reload config
-    - Remove commands (see TO DO whats left to be done on them)
+    - Remove commands: Return the minecart to the player's inventory
+      (if online else save the name and return it when he comes back, if possible) [almost done (hopefully)]
  - Support for Permissions 2/3, SuperPerms(PermissionsBukkit) and PermissionsEx
  - Functions for AutoUpdating the config.yml
  - Multi-world support

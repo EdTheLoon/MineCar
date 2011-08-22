@@ -3,7 +3,10 @@ package com.edtheloon.MineCar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerAnimationType;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.player.PlayerPortalEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class MCPlayerListener extends PlayerListener {
 
@@ -30,5 +33,18 @@ public class MCPlayerListener extends PlayerListener {
 				}
 			}
 		}
+	}
+
+	// Retrun the minecart if the player is on the list and he is in the right world.
+	public void onPlayerJoin(PlayerJoinEvent event){
+
+	}
+
+	public void onPlayerPortal(PlayerPortalEvent event){
+
+	}
+
+	public void onPlayerTeleport(PlayerTeleportEvent event){
+
 	}
 }

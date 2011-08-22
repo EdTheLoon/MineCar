@@ -1,6 +1,8 @@
 package com.edtheloon.MineCar;
 
 
+import java.util.UUID;
+
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Minecart;
@@ -32,13 +34,13 @@ public class MCVehicleListener extends VehicleListener {
 		}
 	}
 
-	// DEBUG EVENT: What is the ID of the object clicked...
+	// DEBUG EVENT: What is the UUID of the object clicked...
 	public void onVehicleDamage (VehicleDamageEvent event){
 		Player player = (Player) event.getAttacker();
 		Material item = player.getItemInHand().getType();
 
 		if (item == Material.STICK){
-			int id = event.getVehicle().getEntityId();
+			UUID id = event.getVehicle().getUniqueId();
 			player.sendMessage("Minecart Entity ID: " + String.valueOf(id));
 		}
 	}

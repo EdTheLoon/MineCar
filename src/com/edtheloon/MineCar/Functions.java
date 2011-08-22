@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import org.bukkit.Material;
@@ -14,11 +15,11 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 public class Functions {
 
-	@SuppressWarnings("unused")
 	private static MCMain plugin;
 	private static Logger log = Logger.getLogger("Minecraft");
 
@@ -86,34 +87,41 @@ public class Functions {
 	}
 
 	// Return minecarts to their owner if destroyed, or save them to a List if player is not online
-	public static void returnCars (Player player){
-		if (player != null && player.isOnline()){
-
+	public static void returnCars (String player, String world, HashMap<String, List<String>> playersList){
+		Player playerObj = plugin.getServer().getPlayer(player);
+		// If player == null this means he'S offline
+		if (player != null){
+			PlayerInventory pi = playerObj.getInventory();
+			ItemStack item = new ItemStack(Material.MINECART);
+			item.setAmount(1);
+			pi.addItem(item);
 		}
 		else {
-
+			List<String> players = playersList.get(world);
+			players.add(player);
+			playersList.put(world, players);
 		}
 
 	}
 
 	// Functions to save/load the list of players o whom the cart could not be returned
-	public static HashMap<String, Object> loadPlayers() {
+	@SuppressWarnings("unchecked")
+	public static HashMap<String, List<String>> loadPlayers() {
 
 		// Declare and initialise variables
-		HashMap<String, Object> players = new HashMap<String, Object>();
+		HashMap<String, List<String>> players = new HashMap<String, List<String>>();
 		Map<String, Object> raw = new TreeMap<String, Object>();
 		raw = MCMain.players.getAll();
 
 		// Convert the TreeMap into an HashMap as it's faster accessed
 		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
-			players.put(String.valueOf(raw_entry.getKey()), raw_entry.getValue());
+			players.put(String.valueOf(raw_entry.getKey()), (List<String>) raw_entry.getValue());
 		}
-
 		return players;
 	}
 
-	public static void savePlayers(HashMap<String, Object> players) {
-		for (Map.Entry<String, Object> players_entry : players.entrySet()){
+	public static void savePlayers(HashMap<String, List<String>> players) {
+		for (Entry<String, List<String>> players_entry : players.entrySet()){
 			MCMain.players.setProperty(String.valueOf(players_entry.getKey()), players_entry.getValue());
 		}
 		MCMain.players.save();
