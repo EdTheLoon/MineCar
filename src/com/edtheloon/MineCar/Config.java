@@ -55,6 +55,7 @@ public class Config {
 			try {
 				carsFile.createNewFile();
 				MCMain.cars = new Configuration(carsFile);
+				MCMain.cars.load();
 			}
 			catch (IOException ex) {
 				plugin.log.severe("[MineCar] Could not create cars.yml!");
@@ -62,12 +63,14 @@ public class Config {
 		}
 		else {
 			MCMain.cars = new Configuration(carsFile);
+			MCMain.cars.load();
 		}
 		// Third players.yml
 		if (!playersFile.exists()){
 			try {
 				playersFile.createNewFile();
 				MCMain.players = new Configuration(playersFile);
+				MCMain.players.load();
 			}
 			catch (IOException ex) {
 				plugin.log.severe("[MineCar] Could not create players.yml!");
@@ -75,6 +78,7 @@ public class Config {
 		}
 		else {
 			MCMain.players = new Configuration(playersFile);
+			MCMain.players.load();
 		}
 	}
 

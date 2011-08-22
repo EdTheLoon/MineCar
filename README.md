@@ -19,7 +19,7 @@ TO DO:
 
 KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
- - loadCars() does not properly insert cars into the HashMap, idk why... (only works at runtime, not at startup)
+None at the moment i am aware of!
 
 IMPLEMENTED:
 ------------
