@@ -100,6 +100,8 @@ public class Remove extends MCCommandsManager {
 		}
 	}
 
+	// TODO: Code for returning carts, need some loops.
+
 	// Called if command '/minecar remove all' is executed
 	public static void removeAll(CommandSender sender){
 		if (sender instanceof ConsoleCommandSender){

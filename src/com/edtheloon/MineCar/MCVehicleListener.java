@@ -38,6 +38,7 @@ public class MCVehicleListener extends VehicleListener {
 			}
 			else if (PermissionsManager.hasPerm(player, MCMain.PERMISSION_DESTROY_OTTHERS)){
 				Functions.deleteMinecart(world, id);
+				// Note: The cart will not be returned to the owner, but instead be popping as do normal carts upon beeing destroyed!
 				plugin.mineCars.remove(world.getName() + "." + player.getName());
 			}
 			else{
