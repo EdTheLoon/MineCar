@@ -3,6 +3,7 @@ package com.edtheloon.MineCar;
 
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Minecart;
@@ -23,14 +24,25 @@ public class MCVehicleListener extends VehicleListener {
 	}
 
 	public void onVehicleDestroy (VehicleDestroyEvent event) {
-		// First check if the vehicle is a MineCar
 		Vehicle vehicle = event.getVehicle();
 		Player player = (Player) event.getAttacker();
 		int id = event.getVehicle().getEntityId();
 		World world = event.getAttacker().getWorld();
+
+		// First check if the vehicle is a MineCar
 		if (vehicle instanceof Minecart) {
-			Functions.deleteMinecart(world, id);
-			plugin.mineCars.remove(world.getName() + "." + player.getName());
+			// Now check if it is the users MineCar, if not, does the user have permission to destroy other MineCars?
+			if (vehicle.getUniqueId() == plugin.mineCars.get(world.getName() + "." + player.getName())){
+				Functions.deleteMinecart(world, id);
+				plugin.mineCars.remove(world.getName() + "." + player.getName());
+			}
+			else if (PermissionsManager.hasPerm(player, MCMain.PERMISSION_DESTROY_OTTHERS)){
+				Functions.deleteMinecart(world, id);
+				plugin.mineCars.remove(world.getName() + "." + player.getName());
+			}
+			else{
+				player.sendMessage(ChatColor.RED + "You are not allowed to destroy other players MineCars!");
+			}
 		}
 	}
 

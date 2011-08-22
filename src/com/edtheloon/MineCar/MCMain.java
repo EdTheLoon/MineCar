@@ -19,6 +19,7 @@ public class MCMain extends JavaPlugin {
 	public static final String PERMISSION_REMOVE_ALL = "MineCar.remove.all";
 	public static final String PERMISSION_REMOVE_OWN = "MineCar.remove.own";
 	public static final String PERMISSION_RELOAD = "MineCar.reload";
+	public static final String PERMISSION_DESTROY_OTTHERS = "MineCar.destroy.others";
 
 	//Listeners
 	private final MCVehicleListener MCVehicleListener = new MCVehicleListener(this);

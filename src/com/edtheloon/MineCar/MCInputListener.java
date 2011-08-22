@@ -42,7 +42,7 @@ public class MCInputListener extends InputListener {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
 
-				int cartID = player.getVehicle().getEntityId();
+				UUID cartID = player.getVehicle().getUniqueId();
 				// If the vehicle isn't a MineCar don't continue
 				if (!plugin.mineCars.containsValue(cartID)) return;
 
@@ -51,7 +51,7 @@ public class MCInputListener extends InputListener {
 				if (Functions.isDerailed(cart)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != (Integer) plugin.mineCars.get(worldName + "." + playerName)) {
+				if (cartID != (UUID) plugin.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -71,12 +71,12 @@ public class MCInputListener extends InputListener {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
 
-				int cartID = player.getVehicle().getEntityId();
+				UUID cartID = player.getVehicle().getUniqueId();
 				// If the vehicle isn't a MineCar don't continue
 				if (!plugin.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != (Integer) plugin.mineCars.get(worldName + "." + playerName)) {
+				if (cartID != (UUID) plugin.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -100,12 +100,12 @@ public class MCInputListener extends InputListener {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
 
-				int cartID = player.getVehicle().getEntityId();
+				UUID cartID = player.getVehicle().getUniqueId();
 				// If the vehicle isn't a MineCar don't continue
 				if (!plugin.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != (Integer) plugin.mineCars.get(worldName + "." + playerName)) {
+				if (cartID != (UUID) plugin.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -129,12 +129,12 @@ public class MCInputListener extends InputListener {
 				// DEBUG ONLY, REMOVE THIS LINE
 				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
 
-				int cartID = player.getVehicle().getEntityId();
+				UUID cartID = player.getVehicle().getUniqueId();
 				// If the vehicle isn't a MineCar don't continue
 				if (!plugin.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != (Integer) plugin.mineCars.get(worldName + "." + playerName)) {
+				if (cartID != (UUID) plugin.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
