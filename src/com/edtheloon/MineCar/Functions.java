@@ -89,7 +89,7 @@ public class Functions {
 	// Return minecarts to their owner if destroyed, or save them to a List if player is not online
 	public static void returnCars (String player, String world, HashMap<String, List<String>> playersList){
 		Player playerObj = plugin.getServer().getPlayer(player);
-		// If player == null this means he'S offline
+		// If player == null this means he's offline
 		if (player != null){
 			PlayerInventory pi = playerObj.getInventory();
 			ItemStack item = new ItemStack(Material.MINECART);
