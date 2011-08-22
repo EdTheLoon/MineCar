@@ -26,6 +26,7 @@ public class Functions {
 		plugin = plug;
 	}
 
+	// MineCar(t) functions
 	public static Integer spawnMinecart(World world, Location location) {
 		Minecart cart = world.spawn(location, Minecart.class);
 
@@ -48,9 +49,9 @@ public class Functions {
 		// Declare and initialise variables
 		HashMap<String, Object> cars = new HashMap<String, Object>();
 		Map<String, Object> raw = new TreeMap<String, Object>();
-		raw = Config.cars.getAll();
+		raw = MCMain.cars.getAll();
 
-		// Convert the TreeMap into an HashMap as its faster accessed
+		// Convert the TreeMap into an HashMap as it's faster accessed
 		log.info("Loading...");
 		log.info("Got entry: " + String.valueOf(raw.get("world.Lathanael")));
 		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
@@ -62,9 +63,9 @@ public class Functions {
 
 	public static void saveCars(HashMap<String, Object> cars) {
 		for (Map.Entry<String, Object> cars_entry : cars.entrySet()){
-			Config.cars.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue());
+			MCMain.cars.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue());
 		}
-		Config.cars.save();
+		MCMain.cars.save();
 	}
 
 	public static boolean isDerailed(Minecart cart) {
@@ -83,4 +84,28 @@ public class Functions {
 		if (pi.contains(Material.MINECART)) return true; else return false;
 	}
 
+	// Functions to save/load the list of players o whom the cart could not be returned
+	public static HashMap<String, Object> loadPlayers() {
+
+		// Declare and initialise variables
+		HashMap<String, Object> players = new HashMap<String, Object>();
+		Map<String, Object> raw = new TreeMap<String, Object>();
+		raw = MCMain.players.getAll();
+
+		// Convert the TreeMap into an HashMap as it's faster accessed
+		log.info("Loading...");
+		log.info("Got entry: " + String.valueOf(raw.get("world.Lathanael")));
+		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
+			players.put(String.valueOf(raw_entry.getKey()), raw_entry.getValue());
+			log.info(String.valueOf(raw_entry.getKey()) + String.valueOf(raw_entry.getValue()) + " loaded");
+		}
+		return players;
+	}
+
+	public static void savePlayers(HashMap<String, Object> players) {
+		for (Map.Entry<String, Object> cars_entry : players.entrySet()){
+			MCMain.players.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue());
+		}
+		MCMain.players.save();
+	}
 }

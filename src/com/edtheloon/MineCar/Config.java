@@ -19,9 +19,6 @@ public class Config {
 	public static File configFile = new File(dir + File.separator + "config.yml");
 	public static File carsFile = new File(dir + File.separator + "cars.yml");
 	public static File playersFile = new File(dir + File.separator + "players.yml");
-	public static Configuration config;
-	public static Configuration cars;
-	public static Configuration players;
 	public static int speed;
 	public static boolean useBukkit;
 	public static List<String> worlds;
@@ -42,7 +39,7 @@ public class Config {
 		if (!configFile.exists()) {
 			try {
 				configFile.createNewFile();
-				config = new Configuration(configFile);
+				MCMain.config = new Configuration(configFile);
 				setConfDefaults();
 			}
 			catch (IOException ex){
@@ -50,89 +47,89 @@ public class Config {
 			}
 		}
 		else {
-			config = new Configuration(configFile);
+			MCMain.config = new Configuration(configFile);
 			loadConfig();
 		}
 		// Second cars.yml
 		if (!carsFile.exists()){
 			try {
 				carsFile.createNewFile();
-				cars = new Configuration(carsFile);
+				MCMain.cars = new Configuration(carsFile);
 			}
 			catch (IOException ex) {
 				plugin.log.severe("[MineCar] Could not create cars.yml!");
 			}
 		}
 		else {
-			cars = new Configuration(carsFile);
+			MCMain.cars = new Configuration(carsFile);
 		}
 		// Third players.yml
 		if (!playersFile.exists()){
 			try {
 				playersFile.createNewFile();
-				players = new Configuration(playersFile);
+				MCMain.players = new Configuration(playersFile);
 			}
 			catch (IOException ex) {
 				plugin.log.severe("[MineCar] Could not create players.yml!");
 			}
 		}
 		else {
-			players = new Configuration(playersFile);
+			MCMain.players = new Configuration(playersFile);
 		}
 	}
 
 	// Set the default values for the config.yml
 	private static void setConfDefaults() {
-		config.setProperty("Minecar.Speed", 1);
-		config.setProperty("Permissions.useBukkit", false);
-		config.setProperty("Worlds", def);
-		config.save();
+		MCMain.config.setProperty("Minecar.Speed", 1);
+		MCMain.config.setProperty("Permissions.useBukkit", false);
+		MCMain.config.setProperty("Worlds", def);
+		MCMain.config.save();
 	}
 
 	// Load the config.yml and get stored values
 	public static void loadConfig() {
-		config.load();
+		MCMain.config.load();
 		speed = getInt("Minecar.Speed", 1);
 		useBukkit = getBoolean("Permissions.useBukkit", false);
-		worlds = config.getStringList("Worlds", def);
+		worlds = getStringList("Worlds", def);
 
 		//Just in case something happens, lets save the changes, if any
-		config.save();
-		config.load();
+		MCMain.config.save();
+		MCMain.config.load();
 	}
 
 	// Functions for AutoUpdating the Config.yml
 	public static Object getProperty(String path, Object def) {
 		if(isNull(path))
 			return addProperty(path, def);
-		return config.getProperty(path);
+		return MCMain.config.getProperty(path);
 	}
 
 	public static Integer getInt(String path, Integer def) {
 		if(isNull(path))
 			return (Integer) addProperty(path, def);
-		return config.getInt(path, def);
+		return MCMain.config.getInt(path, def);
 	}
 
 	public static Boolean getBoolean(String path, Boolean def) {
 		if(isNull(path))
 			return (Boolean) addProperty(path, def);
-		return config.getBoolean(path, def);
+		return MCMain.config.getBoolean(path, def);
 	}
 
 	@SuppressWarnings("unchecked")
 	public static List<String> getStringList(String path, List<String> def) {
 		if (isNull(path))
 			return (List<String>) addProperty(path, def);
-		return config.getStringList(path, def);
+		return MCMain.config.getStringList(path, def);
 	}
 
 	private static Object addProperty(String path, Object val) {
-		config.setProperty(path, val);
+		MCMain.config.setProperty(path, val);
 		return val;
 	}
 
 	private static Boolean isNull(String path) {
-		return config.getProperty(path) == null;
+		return MCMain.config.getProperty(path) == null;
 	}
 }
