@@ -84,27 +84,36 @@ public class Functions {
 		if (pi.contains(Material.MINECART)) return true; else return false;
 	}
 
+	// Return minecarts to their owner if destroyed, or save them to a List if player is not online
+	public static void returnCars (Player player){
+		if (player != null && player.isOnline()){
+
+		}
+		else {
+
+		}
+
+	}
+
 	// Functions to save/load the list of players o whom the cart could not be returned
 	public static HashMap<String, Object> loadPlayers() {
 
 		// Declare and initialise variables
 		HashMap<String, Object> players = new HashMap<String, Object>();
 		Map<String, Object> raw = new TreeMap<String, Object>();
-		raw = MCMain.players.getAll();
+		raw = MCMain.cars.getAll();
 
 		// Convert the TreeMap into an HashMap as it's faster accessed
-		log.info("Loading...");
-		log.info("Got entry: " + String.valueOf(raw.get("world.Lathanael")));
 		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
 			players.put(String.valueOf(raw_entry.getKey()), raw_entry.getValue());
-			log.info(String.valueOf(raw_entry.getKey()) + String.valueOf(raw_entry.getValue()) + " loaded");
 		}
+
 		return players;
 	}
 
 	public static void savePlayers(HashMap<String, Object> players) {
-		for (Map.Entry<String, Object> cars_entry : players.entrySet()){
-			MCMain.players.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue());
+		for (Map.Entry<String, Object> players_entry : players.entrySet()){
+			MCMain.players.setProperty(String.valueOf(players_entry.getKey()), players_entry.getValue());
 		}
 		MCMain.players.save();
 	}

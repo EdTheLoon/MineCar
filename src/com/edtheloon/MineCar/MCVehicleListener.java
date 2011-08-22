@@ -1,10 +1,12 @@
 package com.edtheloon.MineCar;
 
 
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Vehicle;
+import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.vehicle.VehicleListener;
 
@@ -30,4 +32,14 @@ public class MCVehicleListener extends VehicleListener {
 		}
 	}
 
+	// DEBUG EVENT: What is the ID of the object clicked...
+	public void onVehicleDamage (VehicleDamageEvent event){
+		Player player = (Player) event.getAttacker();
+		Material item = player.getItemInHand().getType();
+
+		if (item == Material.STICK){
+			int id = event.getVehicle().getEntityId();
+			player.sendMessage("Minecart Entity ID: " + String.valueOf(id));
+		}
+	}
 }

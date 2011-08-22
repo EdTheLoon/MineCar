@@ -1,6 +1,8 @@
 package com.edtheloon.MineCar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.event.Event.Priority;
@@ -30,6 +32,7 @@ public class MCMain extends JavaPlugin {
 	// For Multi-World support we save the cars with the following node: world_name.player_name
 	public HashMap<String, Object> mineCars = new HashMap<String, Object>();
 	public HashMap<String, Object> playersList = new HashMap<String, Object>();
+	public List<String> playerNames = new ArrayList<String>();
 	//Configuration files
 	public static Configuration config;
 	public static Configuration cars;
@@ -56,6 +59,9 @@ public class MCMain extends JavaPlugin {
 		pluginManager.registerEvent(Type.PLAYER_ANIMATION, MCPlayerListener, Priority.Normal, this);
 		// So we can give back cars if removed and the player wasn't online
 		pluginManager.registerEvent(Type.PLAYER_JOIN, MCPlayerListener, Priority.Normal, this);
+		
+		// DEBUG LISTENER
+		pluginManager.registerEvent(Type.VEHICLE_DAMAGE, MCVehicleListener, Priority.Normal, this);
 
 		// Register INPUT LISTENING events
 		pluginManager.registerEvent(Type.CUSTOM_EVENT, new MCInputListener(this), Priority.Normal, this);

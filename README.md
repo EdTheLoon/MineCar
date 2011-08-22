@@ -19,7 +19,7 @@ TO DO:
 
 KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
-None at the moment i am aware of!
+- Vehicle EntityID's are not persistent, on stop/restart of server they get a new ID :(
 
 IMPLEMENTED:
 ------------
