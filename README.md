@@ -14,7 +14,7 @@ TO DO:
 The first two points should be programmed together as changing speed involves the phyisics
 
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS (aim for v 0.7 - 1.0)
- - Make MineCar speed configurable in a config using setDeraliedModifier (or similar, refer to API) (config Option already exists) (aim for v 0.7 - 1.0)
+ - Make MineCar speed configurable in a config using setVelocity (or similar, refer to API) (config Option already exists) (aim for v 0.7 - 1.0)
  - Add scheduler for constant movement (e.g.: W pressed -> move as long as the key is pressed now just once) (aim for v 0.6)
 
 KNOWN ISSUES / BUGS / ERRORS:
