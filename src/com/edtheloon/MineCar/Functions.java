@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.bukkit.Material;
@@ -27,10 +28,10 @@ public class Functions {
 	}
 
 	// MineCar(t) functions
-	public static Integer spawnMinecart(World world, Location location) {
+	public static UUID spawnMinecart(World world, Location location) {
 		Minecart cart = world.spawn(location, Minecart.class);
 
-		return cart.getEntityId();
+		return cart.getUniqueId();
 	}
 
 	public static boolean deleteMinecart(World world, Integer id) {
@@ -101,7 +102,7 @@ public class Functions {
 		// Declare and initialise variables
 		HashMap<String, Object> players = new HashMap<String, Object>();
 		Map<String, Object> raw = new TreeMap<String, Object>();
-		raw = MCMain.cars.getAll();
+		raw = MCMain.players.getAll();
 
 		// Convert the TreeMap into an HashMap as it's faster accessed
 		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){

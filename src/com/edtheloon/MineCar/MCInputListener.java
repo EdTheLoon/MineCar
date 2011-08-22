@@ -1,5 +1,7 @@
 package com.edtheloon.MineCar;
 
+import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -207,7 +209,7 @@ public class MCInputListener extends InputListener {
 				Location loc = player.getTargetBlock(null, 5).getLocation();
 				loc.setY(loc.getY() + 1);
 				// Call the spawning code and then add the Minecarts ID to the mineCars HashMap
-				int cartID = Functions.spawnMinecart(world, loc);
+				UUID cartID = Functions.spawnMinecart(world, loc);
 				plugin.mineCars.put(worldName + "." + playerName, cartID);
 				//player.sendMessage("[MineCar] Put car: " + plugin.mineCars.get(worldName + "." + playerName) + " and node: " + worldName + "." + playerName + " into the Map." );
 				return;
