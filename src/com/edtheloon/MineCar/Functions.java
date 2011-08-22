@@ -101,7 +101,23 @@ public class Functions {
 			players.add(player);
 			playersList.put(world, players);
 		}
+	}
 
+	// Another returning function, called by the PlayerListener
+	public static void returnCars(Player player, HashMap<String, List<String>> playersList){
+		String world = player.getWorld().getName();
+		String playerName = player.getName();
+		if (playersList.containsKey(world)){
+			List<String> players = playersList.get(world);
+			if (players.contains(playerName)){
+				PlayerInventory pi = player.getInventory();
+				ItemStack item = new ItemStack(Material.MINECART);
+				item.setAmount(1);
+				pi.addItem(item);
+				players.remove(playerName);
+				playersList.put(world, players);
+			}
+		}
 	}
 
 	// Functions to save/load the list of players o whom the cart could not be returned
