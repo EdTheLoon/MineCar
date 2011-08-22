@@ -1,5 +1,6 @@
 MineCar
 =======
+__Current version: 0.5.3__
 This plugin will allow players to ride in a minecart that they can control using WASD as a control scheme.
 
 
@@ -36,7 +37,7 @@ IMPLEMENTED:
  - Admin commands:
     - Reload config
     - Remove commands: Return the minecart to the player's inventory
-      (if online else save the name and return it when he comes back, if possible) [almost done (hopefully)]
+      (if online else save the name and return it when he comes back, if possible)
  - Support for Permissions 2/3, SuperPerms(PermissionsBukkit) and PermissionsEx
  - Functions for AutoUpdating the config.yml
  - Multi-world support
