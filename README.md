@@ -25,6 +25,8 @@ KNOWN ISSUES / BUGS / ERRORS:
 - returnCars code called when you destroy your own minecart! (Needs another check!)
 - upon destroying a MineCar the cart pops even if it isn't yours, it should be removed instead.
 
+-----------
+
 - Needs to be tested:
     - more than one player online and using cars
     - UUID persistance and usage ok?
