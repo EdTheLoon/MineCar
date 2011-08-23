@@ -1,5 +1,7 @@
 package com.edtheloon.MineCar;
 
+import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerAnimationEvent;
@@ -26,7 +28,7 @@ public class MCPlayerListener extends PlayerListener {
 		// Check to see if the player is inside a vehicle
 		if (player.isInsideVehicle()) {
 			// Check that the vehicle the player is in is their MineCar
-			if (player.getVehicle().getEntityId() == (Integer) plugin.mineCars.get(player.getWorld().getName() + "." + player.getName())) {
+			if (player.getVehicle().getUniqueId() == (UUID) plugin.mineCars.get(player.getWorld().getName() + "." + player.getName())) {
 				// Now check that the player was swinging their arm
 				if (event.getAnimationType() == PlayerAnimationType.ARM_SWING) {
 					// TODO: SOME MINECAR TURNING CODE
