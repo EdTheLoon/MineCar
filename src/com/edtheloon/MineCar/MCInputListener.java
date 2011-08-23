@@ -2,6 +2,7 @@ package com.edtheloon.MineCar;
 
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -11,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.getspout.spoutapi.event.input.InputListener;
 import org.getspout.spoutapi.event.input.KeyPressedEvent;
+import org.getspout.spoutapi.event.input.KeyReleasedEvent;
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -19,6 +21,7 @@ public class MCInputListener extends InputListener {
 
 	// Class variables
 	private final MCMain plugin;
+	private static SpoutPlayer player;
 
 	// CONSTRUCTOR
 	public MCInputListener(MCMain plug) {
@@ -29,6 +32,8 @@ public class MCInputListener extends InputListener {
 
 		// Declare and initialise variables
 		SpoutPlayer player = event.getPlayer();
+		// player for the task.
+		MCInputListener.player = event.getPlayer();
 		String worldName = event.getPlayer().getWorld().getName();
 		String playerName = player.getName();
 		Keyboard key = event.getKey();
@@ -62,7 +67,15 @@ public class MCInputListener extends InputListener {
 					return;
 				}
 
-				CarControl.moveForward(player);
+				// Get the scheduler for constant movement
+				int id = Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin,
+						new Runnable(){
+							public void run(){
+								CarControl.moveForward(MCInputListener.player);
+
+							}
+						}, 0, 3);
+				plugin.taskID.put(worldName + "." + playerName, id);
 				return;
 			}
 
@@ -91,7 +104,15 @@ public class MCInputListener extends InputListener {
 					return;
 				}
 
-				CarControl.moveBackward(player);
+				// Get the scheduler for constant movement
+				int id = Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin,
+						new Runnable(){
+							public void run(){
+								CarControl.moveBackward(MCInputListener.player);
+
+							}
+						}, 0, 3);
+				plugin.taskID.put(worldName + "." + playerName, id);
 				return;
 			}
 
@@ -120,7 +141,15 @@ public class MCInputListener extends InputListener {
 					return;
 				}
 
-				CarControl.turn(player, "left");
+				// Get the scheduler for constant movement
+				int id = Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin,
+						new Runnable(){
+							public void run(){
+								CarControl.turn(MCInputListener.player, "left");
+
+							}
+						}, 0, 3);
+				plugin.taskID.put(worldName + "." + playerName, id);
 				return;
 			}
 
@@ -149,7 +178,15 @@ public class MCInputListener extends InputListener {
 					return;
 				}
 
-				CarControl.turn(player, "right");
+				// Get the scheduler for constant movement
+				int id = Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin,
+						new Runnable(){
+							public void run(){
+								CarControl.turn(MCInputListener.player, "right");
+
+							}
+						}, 0, 3);
+				plugin.taskID.put(worldName + "." + playerName, id);
 				return;
 			}
 
@@ -215,6 +252,63 @@ public class MCInputListener extends InputListener {
 				return;
 			}
 
+		}
+	}
+
+	public void onKeyReleasedEvent(KeyReleasedEvent event){
+
+		// Declare and initialise variables
+		SpoutPlayer player = event.getPlayer();
+		String worldName = event.getPlayer().getWorld().getName();
+		String playerName = player.getName();
+		Keyboard key = event.getKey();
+
+		// KEY W
+		if (player.isInsideVehicle() && key == Keyboard.KEY_W) {
+
+			UUID cartID = player.getVehicle().getUniqueId();
+			// If the vehicle isn't a MineCar don't continue
+			if (!plugin.mineCars.containsValue(cartID)) return;
+
+			// Cancel the constant movement task and remove the taskID from the map
+			Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
+			plugin.taskID.remove(worldName + "." + playerName);
+		}
+
+		// KEY S
+		if (player.isInsideVehicle() && key == Keyboard.KEY_S) {
+
+			UUID cartID = player.getVehicle().getUniqueId();
+			// If the vehicle isn't a MineCar don't continue
+			if (!plugin.mineCars.containsValue(cartID)) return;
+
+			// Cancel the constant movement task and remove the taskID from the map
+			Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
+			plugin.taskID.remove(worldName + "." + playerName);
+		}
+
+		// KEY A
+		if (player.isInsideVehicle() && key == Keyboard.KEY_A) {
+
+			UUID cartID = player.getVehicle().getUniqueId();
+			// If the vehicle isn't a MineCar don't continue
+			if (!plugin.mineCars.containsValue(cartID)) return;
+
+			// Cancel the constant movement task and remove the taskID from the map
+			Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
+			plugin.taskID.remove(worldName + "." + playerName);
+		}
+
+		// KEY D
+		if (player.isInsideVehicle() && key == Keyboard.KEY_D) {
+
+			UUID cartID = player.getVehicle().getUniqueId();
+			// If the vehicle isn't a MineCar don't continue
+			if (!plugin.mineCars.containsValue(cartID)) return;
+
+			// Cancel the constant movement task and remove the taskID from the map
+			Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
+			plugin.taskID.remove(worldName + "." + playerName);
 		}
 	}
 

@@ -1,6 +1,6 @@
 MineCar
 =======
-####Current version: 0.5.3
+####Current version: 0.6.1
 This plugin will allow players to ride in a minecart that they can control using WASD as a control scheme.
 
 
@@ -16,10 +16,21 @@ The first two points should be programmed together as changing speed involves th
 
  - MAJOR OVERHAUL OF MINECART MOVEMENT PHYSICS (aim for v 0.7 - 1.0)
  - Make MineCar speed configurable in a config using setVelocity (or similar, refer to API) (config Option already exists) (aim for v 0.7 - 1.0)
- - Add scheduler for constant movement (e.g.: W pressed -> move as long as the key is pressed now just once) (aim for v 0.6)
 
 KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
+- load and savePlayers() not working, cant cast from integer to List...
+- returnCars code called upon entering a MineCar (oO dunno why)
+- returnCars code called twice upon joining oO
+- returnCars code called when you destroy your own minecart! (Needs another check!)
+- upon destroying a MineCar the cart pops even if it isn't yours, it should be removed instead.
+
+-----------
+
+- Needs to be tested:
+    - more than one player online and using cars
+    - UUID persistance and usage ok?
+    - all the return code!
 
 IMPLEMENTED:
 ------------
@@ -42,6 +53,7 @@ IMPLEMENTED:
  - Functions for AutoUpdating the config.yml
  - Multi-world support
     - Added a list in the config.yml on which worlds MineCar should be active
+ - Added scheduler for constant movement (e.g.: W pressed -> move as long as the key is pressed now just once)
 
 How I think this will work
 --------------------------
