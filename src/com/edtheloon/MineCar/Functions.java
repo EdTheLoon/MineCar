@@ -21,6 +21,7 @@ import org.bukkit.inventory.PlayerInventory;
 public class Functions {
 
 	private static MCMain plugin;
+	@SuppressWarnings("unused")
 	private static Logger log = Logger.getLogger("Minecraft");
 
 	// CONSTRUCTOR
@@ -35,10 +36,10 @@ public class Functions {
 		return cart.getUniqueId();
 	}
 
-	public static boolean deleteMinecart(World world, Integer id) {
+	public static boolean deleteMinecart(World world, Object uuid) {
 		List<Entity> entities = world.getEntities();
 		for (Entity e : entities) {
-			if(e.getEntityId() == id) {
+			if(e.getUniqueId() == uuid) {
 				e.remove();
 				return true;
 			}
@@ -52,20 +53,19 @@ public class Functions {
 		HashMap<String, Object> cars = new HashMap<String, Object>();
 		Map<String, Object> raw = new TreeMap<String, Object>();
 		raw = MCMain.cars.getAll();
+		UUID id;
 
 		// Convert the TreeMap into an HashMap as it's faster accessed
-		log.info("Loading...");
-		log.info("Got entry: " + String.valueOf(raw.get("world.Lathanael")));
 		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
-			cars.put(String.valueOf(raw_entry.getKey()), raw_entry.getValue());
-			log.info(String.valueOf(raw_entry.getKey()) + String.valueOf(raw_entry.getValue()) + " loaded");
+			id = UUID.fromString((String) raw_entry.getValue());
+			cars.put(String.valueOf(raw_entry.getKey()), id );
 		}
 		return cars;
 	}
 
 	public static void saveCars(HashMap<String, Object> cars) {
 		for (Map.Entry<String, Object> cars_entry : cars.entrySet()){
-			MCMain.cars.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue());
+			MCMain.cars.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue().toString());
 		}
 		MCMain.cars.save();
 	}
@@ -104,7 +104,7 @@ public class Functions {
 	}
 
 	// Another returning function, called by the PlayerListener
-	public static void returnCars(Player player, HashMap<String, List<String>> playersList){
+	public static boolean returnCars(Player player, HashMap<String, List<String>> playersList){
 		String world = player.getWorld().getName();
 		String playerName = player.getName();
 		if (playersList.containsKey(world)){
@@ -116,8 +116,10 @@ public class Functions {
 				pi.addItem(item);
 				players.remove(playerName);
 				playersList.put(world, players);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	// Functions to save/load the list of players o whom the cart could not be returned

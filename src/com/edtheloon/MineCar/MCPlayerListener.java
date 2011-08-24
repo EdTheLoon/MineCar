@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 public class MCPlayerListener extends PlayerListener {
 
 	// Class Variables
+	@SuppressWarnings("unused")
 	private MCMain plugin;
 
 	// CONSTRUCTOR
@@ -28,10 +29,11 @@ public class MCPlayerListener extends PlayerListener {
 		// Check to see if the player is inside a vehicle
 		if (player.isInsideVehicle()) {
 			// Check that the vehicle the player is in is their MineCar
-			if (player.getVehicle().getUniqueId() == (UUID) plugin.mineCars.get(player.getWorld().getName() + "." + player.getName())) {
+			if (player.getVehicle().getUniqueId() == (UUID) MCMain.mineCars.get(player.getWorld().getName() + "." + player.getName())) {
 				// Now check that the player was swinging their arm
 				if (event.getAnimationType() == PlayerAnimationType.ARM_SWING) {
 					// TODO: SOME MINECAR TURNING CODE
+					@SuppressWarnings("unused")
 					float rotation = player.getLocation().getYaw();
 				}
 			}
@@ -41,19 +43,22 @@ public class MCPlayerListener extends PlayerListener {
 	// Retrun the minecart if the player is on the list and he is in the right world.
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
-		Functions.returnCars(player, plugin.playersList);
+		if (Functions.returnCars(player, MCMain.playersList)){
 		player.sendMessage(ChatColor.GOLD + "Your destroyed MineCar has been put into your inventory.");
+		}
 	}
 
 	public void onPlayerPortal(PlayerPortalEvent event){
 		Player player = event.getPlayer();
-		Functions.returnCars(player, plugin.playersList);
-		player.sendMessage(ChatColor.GOLD + "Your destroyed MineCar has been put into your inventory.");
+		if (Functions.returnCars(player, MCMain.playersList)){
+			player.sendMessage(ChatColor.GOLD + "Your destroyed MineCar has been put into your inventory.");
+		}
 	}
 
 	public void onPlayerTeleport(PlayerTeleportEvent event){
 		Player player = event.getPlayer();
-		Functions.returnCars(player, plugin.playersList);
+		if (Functions.returnCars(player, MCMain.playersList)){
 		player.sendMessage(ChatColor.GOLD + "Your destroyed MineCar has been put into your inventory.");
+		}
 	}
 }
