@@ -1,14 +1,20 @@
 package com.edtheloon.MineCar.Commands;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import com.edtheloon.MineCar.Functions;
 import com.edtheloon.MineCar.MCCommandsManager;
@@ -26,15 +32,13 @@ public class Remove extends MCCommandsManager {
 		Remove.plugin = plug;
 	}
 
-	// TODO: All remove commands need to return the Minecart after removing it.
-
 	// Called if command '/minecar remove' is executed
 	public static void remove(World world, CommandSender sender){
 		String playerName = ((Player) sender).getName();
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE_OWN)){
 			if(Functions.deleteMinecart(world, MCMain.mineCars.get(world.getName() + "." + playerName))){
 				MCMain.mineCars.remove(world.getName() + "." + playerName);
-				Functions.returnCars(playerName, world.getName(), MCMain.playersList);
+				returnCars(playerName, world.getName(), MCMain.playersList);
 				sender.sendMessage(ChatColor.GREEN + "You successfully removed " + playerName + "'s MineCar.");
 				return;
 			}
@@ -54,7 +58,7 @@ public class Remove extends MCCommandsManager {
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE)){
 			if(Functions.deleteMinecart(world, MCMain.mineCars.get(world.getName() + "." + player))){
 				MCMain.mineCars.remove(world.getName() + "." + player);
-				Functions.returnCars(player, world.getName(), MCMain.playersList);
+				returnCars(player, world.getName(), MCMain.playersList);
 				sender.sendMessage(ChatColor.GREEN + "You successfully removed " + player + "'s MineCar.");
 				return;
 			}
@@ -74,7 +78,7 @@ public class Remove extends MCCommandsManager {
 		if (sender instanceof ConsoleCommandSender){
 			if(Functions.deleteMinecart(plugin.getServer().getWorld(world), MCMain.mineCars.get(world + "." + player))){
 				MCMain.mineCars.remove(world + "." + player);
-				Functions.returnCars(player, world, MCMain.playersList);
+				returnCars(player, world, MCMain.playersList);
 				log.info("[MineCar] You successfully removed " + player + "'s MineCar in: " + world );
 				return;
 			}
@@ -107,7 +111,7 @@ public class Remove extends MCCommandsManager {
 			for (Map.Entry<String, Object> cars_entry : MCMain.mineCars.entrySet()){
 				keySplit = cars_entry.getKey().split(".");
 				// keySplit[1] = PlayerName, keySplit[0] = WorldName
-				Functions.returnCars(keySplit[1], keySplit[0], MCMain.playersList);
+				returnCars(keySplit[1], keySplit[0], MCMain.playersList);
 			}
 			MCMain.mineCars.clear();
 			log.info("[MineCar] You successfully removed all MineCars");
@@ -118,7 +122,7 @@ public class Remove extends MCCommandsManager {
 			for (Map.Entry<String, Object> cars_entry : MCMain.mineCars.entrySet()){
 				keySplit = cars_entry.getKey().split(".");
 				// keySplit[1] = PlayerName, keySplit[0] = WorldName
-				Functions.returnCars(keySplit[1], keySplit[0], MCMain.playersList);
+				returnCars(keySplit[1], keySplit[0], MCMain.playersList);
 			}
 			MCMain.mineCars.clear();
 			sender.sendMessage(ChatColor.GREEN + "You successfully removed all MineCars");
@@ -141,7 +145,7 @@ public class Remove extends MCCommandsManager {
 				// If the key contains the given world remove the entry
 				if (keySplit[0].equalsIgnoreCase(world)){
 					it.remove();
-					Functions.returnCars(keySplit[1], world, MCMain.playersList);
+					returnCars(keySplit[1], world, MCMain.playersList);
 
 				}
 			}
@@ -157,7 +161,7 @@ public class Remove extends MCCommandsManager {
 				// If the key contains the given world remove the entry
 				if (keySplit[0].equalsIgnoreCase(world)){
 					it.remove();
-					Functions.returnCars(keySplit[1], world, MCMain.playersList);
+					returnCars(keySplit[1], world, MCMain.playersList);
 				}
 			}
 			sender.sendMessage(ChatColor.GREEN + "Successfully removed all cars in " + ChatColor.DARK_PURPLE + world);
@@ -166,6 +170,23 @@ public class Remove extends MCCommandsManager {
 		else {
 			sender.sendMessage(ChatColor.RED + "You don't have permission to execute this command.");
 			return;
+		}
+	}
+
+	// Return minecarts to their owner if destroyed, or save them to a List if player is not online
+	public static void returnCars (String player, String world, HashMap<String, List<String>> playersList){
+		Player playerObj = Bukkit.getServer().getPlayer(player);
+		// If player == null this means he's offline
+		if (player != null){
+			PlayerInventory pi = playerObj.getInventory();
+			ItemStack item = new ItemStack(Material.MINECART);
+			item.setAmount(1);
+			pi.addItem(item);
+		}
+		else {
+			List<String> players = playersList.get(world);
+			players.add(player);
+			playersList.put(world, players);
 		}
 	}
 }

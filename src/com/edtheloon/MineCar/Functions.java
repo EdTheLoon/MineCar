@@ -20,6 +20,7 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class Functions {
 
+	@SuppressWarnings("unused")
 	private static MCMain plugin;
 	@SuppressWarnings("unused")
 	private static Logger log = Logger.getLogger("Minecraft");
@@ -84,23 +85,6 @@ public class Functions {
 	public static boolean hasMinecart(Player player) {
 		PlayerInventory pi = player.getInventory();
 		if (pi.contains(Material.MINECART)) return true; else return false;
-	}
-
-	// Return minecarts to their owner if destroyed, or save them to a List if player is not online
-	public static void returnCars (String player, String world, HashMap<String, List<String>> playersList){
-		Player playerObj = plugin.getServer().getPlayer(player);
-		// If player == null this means he's offline
-		if (player != null){
-			PlayerInventory pi = playerObj.getInventory();
-			ItemStack item = new ItemStack(Material.MINECART);
-			item.setAmount(1);
-			pi.addItem(item);
-		}
-		else {
-			List<String> players = playersList.get(world);
-			players.add(player);
-			playersList.put(world, players);
-		}
 	}
 
 	// Another returning function, called by the PlayerListener
