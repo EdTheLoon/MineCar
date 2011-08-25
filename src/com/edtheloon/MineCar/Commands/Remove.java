@@ -76,7 +76,7 @@ public class Remove extends MCCommandsManager {
 	// Called if command '/minecar remove <player> <world>' is executed
 	public static void remove(String player, String world, CommandSender sender){
 		if (sender instanceof ConsoleCommandSender){
-			if(Functions.deleteMinecart(plugin.getServer().getWorld(world), MCMain.mineCars.get(world + "." + player))){
+			if(Functions.deleteMinecart(Bukkit.getServer().getWorld(world), MCMain.mineCars.get(world + "." + player))){
 				MCMain.mineCars.remove(world + "." + player);
 				returnCars(player, world, MCMain.playersList);
 				log.info("[MineCar] You successfully removed " + player + "'s MineCar in: " + world );
@@ -88,8 +88,9 @@ public class Remove extends MCCommandsManager {
 			}
 		}
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE)){
-			if(Functions.deleteMinecart(plugin.getServer().getWorld(world), MCMain.mineCars.get(world + "." + player))){
+			if(Functions.deleteMinecart(Bukkit.getServer().getWorld(world), MCMain.mineCars.get(world + "." + player))){
 				MCMain.mineCars.remove(world + "." + player);
+				returnCars(player, world, MCMain.playersList);
 				sender.sendMessage(ChatColor.GREEN + "You successfully removed " + player + "'s MineCar in: " + ChatColor.DARK_PURPLE + world);
 				return;
 			}
@@ -112,6 +113,7 @@ public class Remove extends MCCommandsManager {
 				keySplit = cars_entry.getKey().split("\\.");
 				// keySplit[1] = PlayerName, keySplit[0] = WorldName
 				returnCars(keySplit[1], keySplit[0], MCMain.playersList);
+				Functions.deleteMinecart(Bukkit.getServer().getWorld(keySplit[0]), cars_entry.getValue());
 			}
 			MCMain.mineCars.clear();
 			log.info("[MineCar] You successfully removed all MineCars");
@@ -124,6 +126,7 @@ public class Remove extends MCCommandsManager {
 				keySplit = cars_entry.getKey().split("\\.");
 				// keySplit[1] = PlayerName, keySplit[0] = WorldName
 				returnCars(keySplit[1], keySplit[0], MCMain.playersList);
+				Functions.deleteMinecart(Bukkit.getServer().getWorld(keySplit[0]), cars_entry.getValue());
 			}
 			MCMain.mineCars.clear();
 			sender.sendMessage(ChatColor.GREEN + "You successfully removed all MineCars");
@@ -145,9 +148,10 @@ public class Remove extends MCCommandsManager {
 				keySplit = entry.getKey().split("\\.");
 				// If the key contains the given world remove the entry
 				if (keySplit[0].equalsIgnoreCase(world)){
+					if (Functions.deleteMinecart(Bukkit.getServer().getWorld(keySplit[0]), entry.getValue())){
 					it.remove();
 					returnCars(keySplit[1], world, MCMain.playersList);
-
+					}
 				}
 			}
 			log.info("[MineCar] Successfully removed all cars in " + world);
@@ -161,8 +165,10 @@ public class Remove extends MCCommandsManager {
 				keySplit = entry.getKey().split("\\.");
 				// If the key contains the given world remove the entry
 				if (keySplit[0].equalsIgnoreCase(world)){
-					it.remove();
-					returnCars(keySplit[1], world, MCMain.playersList);
+					if (Functions.deleteMinecart(Bukkit.getServer().getWorld(keySplit[0]), entry.getValue())){
+						it.remove();
+						returnCars(keySplit[1], world, MCMain.playersList);
+					}
 				}
 			}
 			sender.sendMessage(ChatColor.GREEN + "Successfully removed all cars in " + ChatColor.DARK_PURPLE + world);
