@@ -33,7 +33,7 @@ public class MCCommandsManager implements CommandExecutor {
 
 			// DEBUG COMMAND TO CHECK THE HASHMAP
 			if(args[0].equalsIgnoreCase("check")){
-				for(Map.Entry<String, Object> cars : plugin.mineCars.entrySet()){
+				for(Map.Entry<String, Object> cars : MCMain.mineCars.entrySet()){
 					((Player) sender).sendMessage("node: " + String.valueOf(cars.getKey()) + " car: " + String.valueOf(cars.getValue()));
 				}
 				return true;
@@ -41,13 +41,13 @@ public class MCCommandsManager implements CommandExecutor {
 			// DEBUG COMMAND TO CHECK IF SAVECARS() WORKS
 			if(args[0].equalsIgnoreCase("save")){
 				((Player) sender).sendMessage("Saving cars to file...");
-				Functions.saveCars(plugin.mineCars);
+				Functions.saveCars(MCMain.mineCars);
 				return true;
 			}
 			// DEBUG COMMAND TO CHECK IF LOADCARS() WORKS
 			if(args[0].equalsIgnoreCase("load")){
 				((Player) sender).sendMessage("Loading cars from file...");
-				plugin.mineCars = Functions.loadCars();
+				MCMain.mineCars = Functions.loadCars();
 				return true;
 			}
 
@@ -64,7 +64,7 @@ public class MCCommandsManager implements CommandExecutor {
 						return true;
 					}
 				}
-				else if (args.length >= 2 && args[2].equalsIgnoreCase("all")){
+				else if (args.length >= 2 && args[1].equalsIgnoreCase("all")){
 					// Removes ALL MineCars
 					if (args.length == 2){
 						Remove.removeAll(sender);

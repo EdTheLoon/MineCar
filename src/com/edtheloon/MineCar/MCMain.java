@@ -30,8 +30,8 @@ public class MCMain extends JavaPlugin {
 	public PluginManager pluginManager;
 	public Logger log = Logger.getLogger("Minecraft");
 	// For Multi-World support we save the cars with the following node: world_name.player_name
-	public HashMap<String, Object> mineCars = new HashMap<String, Object>();
-	public HashMap<String, List<String>> playersList = new HashMap<String, List<String>>();
+	public static HashMap<String, Object> mineCars = new HashMap<String, Object>();
+	public static HashMap<String, List<String>> playersList = new HashMap<String, List<String>>();
 	// Constant movement task IDs
 	public HashMap<String, Integer> taskID = new HashMap<String, Integer>();
 	// Configuration files
