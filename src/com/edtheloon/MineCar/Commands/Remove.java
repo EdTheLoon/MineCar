@@ -23,6 +23,7 @@ import com.edtheloon.MineCar.PermissionsManager;
 
 public class Remove extends MCCommandsManager {
 
+	@SuppressWarnings("unused")
 	private static MCMain plugin;
 	// Otherwise we get a warning in console and command/Logger does not work.
 	private static Logger log = Logger.getLogger("Minecraft");
@@ -83,7 +84,7 @@ public class Remove extends MCCommandsManager {
 				return;
 			}
 			else {
-				plugin.log.info("[MineCar] "+ player + " does not own a MineCar.");
+				log.info("[MineCar] "+ player + " does not own a MineCar.");
 				return;
 			}
 		}
@@ -184,7 +185,7 @@ public class Remove extends MCCommandsManager {
 	public static void returnCars (String player, String world, HashMap<String, List<String>> playersList){
 		Player playerObj = Bukkit.getServer().getPlayer(player);
 		// If player == null this means he's offline
-		if (player != null){
+		if (player != null && playerObj.isOnline()){
 			PlayerInventory pi = playerObj.getInventory();
 			ItemStack item = new ItemStack(Material.MINECART);
 			item.setAmount(1);

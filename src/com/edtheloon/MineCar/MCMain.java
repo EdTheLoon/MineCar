@@ -49,8 +49,8 @@ public class MCMain extends JavaPlugin {
 		mineCars = Functions.loadCars();
 
 		// Output to console that we're loading the list of players from a file and then load the list
-		//log.info("[MineCar] Loading list of players...");
-		//playersList = Functions.loadPlayers();
+		log.info("[MineCar] Loading list of players...");
+		playersList = Functions.loadPlayers();
 
 		// Get the server's plugin manager so we can register commands and events
 		pluginManager = getServer().getPluginManager();
@@ -84,8 +84,8 @@ public class MCMain extends JavaPlugin {
 		Functions.saveCars(mineCars);
 
 		// Output to server console that we're saving the players list and then save the list
-		//log.info("[MineCar] Saving list of players...");
-		//Functions.savePlayers(playersList);
+		log.info("[MineCar] Saving list of players...");
+		Functions.savePlayers(playersList);
 
 		// Output to server console that the plugin is disabled
 		log.info("[MineCar] Version " + this.getDescription().getVersion() + " disabled");
