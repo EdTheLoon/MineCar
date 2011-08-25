@@ -1,6 +1,6 @@
 MineCar
 =======
-####Current version: 0.6.5
+####Current version: 0.6.7
 This plugin will allow players to ride in a minecart that they can control using WASD as a control scheme.
 
 
@@ -19,9 +19,7 @@ The first two points should be programmed together as changing speed involves th
 
 KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
-- load and savePlayers() not working, cant cast from integer to List...
 - UUID check doesn't seem to work properly after reload/stop+restart (both UUIDs look the same but apperantly they aren't)
-- removal of minecarts of upon remove command
 
 -----------
 
