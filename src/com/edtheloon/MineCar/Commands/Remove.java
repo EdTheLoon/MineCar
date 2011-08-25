@@ -185,7 +185,7 @@ public class Remove extends MCCommandsManager {
 	public static void returnCars (String player, String world, HashMap<String, List<String>> playersList){
 		Player playerObj = Bukkit.getServer().getPlayer(player);
 		// If player == null this means he's offline
-		if (player != null && playerObj.isOnline()){
+		if (playerObj != null){
 			PlayerInventory pi = playerObj.getInventory();
 			ItemStack item = new ItemStack(Material.MINECART);
 			item.setAmount(1);
