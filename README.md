@@ -21,6 +21,7 @@ KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
 - load and savePlayers() not working, cant cast from integer to List...
 - UUID check doesn't seem to work properly after reload/stop+restart (both UUIDs look the same but apperantly they aren't)
+- removal of minecarts of upon remove command
 
 -----------
 
