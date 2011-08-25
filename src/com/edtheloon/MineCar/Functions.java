@@ -39,8 +39,9 @@ public class Functions {
 
 	public static boolean deleteMinecart(World world, Object uuid) {
 		List<Entity> entities = world.getEntities();
+		UUID id = (UUID) uuid;
 		for (Entity e : entities) {
-			if(e.getUniqueId() == uuid) {
+			if(e.getUniqueId() == id) {
 				e.remove();
 				return true;
 			}
@@ -107,24 +108,19 @@ public class Functions {
 	}
 
 	// Functions to save/load the list of players o whom the cart could not be returned
-	@SuppressWarnings("unchecked")
 	public static HashMap<String, List<String>> loadPlayers() {
 
 		// Declare and initialise variables
 		HashMap<String, List<String>> players = new HashMap<String, List<String>>();
-		Map<String, Object> raw = new TreeMap<String, Object>();
-		raw = MCMain.players.getAll();
-
-		// Convert the TreeMap into an HashMap as it's faster accessed
-		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
-			players.put(String.valueOf(raw_entry.getKey()), (List<String>) raw_entry.getValue());
+		for (String world: Config.worlds){
+			players.put(world, MCMain.players.getStringList(world, null));
 		}
 		return players;
 	}
 
 	public static void savePlayers(HashMap<String, List<String>> players) {
 		for (Entry<String, List<String>> players_entry : players.entrySet()){
-			MCMain.players.setProperty(String.valueOf(players_entry.getKey()), players_entry.getValue());
+			MCMain.players.setProperty(players_entry.getKey(), players_entry.getValue());
 		}
 		MCMain.players.save();
 	}

@@ -109,7 +109,7 @@ public class Remove extends MCCommandsManager {
 		if (sender instanceof ConsoleCommandSender){
 			String[] keySplit;
 			for (Map.Entry<String, Object> cars_entry : MCMain.mineCars.entrySet()){
-				keySplit = cars_entry.getKey().split(".");
+				keySplit = cars_entry.getKey().split("\\.");
 				// keySplit[1] = PlayerName, keySplit[0] = WorldName
 				returnCars(keySplit[1], keySplit[0], MCMain.playersList);
 			}
@@ -120,7 +120,8 @@ public class Remove extends MCCommandsManager {
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE_ALL)){
 			String[] keySplit;
 			for (Map.Entry<String, Object> cars_entry : MCMain.mineCars.entrySet()){
-				keySplit = cars_entry.getKey().split(".");
+				sender.sendMessage(cars_entry.getKey());
+				keySplit = cars_entry.getKey().split("\\.");
 				// keySplit[1] = PlayerName, keySplit[0] = WorldName
 				returnCars(keySplit[1], keySplit[0], MCMain.playersList);
 			}
@@ -137,11 +138,11 @@ public class Remove extends MCCommandsManager {
 	// Called if command '/minecar remove all <world>' is executed
 	public static void removeAll(CommandSender sender, String world){
 		if (sender instanceof ConsoleCommandSender){
-			String[] keySplit;
+			String[] keySplit = {"",""};
 			Iterator<Map.Entry<String, Object>> it = MCMain.mineCars.entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry<String, Object> entry = it.next();
-				keySplit = entry.getKey().split(".");
+				keySplit = entry.getKey().split("\\.");
 				// If the key contains the given world remove the entry
 				if (keySplit[0].equalsIgnoreCase(world)){
 					it.remove();
@@ -153,11 +154,11 @@ public class Remove extends MCCommandsManager {
 			return;
 		}
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_REMOVE_ALL)){
-			String[] keySplit;
+			String[] keySplit = {"",""};
 			Iterator<Map.Entry<String, Object>> it = MCMain.mineCars.entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry<String, Object> entry = it.next();
-				keySplit = entry.getKey().split(".");
+				keySplit = entry.getKey().split("\\.");
 				// If the key contains the given world remove the entry
 				if (keySplit[0].equalsIgnoreCase(world)){
 					it.remove();

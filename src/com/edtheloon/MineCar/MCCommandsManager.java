@@ -64,7 +64,7 @@ public class MCCommandsManager implements CommandExecutor {
 						return true;
 					}
 				}
-				else if (args.length >= 2 && args[2].equalsIgnoreCase("all")){
+				else if (args.length >= 2 && args[1].equalsIgnoreCase("all")){
 					// Removes ALL MineCars
 					if (args.length == 2){
 						Remove.removeAll(sender);

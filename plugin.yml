@@ -4,7 +4,7 @@ author: EdTheLoon
 authors: [Lathanael, Lemonzap]
 website:
 description: Turn a minecart into a MineCar!
-version: 0.6.4
+version: 0.6.5
 soft-depend: [Spout]
 
 commands:
