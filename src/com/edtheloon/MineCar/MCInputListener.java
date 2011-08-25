@@ -49,14 +49,14 @@ public class MCInputListener extends InputListener {
 
 				UUID cartID = player.getVehicle().getUniqueId();
 				// If the vehicle isn't a MineCar don't continue
-				if (!plugin.mineCars.containsValue(cartID)) return;
+				if (!MCMain.mineCars.containsValue(cartID)) return;
 
 				// If vehicle is on rails don't continue
 				Minecart cart = (Minecart) player.getVehicle();
 				if (Functions.isDerailed(cart)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != (UUID) plugin.mineCars.get(worldName + "." + playerName)) {
+				if (cartID != MCMain.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -86,10 +86,10 @@ public class MCInputListener extends InputListener {
 
 				UUID cartID = player.getVehicle().getUniqueId();
 				// If the vehicle isn't a MineCar don't continue
-				if (!plugin.mineCars.containsValue(cartID)) return;
+				if (!MCMain.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != (UUID) plugin.mineCars.get(worldName + "." + playerName)) {
+				if (cartID != MCMain.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -123,10 +123,10 @@ public class MCInputListener extends InputListener {
 
 				UUID cartID = player.getVehicle().getUniqueId();
 				// If the vehicle isn't a MineCar don't continue
-				if (!plugin.mineCars.containsValue(cartID)) return;
+				if (!MCMain.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != (UUID) plugin.mineCars.get(worldName + "." + playerName)) {
+				if (cartID != MCMain.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -160,10 +160,10 @@ public class MCInputListener extends InputListener {
 
 				UUID cartID = player.getVehicle().getUniqueId();
 				// If the vehicle isn't a MineCar don't continue
-				if (!plugin.mineCars.containsValue(cartID)) return;
+				if (!MCMain.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != (UUID) plugin.mineCars.get(worldName + "." + playerName)) {
+				if (cartID != MCMain.mineCars.get(worldName + "." + playerName)) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -214,7 +214,7 @@ public class MCInputListener extends InputListener {
 				}
 
 				World world = player.getWorld();
-				boolean hasCart = plugin.mineCars.containsKey(worldName + "." + playerName);
+				boolean hasCart = MCMain.mineCars.containsKey(worldName + "." + playerName);
 
 				// If player doesn't already have a MineCar OR doesn't have a Minecart in inventory then don't continue
 				if (!hasCart) {
@@ -232,13 +232,13 @@ public class MCInputListener extends InputListener {
 				// Check that the player doesn't already have a MineCar. If so then delete it
 				if (hasCart) {
 
-					if (Functions.deleteMinecart(world, (Integer) plugin.mineCars.get(worldName + "." + playerName))) {
+					if (Functions.deleteMinecart(world, (UUID) MCMain.mineCars.get(worldName + "." + playerName))) {
 						// REMOVE BELOW DEBUG LINE
 						//player.sendMessage("[MineCar] You're previous MineCar has been deleted");
-						plugin.mineCars.remove(worldName + "." + playerName);
+						MCMain.mineCars.remove(worldName + "." + playerName);
 					} else {
 						plugin.log.severe("[MineCar] Could not remove " + playerName + "'s minecart from world " + worldName);
-						plugin.mineCars.remove(worldName + "." + playerName);
+						MCMain.mineCars.remove(worldName + "." + playerName);
 					}
 				}
 
@@ -247,7 +247,7 @@ public class MCInputListener extends InputListener {
 				loc.setY(loc.getY() + 1);
 				// Call the spawning code and then add the Minecarts ID to the mineCars HashMap
 				UUID cartID = Functions.spawnMinecart(world, loc);
-				plugin.mineCars.put(worldName + "." + playerName, cartID);
+				MCMain.mineCars.put(worldName + "." + playerName, cartID);
 				//player.sendMessage("[MineCar] Put car: " + plugin.mineCars.get(worldName + "." + playerName) + " and node: " + worldName + "." + playerName + " into the Map." );
 				return;
 			}
@@ -268,11 +268,13 @@ public class MCInputListener extends InputListener {
 
 			UUID cartID = player.getVehicle().getUniqueId();
 			// If the vehicle isn't a MineCar don't continue
-			if (!plugin.mineCars.containsValue(cartID)) return;
+			if (!MCMain.mineCars.containsValue(cartID)) return;
 
 			// Cancel the constant movement task and remove the taskID from the map
-			Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
-			plugin.taskID.remove(worldName + "." + playerName);
+			if (plugin.taskID.get(worldName + "." + playerName) != null){
+				Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
+				plugin.taskID.remove(worldName + "." + playerName);
+			}
 		}
 
 		// KEY S
@@ -280,11 +282,13 @@ public class MCInputListener extends InputListener {
 
 			UUID cartID = player.getVehicle().getUniqueId();
 			// If the vehicle isn't a MineCar don't continue
-			if (!plugin.mineCars.containsValue(cartID)) return;
+			if (!MCMain.mineCars.containsValue(cartID)) return;
 
 			// Cancel the constant movement task and remove the taskID from the map
-			Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
-			plugin.taskID.remove(worldName + "." + playerName);
+			if (plugin.taskID.get(worldName + "." + playerName) != null){
+				Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
+				plugin.taskID.remove(worldName + "." + playerName);
+			}
 		}
 
 		// KEY A
@@ -292,11 +296,13 @@ public class MCInputListener extends InputListener {
 
 			UUID cartID = player.getVehicle().getUniqueId();
 			// If the vehicle isn't a MineCar don't continue
-			if (!plugin.mineCars.containsValue(cartID)) return;
+			if (!MCMain.mineCars.containsValue(cartID)) return;
 
 			// Cancel the constant movement task and remove the taskID from the map
-			Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
-			plugin.taskID.remove(worldName + "." + playerName);
+			if (plugin.taskID.get(worldName + "." + playerName) != null){
+				Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
+				plugin.taskID.remove(worldName + "." + playerName);
+			}
 		}
 
 		// KEY D
@@ -304,11 +310,13 @@ public class MCInputListener extends InputListener {
 
 			UUID cartID = player.getVehicle().getUniqueId();
 			// If the vehicle isn't a MineCar don't continue
-			if (!plugin.mineCars.containsValue(cartID)) return;
+			if (!MCMain.mineCars.containsValue(cartID)) return;
 
 			// Cancel the constant movement task and remove the taskID from the map
-			Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
-			plugin.taskID.remove(worldName + "." + playerName);
+			if (plugin.taskID.get(worldName + "." + playerName) != null){
+				Bukkit.getServer().getScheduler().cancelTask(plugin.taskID.get(worldName + "." + playerName));
+				plugin.taskID.remove(worldName + "." + playerName);
+			}
 		}
 	}
 

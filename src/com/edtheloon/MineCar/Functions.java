@@ -20,7 +20,9 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class Functions {
 
+	@SuppressWarnings("unused")
 	private static MCMain plugin;
+	@SuppressWarnings("unused")
 	private static Logger log = Logger.getLogger("Minecraft");
 
 	// CONSTRUCTOR
@@ -35,10 +37,11 @@ public class Functions {
 		return cart.getUniqueId();
 	}
 
-	public static boolean deleteMinecart(World world, Integer id) {
+	public static boolean deleteMinecart(World world, Object uuid) {
 		List<Entity> entities = world.getEntities();
+		UUID id = (UUID) uuid;
 		for (Entity e : entities) {
-			if(e.getEntityId() == id) {
+			if(e.getUniqueId() == id) {
 				e.remove();
 				return true;
 			}
@@ -52,20 +55,19 @@ public class Functions {
 		HashMap<String, Object> cars = new HashMap<String, Object>();
 		Map<String, Object> raw = new TreeMap<String, Object>();
 		raw = MCMain.cars.getAll();
+		UUID id;
 
 		// Convert the TreeMap into an HashMap as it's faster accessed
-		log.info("Loading...");
-		log.info("Got entry: " + String.valueOf(raw.get("world.Lathanael")));
 		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
-			cars.put(String.valueOf(raw_entry.getKey()), raw_entry.getValue());
-			log.info(String.valueOf(raw_entry.getKey()) + String.valueOf(raw_entry.getValue()) + " loaded");
+			id = UUID.fromString((String) raw_entry.getValue());
+			cars.put(String.valueOf(raw_entry.getKey()), id );
 		}
 		return cars;
 	}
 
 	public static void saveCars(HashMap<String, Object> cars) {
 		for (Map.Entry<String, Object> cars_entry : cars.entrySet()){
-			MCMain.cars.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue());
+			MCMain.cars.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue().toString());
 		}
 		MCMain.cars.save();
 	}
@@ -86,25 +88,8 @@ public class Functions {
 		if (pi.contains(Material.MINECART)) return true; else return false;
 	}
 
-	// Return minecarts to their owner if destroyed, or save them to a List if player is not online
-	public static void returnCars (String player, String world, HashMap<String, List<String>> playersList){
-		Player playerObj = plugin.getServer().getPlayer(player);
-		// If player == null this means he's offline
-		if (player != null){
-			PlayerInventory pi = playerObj.getInventory();
-			ItemStack item = new ItemStack(Material.MINECART);
-			item.setAmount(1);
-			pi.addItem(item);
-		}
-		else {
-			List<String> players = playersList.get(world);
-			players.add(player);
-			playersList.put(world, players);
-		}
-	}
-
 	// Another returning function, called by the PlayerListener
-	public static void returnCars(Player player, HashMap<String, List<String>> playersList){
+	public static boolean returnCars(Player player, HashMap<String, List<String>> playersList){
 		String world = player.getWorld().getName();
 		String playerName = player.getName();
 		if (playersList.containsKey(world)){
@@ -116,29 +101,26 @@ public class Functions {
 				pi.addItem(item);
 				players.remove(playerName);
 				playersList.put(world, players);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	// Functions to save/load the list of players o whom the cart could not be returned
-	@SuppressWarnings("unchecked")
 	public static HashMap<String, List<String>> loadPlayers() {
 
 		// Declare and initialise variables
 		HashMap<String, List<String>> players = new HashMap<String, List<String>>();
-		Map<String, Object> raw = new TreeMap<String, Object>();
-		raw = MCMain.players.getAll();
-
-		// Convert the TreeMap into an HashMap as it's faster accessed
-		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
-			players.put(String.valueOf(raw_entry.getKey()), (List<String>) raw_entry.getValue());
+		for (String world: Config.worlds){
+			players.put(world, MCMain.players.getStringList(world, null));
 		}
 		return players;
 	}
 
 	public static void savePlayers(HashMap<String, List<String>> players) {
 		for (Entry<String, List<String>> players_entry : players.entrySet()){
-			MCMain.players.setProperty(String.valueOf(players_entry.getKey()), players_entry.getValue());
+			MCMain.players.setProperty(players_entry.getKey(), players_entry.getValue());
 		}
 		MCMain.players.save();
 	}

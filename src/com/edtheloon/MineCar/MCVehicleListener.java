@@ -16,6 +16,7 @@ import org.bukkit.event.vehicle.VehicleListener;
 public class MCVehicleListener extends VehicleListener {
 
 	// Class variables
+	@SuppressWarnings("unused")
 	private MCMain plugin;
 
 	// CONSTRUCTOR
@@ -26,22 +27,23 @@ public class MCVehicleListener extends VehicleListener {
 	public void onVehicleDestroy (VehicleDestroyEvent event) {
 		Vehicle vehicle = event.getVehicle();
 		Player player = (Player) event.getAttacker();
-		int id = event.getVehicle().getEntityId();
+		UUID id = event.getVehicle().getUniqueId();
 		World world = event.getAttacker().getWorld();
 
 		// First check if the vehicle is a MineCar
 		if (vehicle instanceof Minecart) {
 			// Now check if it is the users MineCar, if not, does the user have permission to destroy other MineCars?
-			if (vehicle.getUniqueId() == plugin.mineCars.get(world.getName() + "." + player.getName())){
+			if (vehicle.getUniqueId() == MCMain.mineCars.get(world.getName() + "." + player.getName())){
 				Functions.deleteMinecart(world, id);
-				plugin.mineCars.remove(world.getName() + "." + player.getName());
+				MCMain.mineCars.remove(world.getName() + "." + player.getName());
 			}
-			else if (PermissionsManager.hasPerm(player, MCMain.PERMISSION_DESTROY_OTTHERS)){
+			else if (MCMain.mineCars.containsValue(vehicle.getUniqueId()) && PermissionsManager.hasPerm(player, MCMain.PERMISSION_DESTROY_OTTHERS)){
 				Functions.deleteMinecart(world, id);
 				// Note: The cart will not be returned to the owner, but instead be popping as do normal carts upon beeing destroyed!
-				plugin.mineCars.remove(world.getName() + "." + player.getName());
+				MCMain.mineCars.remove(world.getName() + "." + player.getName());
+				event.setCancelled(true);
 			}
-			else{
+			else if (MCMain.mineCars.containsValue(vehicle.getUniqueId())){
 				player.sendMessage(ChatColor.RED + "You are not allowed to destroy other players MineCars!");
 			}
 		}
@@ -54,7 +56,7 @@ public class MCVehicleListener extends VehicleListener {
 
 		if (item == Material.STICK){
 			UUID id = event.getVehicle().getUniqueId();
-			player.sendMessage("Minecart Entity ID: " + String.valueOf(id));
+			player.sendMessage("Minecart UUID: " + String.valueOf(id));
 		}
 	}
 }
