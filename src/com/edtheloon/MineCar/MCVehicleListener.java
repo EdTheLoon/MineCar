@@ -33,7 +33,7 @@ public class MCVehicleListener extends VehicleListener {
 		// First check if the vehicle is a MineCar
 		if (vehicle instanceof Minecart) {
 			// Now check if it is the users MineCar, if not, does the user have permission to destroy other MineCars?
-			if (vehicle.getUniqueId() == MCMain.mineCars.get(world.getName() + "." + player.getName())){
+			if (vehicle.getUniqueId().equals(MCMain.mineCars.get(world.getName() + "." + player.getName()))){
 				Functions.deleteMinecart(world, id);
 				MCMain.mineCars.remove(world.getName() + "." + player.getName());
 			}

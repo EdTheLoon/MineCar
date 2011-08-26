@@ -1,6 +1,6 @@
 MineCar
 =======
-####Current version: 0.6.8
+####Current version: 0.6.9
 This plugin will allow players to ride in a minecart that they can control using WASD as a control scheme.
 
 
