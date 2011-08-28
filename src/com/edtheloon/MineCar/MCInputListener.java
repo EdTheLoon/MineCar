@@ -56,7 +56,7 @@ public class MCInputListener extends InputListener {
 				if (Functions.isDerailed(cart)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != MCMain.mineCars.get(worldName + "." + playerName)) {
+				if (!cartID.equals((UUID) MCMain.mineCars.get(worldName + "." + playerName))) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -89,7 +89,7 @@ public class MCInputListener extends InputListener {
 				if (!MCMain.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != MCMain.mineCars.get(worldName + "." + playerName)) {
+				if (!cartID.equals(MCMain.mineCars.get(worldName + "." + playerName))) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -126,7 +126,7 @@ public class MCInputListener extends InputListener {
 				if (!MCMain.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != MCMain.mineCars.get(worldName + "." + playerName)) {
+				if (!cartID.equals(MCMain.mineCars.get(worldName + "." + playerName))) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -163,7 +163,7 @@ public class MCInputListener extends InputListener {
 				if (!MCMain.mineCars.containsValue(cartID)) return;
 
 				// If this isn't the player's MineCar then don't continue
-				if (cartID != MCMain.mineCars.get(worldName + "." + playerName)) {
+				if (!cartID.equals(MCMain.mineCars.get(worldName + "." + playerName))) {
 					player.sendMessage(ChatColor.RED + "This isn't you're MineCar!");
 					return;
 				}
@@ -231,7 +231,6 @@ public class MCInputListener extends InputListener {
 
 				// Check that the player doesn't already have a MineCar. If so then delete it
 				if (hasCart) {
-
 					if (Functions.deleteMinecart(world, (UUID) MCMain.mineCars.get(worldName + "." + playerName))) {
 						// REMOVE BELOW DEBUG LINE
 						//player.sendMessage("[MineCar] You're previous MineCar has been deleted");
