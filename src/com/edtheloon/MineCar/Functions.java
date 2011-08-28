@@ -39,9 +39,8 @@ public class Functions {
 
 	public static boolean deleteMinecart(World world, Object uuid) {
 		List<Entity> entities = world.getEntities();
-		UUID id = (UUID) uuid;
 		for (Entity e : entities) {
-			if(e.getUniqueId() == id) {
+			if(e.getUniqueId().equals(uuid)) {
 				e.remove();
 				return true;
 			}
