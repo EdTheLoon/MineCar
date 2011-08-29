@@ -26,3 +26,5 @@ Desktop.ini
 #Java
 *.class
 *.jar
+/createJAR.jardesc
+/.gitignore

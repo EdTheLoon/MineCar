@@ -39,7 +39,7 @@ public class PermissionsManager {
 
 	// Permission check for Player Objects
 	public static boolean hasPerm(Player player, String permNode){
-		if (Config.useBukkit){
+		if (Config.useBukkit || usePermEx){
 			if (player.hasPermission(permNode)){
 				return true;
 			}
@@ -55,14 +55,14 @@ public class PermissionsManager {
 				return true;
 			}
 		}
-		if (usePermEx){
+		/*if (usePermEx){
 			if (permExHandler.has(player, permNode)){
 				return true;
 			}
 			else if (player.isOp()){
 				return true;
 			}
-		}
+		}*/
 		if (player.isOp()){
 			return true;
 		}
@@ -71,7 +71,7 @@ public class PermissionsManager {
 
 	// Permission check for CommandSender Objects
 	public static boolean hasPerm(CommandSender sender, String permNode){
-		if (Config.useBukkit){
+		if (Config.useBukkit || usePermEx){
 			if (sender.hasPermission(permNode)){
 				return true;
 			}
@@ -87,14 +87,14 @@ public class PermissionsManager {
 				return true;
 			}
 		}
-		if (usePermEx){
+		/*if (usePermEx){
 			if (permExHandler.has((Player) sender, permNode)){
 				return true;
 			}
 			else if (sender.isOp()){
 				return true;
 			}
-		}
+		}*/
 		if (sender.isOp()){
 			return true;
 		}
