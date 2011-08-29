@@ -21,13 +21,6 @@ KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
 - Scheduler NPE MCInputListener.player....
 
------------
-
-- Needs to be tested:
-    - more than one player online and using cars
-    - UUID persistance and usage ok?
-    - all the return code!
-
 IMPLEMENTED:
 ------------
  - Spawning of MineCar when M is pressed in normal view (ie when not crafting or looking at inventory)
