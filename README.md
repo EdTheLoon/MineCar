@@ -19,7 +19,7 @@ The first two points should be programmed together as changing speed involves th
 
 KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
-None that i am aware of at the moment :)
+- Scheduler NPE MCInputListener.player....
 
 -----------
 
