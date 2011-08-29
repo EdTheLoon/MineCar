@@ -31,7 +31,7 @@ public class PermissionsManager {
 			permHandler = ((Permissions) permPlug1).getHandler();
 			usePerm = true;
 		}
-		else if (permPlug2 != null){
+		if (permPlug2 != null){
 			permExHandler = PermissionsEx.getPermissionManager();
 			usePermEx = true;
 		}

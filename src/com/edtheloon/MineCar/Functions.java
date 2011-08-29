@@ -57,9 +57,11 @@ public class Functions {
 		UUID id;
 
 		// Convert the TreeMap into an HashMap as it's faster accessed
-		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
-			id = UUID.fromString((String) raw_entry.getValue());
-			cars.put(String.valueOf(raw_entry.getKey()), id );
+		if (raw.isEmpty()) {
+			for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
+				id = UUID.fromString((String) raw_entry.getValue());
+				cars.put(String.valueOf(raw_entry.getKey()), id );
+			}
 		}
 		return cars;
 	}
@@ -111,8 +113,11 @@ public class Functions {
 
 		// Declare and initialise variables
 		HashMap<String, List<String>> players = new HashMap<String, List<String>>();
-		for (String world: Config.worlds){
-			players.put(world, MCMain.players.getStringList(world, null));
+		if (Config.worlds != null) {
+			for (String world: Config.worlds){
+				players.put(world, MCMain.players.getStringList(world, null));
+
+			}
 		}
 		return players;
 	}
