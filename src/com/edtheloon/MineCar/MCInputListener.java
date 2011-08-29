@@ -193,7 +193,7 @@ public class MCInputListener extends InputListener {
 			// KEY M
 			if (!player.isInsideVehicle() && key == Keyboard.KEY_M) {
 				// DEBUG ONLY, REMOVE THIS LINE
-				//player.sendMessage("[MineCar] Key Pressed: " + key.toString());
+				player.sendMessage("[MineCar] Key Pressed: " + key.toString());
 
 				// Is the world on the list for which MC is enabled? If not, abort.
 				boolean worldsSet = false;
@@ -204,6 +204,8 @@ public class MCInputListener extends InputListener {
 					plugin.log.severe("[MineCar] NPE with world " + worldName);
 				}
 				if (!worldsSet){
+					// DEBUG ONLY, REMOVE THIS LINE
+					plugin.log.info("[MineCar] Someone tried to create a MineCar in an unset world");
 					return;
 				}
 

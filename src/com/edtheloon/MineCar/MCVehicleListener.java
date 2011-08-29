@@ -41,10 +41,10 @@ public class MCVehicleListener extends VehicleListener {
 				Functions.deleteMinecart(world, id);
 				// Note: The cart will not be returned to the owner, but instead be popping as do normal carts upon beeing destroyed!
 				MCMain.mineCars.remove(world.getName() + "." + player.getName());
-				event.setCancelled(true);
 			}
 			else if (MCMain.mineCars.containsValue(vehicle.getUniqueId())){
 				player.sendMessage(ChatColor.RED + "You are not allowed to destroy other players MineCars!");
+				event.setCancelled(true);
 			}
 		}
 	}

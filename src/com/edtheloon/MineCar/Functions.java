@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -57,9 +58,11 @@ public class Functions {
 		UUID id;
 
 		// Convert the TreeMap into an HashMap as it's faster accessed
-		for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
-			id = UUID.fromString((String) raw_entry.getValue());
-			cars.put(String.valueOf(raw_entry.getKey()), id );
+		if (raw.isEmpty()) {
+			for (Map.Entry<String, Object> raw_entry : raw.entrySet()){
+				id = UUID.fromString((String) raw_entry.getValue());
+				cars.put(String.valueOf(raw_entry.getKey()), id );
+			}
 		}
 		return cars;
 	}
@@ -98,6 +101,7 @@ public class Functions {
 				ItemStack item = new ItemStack(Material.MINECART);
 				item.setAmount(1);
 				pi.addItem(item);
+				player.sendMessage(ChatColor.GREEN + "You're MineCar was returned to you");
 				players.remove(playerName);
 				playersList.put(world, players);
 				return true;
@@ -111,8 +115,11 @@ public class Functions {
 
 		// Declare and initialise variables
 		HashMap<String, List<String>> players = new HashMap<String, List<String>>();
-		for (String world: Config.worlds){
-			players.put(world, MCMain.players.getStringList(world, null));
+		if (Config.worlds != null) {
+			for (String world: Config.worlds){
+				players.put(world, MCMain.players.getStringList(world, null));
+
+			}
 		}
 		return players;
 	}

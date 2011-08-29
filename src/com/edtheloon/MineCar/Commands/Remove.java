@@ -190,6 +190,7 @@ public class Remove extends MCCommandsManager {
 			ItemStack item = new ItemStack(Material.MINECART);
 			item.setAmount(1);
 			pi.addItem(item);
+			playerObj.sendMessage(ChatColor.GREEN + "You're MineCar was returned to you");
 		}
 		else {
 			List<String> players = playersList.get(world);

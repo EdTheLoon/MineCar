@@ -1,5 +1,6 @@
 package com.edtheloon.MineCar;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -23,14 +24,14 @@ public class PermissionsManager {
 		this.plugin = plug;
 	}
 
-	public void loadPerm(){
-		Plugin permPlug1 = plugin.getServer().getPluginManager().getPlugin("Permissions");
-		Plugin permPlug2 = plugin.getServer().getPluginManager().getPlugin("PermissionsEx");
+	public static void loadPerm(){
+		Plugin permPlug1 = Bukkit.getServer().getPluginManager().getPlugin("Permissions");
+		Plugin permPlug2 = Bukkit.getServer().getPluginManager().getPlugin("PermissionsEx");
 		if (permPlug1 != null){
 			permHandler = ((Permissions) permPlug1).getHandler();
 			usePerm = true;
 		}
-		else if (permPlug2 != null){
+		if (permPlug2 != null){
 			permExHandler = PermissionsEx.getPermissionManager();
 			usePermEx = true;
 		}

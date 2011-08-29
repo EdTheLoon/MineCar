@@ -27,4 +27,7 @@ Desktop.ini
 *.class
 *.jar
 /createJAR.jardesc
+<<<<<<< HEAD
 /.gitignore
+=======
+>>>>>>> refs/remotes/origin/master
