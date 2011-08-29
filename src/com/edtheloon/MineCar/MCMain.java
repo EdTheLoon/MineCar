@@ -71,6 +71,9 @@ public class MCMain extends JavaPlugin {
 
 		// Set Commands to be our commandExecutor
 		getCommand("minecar").setExecutor(new MCCommandsManager(this));
+		
+		// Load PermissionsManager
+		PermissionsManager.loadPerm();
 
 		// Output to server console that the plugin is enabled
 		log.info("[MineCar] Version " + this.getDescription().getVersion() + " enabled");
