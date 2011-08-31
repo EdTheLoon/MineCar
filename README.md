@@ -19,7 +19,7 @@ The first two points should be programmed together as changing speed involves th
 
 KNOWN ISSUES / BUGS / ERRORS:
 -----------------------------
-- Scheduler NPE MCInputListener.player....
+ - Scheduler spams server console with NPEs
 
 IMPLEMENTED:
 ------------
