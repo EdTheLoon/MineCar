@@ -27,3 +27,6 @@ Desktop.ini
 *.class
 *.jar
 /createJAR.jardesc
+
+#7zip
+*.7z
