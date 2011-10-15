@@ -1,14 +1,16 @@
 package com.edtheloon.MineCar;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.config.Configuration;
 
 public class MCMain extends JavaPlugin {
 
@@ -35,14 +37,20 @@ public class MCMain extends JavaPlugin {
 	// Constant movement task IDs
 	public HashMap<String, Integer> taskID = new HashMap<String, Integer>();
 	// Configuration files
-	public static Configuration config;
-	public static Configuration cars;
-	public static Configuration players;
+	public static FileConfiguration config;
+	public static YamlConfiguration cars;
+	public static YamlConfiguration players;
 
 	public void onEnable() {
 
 		// Check and Create/Load the configuration and cars YAML files
-		Config.checkConf();
+		try {
+			Config.checkConf();
+		} catch (IllegalArgumentException e) {
+			log.severe("[MineCar] Could not load configuration files!");
+		} catch (IOException e) {
+			log.severe("[MineCar] Could not load configuration files!");
+		}
 
 		// Output to console that we're loading the list of MineCars from a file and then load the list
 		log.info("[MineCar] Loading list of MineCars...");
@@ -71,7 +79,7 @@ public class MCMain extends JavaPlugin {
 
 		// Set Commands to be our commandExecutor
 		getCommand("minecar").setExecutor(new MCCommandsManager(this));
-		
+
 		// Load PermissionsManager
 		PermissionsManager.loadPerm();
 
@@ -84,11 +92,23 @@ public class MCMain extends JavaPlugin {
 
 		// Output to server console that we're saving the cars list and then save the list
 		log.info("[MineCar] Saving list of cars...");
-		Functions.saveCars(mineCars);
+		try {
+			Functions.saveCars(mineCars);
+		} catch (IllegalArgumentException e) {
+			log.severe("[MineCar] Saving the list of cars failed: " + e.getMessage());
+		} catch (IOException e) {
+			log.severe("[MineCar] Saving the list of cars failed: " + e.getMessage());
+		}
 
 		// Output to server console that we're saving the players list and then save the list
 		log.info("[MineCar] Saving list of players...");
-		Functions.savePlayers(playersList);
+		try {
+			Functions.savePlayers(playersList);
+		} catch (IllegalArgumentException e) {
+			log.severe("[MineCar] Saving the list of players failed: " + e.getMessage());
+		} catch (IOException e) {
+			log.severe("[MineCar] Saving the list of players failed: " + e.getMessage());
+		}
 
 		// Output to server console that the plugin is disabled
 		log.info("[MineCar] Version " + this.getDescription().getVersion() + " disabled");

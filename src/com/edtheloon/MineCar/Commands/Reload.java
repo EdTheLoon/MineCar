@@ -1,5 +1,6 @@
 package com.edtheloon.MineCar.Commands;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
@@ -26,12 +27,24 @@ public class Reload extends MCCommandsManager {
 	public static void reload(CommandSender sender){
 
 		if (sender instanceof ConsoleCommandSender){
-			Config.loadConfig();
+			try {
+				Config.loadConfig();
+			} catch (IllegalArgumentException e) {
+				sender.sendMessage(ChatColor.RED + "[MineCar] Could not load configuration files!");
+			} catch (IOException e) {
+				sender.sendMessage(ChatColor.RED + "[MineCar] Could not load configuration files!");
+			}
 			log.info("[MineCar] Configuration reloaded!");
 			return;
 		}
 		if (PermissionsManager.hasPerm(sender, MCMain.PERMISSION_RELOAD)){
-			Config.loadConfig();
+			try {
+				Config.loadConfig();
+			} catch (IllegalArgumentException e) {
+				sender.sendMessage(ChatColor.RED + "[MineCar] Could not load configuration files!");
+			} catch (IOException e) {
+				sender.sendMessage(ChatColor.RED + "[MineCar] Could not load configuration files!");
+			}
 			sender.sendMessage(ChatColor.GREEN + "Configuration reloaded!");
 			return;
 		}

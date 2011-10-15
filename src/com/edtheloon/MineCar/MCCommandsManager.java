@@ -1,10 +1,12 @@
 package com.edtheloon.MineCar;
 
+import java.io.IOException;
 import java.util.Map;
 
 import com.edtheloon.MineCar.Commands.Reload;
 import com.edtheloon.MineCar.Commands.Remove;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -41,7 +43,13 @@ public class MCCommandsManager implements CommandExecutor {
 			// DEBUG COMMAND TO CHECK IF SAVECARS() WORKS
 			if(args[0].equalsIgnoreCase("save")){
 				((Player) sender).sendMessage("Saving cars to file...");
-				Functions.saveCars(MCMain.mineCars);
+				try {
+					Functions.saveCars(MCMain.mineCars);
+				} catch (IllegalArgumentException e) {
+					sender.sendMessage(ChatColor.RED + "[MineCar] Saving the list of cars failed: " + e.getMessage());
+				} catch (IOException e) {
+					sender.sendMessage(ChatColor.RED + "[MineCar] Saving the list of cars failed: " + e.getMessage());
+				}
 				return true;
 			}
 			// DEBUG COMMAND TO CHECK IF LOADCARS() WORKS
