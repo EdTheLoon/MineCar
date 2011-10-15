@@ -14,6 +14,7 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 public class PermissionsManager {
 
 	// Class variables
+	@SuppressWarnings("unused")
 	private final MCMain plugin;
 	public static PermissionHandler permHandler = null;
 	public static PermissionManager permExHandler = null;

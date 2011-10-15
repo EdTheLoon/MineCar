@@ -1,5 +1,6 @@
 package com.edtheloon.MineCar;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,7 @@ public class Functions {
 		// Declare and initialise variables
 		HashMap<String, Object> cars = new HashMap<String, Object>();
 		Map<String, Object> raw = new TreeMap<String, Object>();
-		raw = MCMain.cars.getAll();
+		raw = MCMain.cars.getValues(true);
 		UUID id;
 
 		// Convert the TreeMap into an HashMap as it's faster accessed
@@ -67,11 +68,11 @@ public class Functions {
 		return cars;
 	}
 
-	public static void saveCars(HashMap<String, Object> cars) {
+	public static void saveCars(HashMap<String, Object> cars) throws IOException, IllegalArgumentException {
 		for (Map.Entry<String, Object> cars_entry : cars.entrySet()){
-			MCMain.cars.setProperty(String.valueOf(cars_entry.getKey()), cars_entry.getValue().toString());
+			MCMain.cars.set(String.valueOf(cars_entry.getKey()), cars_entry.getValue().toString());
 		}
-		MCMain.cars.save();
+		MCMain.cars.save(Config.carsFile);
 	}
 
 	public static boolean isDerailed(Minecart cart) {
@@ -111,23 +112,24 @@ public class Functions {
 	}
 
 	// Functions to save/load the list of players o whom the cart could not be returned
+	@SuppressWarnings("unchecked")
 	public static HashMap<String, List<String>> loadPlayers() {
 
 		// Declare and initialise variables
 		HashMap<String, List<String>> players = new HashMap<String, List<String>>();
 		if (Config.worlds != null) {
 			for (String world: Config.worlds){
-				players.put(world, MCMain.players.getStringList(world, null));
+				players.put(world, (List<String>) MCMain.players.getList(world, null));
 
 			}
 		}
 		return players;
 	}
 
-	public static void savePlayers(HashMap<String, List<String>> players) {
+	public static void savePlayers(HashMap<String, List<String>> players) throws IOException, IllegalArgumentException {
 		for (Entry<String, List<String>> players_entry : players.entrySet()){
-			MCMain.players.setProperty(players_entry.getKey(), players_entry.getValue());
+			MCMain.players.set(players_entry.getKey(), players_entry.getValue());
 		}
-		MCMain.players.save();
+		MCMain.players.save(Config.playersFile);
 	}
 }

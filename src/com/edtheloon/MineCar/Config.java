@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.util.config.Configuration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Config {
 
@@ -24,7 +24,7 @@ public class Config {
 	public static List<String> worlds;
 	static List<String> def = new ArrayList<String>();
 
-	public static void checkConf() {
+	public static void checkConf() throws IOException, IllegalArgumentException {
 
 		// Just to include a List by default
 		def.add("ex_world1");
@@ -39,7 +39,7 @@ public class Config {
 		if (!configFile.exists()) {
 			try {
 				configFile.createNewFile();
-				MCMain.config = new Configuration(configFile);
+				MCMain.config = YamlConfiguration.loadConfiguration(configFile);
 				setConfDefaults();
 			}
 			catch (IOException ex){
@@ -47,66 +47,61 @@ public class Config {
 			}
 		}
 		else {
-			MCMain.config = new Configuration(configFile);
+			MCMain.config = YamlConfiguration.loadConfiguration(configFile);
 			loadConfig();
 		}
 		// Second cars.yml
 		if (!carsFile.exists()){
 			try {
 				carsFile.createNewFile();
-				MCMain.cars = new Configuration(carsFile);
-				MCMain.cars.load();
+				MCMain.cars = YamlConfiguration.loadConfiguration(carsFile);
 			}
 			catch (IOException ex) {
 				plugin.log.severe("[MineCar] Could not create cars.yml!");
 			}
 		}
 		else {
-			MCMain.cars = new Configuration(carsFile);
-			MCMain.cars.load();
+			MCMain.cars = YamlConfiguration.loadConfiguration(carsFile);
 		}
 		// Third players.yml
 		if (!playersFile.exists()){
 			try {
 				playersFile.createNewFile();
-				MCMain.players = new Configuration(playersFile);
-				MCMain.players.load();
+				MCMain.players = YamlConfiguration.loadConfiguration(playersFile);
 			}
 			catch (IOException ex) {
 				plugin.log.severe("[MineCar] Could not create players.yml!");
 			}
 		}
 		else {
-			MCMain.players = new Configuration(playersFile);
-			MCMain.players.load();
+			MCMain.players = YamlConfiguration.loadConfiguration(playersFile);
 		}
 	}
 
 	// Set the default values for the config.yml
-	private static void setConfDefaults() {
-		MCMain.config.setProperty("Minecar.Speed", 1);
-		MCMain.config.setProperty("Permissions.useBukkit", false);
-		MCMain.config.setProperty("Worlds", def);
-		MCMain.config.save();
+	private static void setConfDefaults() throws IOException, IllegalArgumentException {
+		MCMain.config.set("Minecar.Speed", 1);
+		MCMain.config.set("Permissions.useBukkit", false);
+		MCMain.config.set("Worlds", def);
+		MCMain.config.save(configFile);
 	}
 
 	// Load the config.yml and get stored values
-	public static void loadConfig() {
-		MCMain.config.load();
+	public static void loadConfig() throws IOException, IllegalArgumentException {
+		MCMain.config = YamlConfiguration.loadConfiguration(configFile);
 		speed = getInt("Minecar.Speed", 1);
 		useBukkit = getBoolean("Permissions.useBukkit", false);
 		worlds = getStringList("Worlds", def);
 
 		//Just in case something happens, lets save the changes, if any
-		MCMain.config.save();
-		MCMain.config.load();
+		MCMain.config.save(configFile);
 	}
 
 	// Functions for AutoUpdating the Config.yml
 	public static Object getProperty(String path, Object def) {
 		if(isNull(path))
 			return addProperty(path, def);
-		return MCMain.config.getProperty(path);
+		return MCMain.config.get(path);
 	}
 
 	public static Integer getInt(String path, Integer def) {
@@ -125,15 +120,15 @@ public class Config {
 	public static List<String> getStringList(String path, List<String> def) {
 		if (isNull(path))
 			return (List<String>) addProperty(path, def);
-		return MCMain.config.getStringList(path, def);
+		return (List<String>) MCMain.config.getList(path, def);
 	}
 
 	private static Object addProperty(String path, Object val) {
-		MCMain.config.setProperty(path, val);
+		MCMain.config.set(path, val);
 		return val;
 	}
 
 	private static Boolean isNull(String path) {
-		return MCMain.config.getProperty(path) == null;
+		return MCMain.config.get(path) == null;
 	}
 }
